@@ -5,4 +5,9 @@
 	<artifactId>tjw</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	
+	<modules>
+		<module>tjw-jetty</module>
+	</modules>
+	
 </project>
