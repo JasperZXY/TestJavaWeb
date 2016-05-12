@@ -8,6 +8,10 @@
 	
 	<modules>
 		<module>tjw-jetty</module>
+		<module>tjw-tomcat7-servlet3</module>
 	</modules>
 	
+	<properties>
+         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 </project>
