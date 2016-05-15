@@ -9,6 +9,7 @@
 	<modules>
 		<module>tjw-jetty</module>
 		<module>tjw-tomcat7-servlet3</module>
+		<module>tjw-springmvc</module>
 	</modules>
 	
 	<properties>
