@@ -10,3 +10,6 @@ tjw 全称：TestJavaWeb
 
 ## 2016-5-15
 1. spring mvc例子
+
+## 2016-5-16
+1. spring mybatis例子

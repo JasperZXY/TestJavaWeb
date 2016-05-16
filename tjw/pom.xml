@@ -10,6 +10,7 @@
 		<module>tjw-jetty</module>
 		<module>tjw-tomcat7-servlet3</module>
 		<module>tjw-springmvc</module>
+		<module>tjw-spring-mybatis</module>
 	</modules>
 	
 	<properties>
