@@ -15,18 +15,17 @@ xmlns:mvc="http://www.springframework.org/schema/mvc" xsi:schemaLocation="
     http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
 	">
 
-	<!-- 这里不排除Controller，才可以在这里配置一份PropertyPlaceholderConfigurer，然后Controller里面就可以用@Value了 -->
-	<context:component-scan base-package="com.jasper.demo.springmvc">
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
-	
-	<!-- upload settings -->
-	<bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	    <property name="maxUploadSize" value="102400000"></property>
-	</bean>
-	
 	<!-- 属性配置文件 -->
-	<import resource="classpath*:spring/appContext-*.xml" />
+	<bean id="PropertyPlaceholderConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="ignoreResourceNotFound">
+			<value>false</value>
+		</property>
+		<property name="locations">
+			<list>
+				<value>classpath:${app.config}</value>
+			</list>
+		</property>
+	</bean>
 	
 </beans>

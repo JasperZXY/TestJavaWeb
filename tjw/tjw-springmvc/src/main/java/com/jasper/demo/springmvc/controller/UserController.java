@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.ServletRequestDataBinder;
@@ -30,10 +31,12 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	private String uploadPath = "E:/tmp/upload/";
+	@Value("${uploadPath}")
+	private String uploadPath;
 
 	public UserController() {
 		System.out.println("UserController");
+		System.out.println("uploadPath=" + uploadPath);
 	}
 
 	// 处理乱码，加上produces = {"text/json;charset=UTF-8"}

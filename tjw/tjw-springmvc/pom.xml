@@ -116,4 +116,23 @@
 			</plugin>
 		</plugins>
 	</build>
+	
+	<profiles>
+        <profile>
+            <id>pro</id>
+            <properties>
+                <app.config>pro/config.properties</app.config>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>dev</id>
+            <properties>
+                <app.config>dev/config.properties</app.config>
+            </properties>
+        </profile>
+    </profiles>
+    
 </project>
