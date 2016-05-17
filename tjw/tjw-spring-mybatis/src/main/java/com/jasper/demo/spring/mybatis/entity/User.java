@@ -3,14 +3,14 @@ package com.jasper.demo.spring.mybatis.entity;
 import java.util.Date;
 
 public class User {
-	private int id;
+	private Integer id;
 	private String name;
-	private Date birtyday;
+	private Date birthday;
 	
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -19,16 +19,16 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Date getBirtyday() {
-		return birtyday;
+	public Date getBirthday() {
+		return birthday;
 	}
-	public void setBirtyday(Date birtyday) {
-		this.birtyday = birtyday;
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
 	}
 	
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", name=" + name + ", birtyday=" + birtyday + "]";
+		return "User [id=" + id + ", name=" + name + ", birthday=" + birthday + "]";
 	}
-
+	
 }

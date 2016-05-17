@@ -4,7 +4,7 @@
 	<resultMap id="BaseResultMap" type="com.jasper.demo.spring.mybatis.entity.User">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="name" property="name" jdbcType="VARCHAR" />
-		<result column="birthday" property="birtyday" jdbcType="DATE" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
 	</resultMap>
 	
 	<sql id="Base_Column_List">
@@ -18,7 +18,8 @@
 		where id = #{id}
 	</select>
 	
-	<insert id="addUser" parameterType="com.jasper.demo.spring.mybatis.entity.User">
+	<!-- 返回主键，配置useGeneratedKeys="true" keyProperty="id"，“id”是主键字段名，然后就可以通过getId()获取主键值 -->
+	<insert id="addUser" parameterType="com.jasper.demo.spring.mybatis.entity.User" useGeneratedKeys="true" keyProperty="id">
 		insert into user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -27,20 +28,37 @@
 			<if test="name != null">
 				name,
 			</if>
-			<if test="birtyday != null">
-				birtyday,
+			<if test="birthday != null">
+				birthday,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				#{id,jdbcType=INTEGER},
 			</if>
-			<if test="uname != null">
-				#{uname,jdbcType=VARCHAR},
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
 			</if>
-			<if test="birtyday != null">
-				#{birtyday,jdbcType=DATE},
+			<if test="birthday != null">
+				#{birthday,jdbcType=DATE},
 			</if>
 		</trim>
 	</insert>
+	
+	<select id="getUsersByIds" parameterType="list" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where id in
+		<foreach collection="list" item="uid" open="(" close=")" separator="," >
+	      #{uid}
+	    </foreach>
+	</select>
+	
+	<select id="selectByName" resultMap="BaseResultMap" parameterType="string">
+		select
+		<include refid="Base_Column_List" />
+		from user
+		where name like "%"#{name}"%"
+	</select>
 </mapper>
