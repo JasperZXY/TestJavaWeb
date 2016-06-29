@@ -8,6 +8,10 @@
 <head>
     <title>JSP</title>
 </head>
+<style>
+    h1{padding-top: 30px;}
+    h3{padding-top: 20px;}
+</style>
 <body>
 
 <h1>路径相关</h1>
@@ -18,6 +22,16 @@
     文件的绝对路径：<%= application.getRealPath(request.getRequestURI())%><br/>
     根目录所对应的绝对路径：<%= request.getServletPath()%><br/>
     文件的绝对路径：<%= request.getSession().getServletContext().getRealPath(request.getRequestURI()) %><br/>
+</div>
+
+<h1>JSP</h1>
+<jsp:useBean id="user" scope="page" class="com.jasper.domain.User">
+</jsp:useBean>
+<jsp:setProperty name="user" property="id" value="1"></jsp:setProperty>
+<jsp:setProperty name="user" property="name" value="Jasper"></jsp:setProperty>
+<div>
+    id:${user.id}<br/>
+    name:${user.name}<br/>
 </div>
 
 <h1>JSTL</h1>
@@ -73,6 +87,20 @@
         </tbody>
     </table>
 </div>
+
+<h3>fmt函数</h3>
+<jsp:useBean id="curTime" class="java.util.Date" scope="page"></jsp:useBean>
+<fmt:formatDate value="${curTime }" pattern="yyyy-MM-dd HH:mm:s"/>
+
+
+<h3>set标签</h3>
+<c:set var="stringSet" value="abc"></c:set>
+stringSet:${stringSet}<br/>
+
+<!--定义对象不是很方便，无法为具体字段赋值，用jsp:setProperty-->
+<c:set var="userSet" value="<%=new User()%>"></c:set>
+<jsp:setProperty name="userSet" property="name" value="new user"></jsp:setProperty>
+userSet:${userSet.name}<br/>
 
 </body>
 </html>
