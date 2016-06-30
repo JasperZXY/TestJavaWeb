@@ -1,9 +1,11 @@
 ## 使用技术
 springmvc
 
+
 ## 运行
 mvn jetty:run -Djetty.port=8083 -Pdev
 mvn jetty:run -Djetty.port=8083 -Ppro
+
 
 ## 功能点
 1. 请求接收参数，可支持把多个参数自动包装成对象
@@ -13,6 +15,13 @@ mvn jetty:run -Djetty.port=8083 -Ppro
 5. 文件上传
 6. 异常的处理：处理局部异常（Controller内）、处理全局异常（所有Controller）
 7. 支持通过命令行来加载不同配置文件
+
+
+## Spring MVC集成slf4j-logback
+1. 添加相应jar包
+2. 编写logback.xml
+3. 配置web.xml
+
 
 ## 部分接口
 http://127.0.0.1:8083/tjw-springmvc/user/hello<br/>
