@@ -16,5 +16,11 @@ public class TestLog {
         } catch (Exception e) {
             logger.error("this error log:", e);
         }
+
+        // 因为日志是异步打印的，所以做这步操作
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+        }
     }
 }
