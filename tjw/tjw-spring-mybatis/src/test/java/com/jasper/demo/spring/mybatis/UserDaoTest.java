@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import com.jasper.demo.spring.mybatis.dao.UserDao;
 import com.jasper.demo.spring.mybatis.entity.User;
 
-@Ignore
+//@Ignore
 @ContextConfiguration(locations = { "classpath:appContext.xml" })
 public class UserDaoTest extends AbstractJUnit4SpringContextTests {
 	@Autowired
