@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="
+    http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-2.0.xsd
+	">
+
+	<!-- 启用AspectJ对Annotation的支持 -->
+	<aop:aspectj-autoproxy/>
+
+	<bean id="userManagerXml" class="com.jasper.demo.spring.mybatis.aspect.UserManagerXml"/>
+	<bean id="xmlHandler" class="com.jasper.demo.spring.mybatis.aspect.AdviceXML" />
+	<aop:config>
+		<aop:aspect id="aspect" ref="xmlHandler">
+			<aop:pointcut id="pointUserMgr" expression="execution(* com.jasper.demo.spring.mybatis.aspect.UserManagerXml.find*(..))"/>
+			<aop:before method="doBefore"  pointcut-ref="pointUserMgr"/>
+			<aop:after method="doAfter"  pointcut-ref="pointUserMgr"/>
+			<aop:around method="doAround"  pointcut-ref="pointUserMgr"/>
+			<aop:after-returning method="doReturn"  pointcut-ref="pointUserMgr"/>
+			<aop:after-throwing method="doThrowing" throwing="ex" pointcut-ref="pointUserMgr"/>
+		</aop:aspect>
+	</aop:config>
+	
+</beans>

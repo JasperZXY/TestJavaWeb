@@ -12,6 +12,7 @@ CREATE TABLE `user` (
 1. MyBatis相关操作
 2. Junit测试
 3. Mockito测试用例
+4. Aspect
 
 
 ## 运行
