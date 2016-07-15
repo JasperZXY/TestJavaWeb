@@ -5,10 +5,10 @@ import java.util.List;
 import com.jasper.demo.spring.mybatis.entity.User;
 
 public interface UserDao {
-	public User getUserById(int id);
-	public List<User> getUsersByIds(List<Integer> uids);
+	User getUserById(int id);
+	List<User> getUsersByIds(List<Integer> uids);
 	// 模糊查找
-	public List<User> selectByName(String name);
-	public int addUser(User user);
+	List<User> selectByName(String name);
+	int addUser(User user);
 	
 }

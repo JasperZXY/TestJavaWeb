@@ -1,4 +1,4 @@
-package com.jasper.demo.spring.mybatis;
+package com.jasper.demo.spring;
 
 import com.jasper.demo.spring.mybatis.dao.UserDao;
 import com.jasper.demo.spring.mybatis.entity.User;
