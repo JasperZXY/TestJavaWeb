@@ -24,12 +24,14 @@ mvn jetty:run -Djetty.port=8083 -Ppro
 
 
 ## 部分接口
-http://127.0.0.1:8083/tjw-springmvc/user/hello<br/>
-http://127.0.0.1:8083/tjw-springmvc/user/string/login?username=Jasper&password=12<br/>
-http://127.0.0.1:8083/tjw-springmvc/user/string/login?username=admin&password=123456<br/>
-http://127.0.0.1:8083/tjw-springmvc/user/login?username=admin&password=123456<br/>
-http://127.0.0.1:8083/tjw-springmvc/user/json/login?username=admin&password=123456<br/>
-http://127.0.0.1:8083/tjw-springmvc/static/index.html<br/>
-http://127.0.0.1:8083/tjw-springmvc/user/date?date=2008-01-01<br/>
-http://127.0.0.1:8083/tjw-springmvc/user/result<br/>
-http://127.0.0.1:8083/tjw-springmvc/user/uploadfileUI<br/>
+http://127.0.0.1:8083/tjw-springmvc/user/hello
+http://127.0.0.1:8083/tjw-springmvc/user/string/login?username=Jasper&password=12
+http://127.0.0.1:8083/tjw-springmvc/user/string/login?username=admin&password=123456
+http://127.0.0.1:8083/tjw-springmvc/user/login?username=admin&password=123456
+http://127.0.0.1:8083/tjw-springmvc/user/json/login?username=admin&password=123456
+http://127.0.0.1:8083/tjw-springmvc/static/index.html
+http://127.0.0.1:8083/tjw-springmvc/user/date?date=2008-01-01
+http://127.0.0.1:8083/tjw-springmvc/user/result
+http://127.0.0.1:8083/tjw-springmvc/user/uploadfileUI
+http://127.0.0.1:8083/tjw-springmvc/same/test/1
+http://127.0.0.1:8083/tjw-springmvc/same/test/2
