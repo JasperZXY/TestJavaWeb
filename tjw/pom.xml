@@ -12,6 +12,8 @@
 		<module>tjw-springmvc</module>
 		<module>tjw-spring-mybatis</module>
 		<module>tjw-jsp</module>
+		<module>tjw-hessian-server</module>
+		<module>tjw-hessian-client</module>
 	</modules>
 	
 	<properties>

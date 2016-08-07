@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="true">
+
+	<appender name="ROLL_FILE_DEBUG_SYNC" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.home}/${project.name}/debug.log</file>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">  
+		    <level>DEBUG</level>  
+		    <onMatch>ACCEPT</onMatch>
+		    <onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.home}/${project.name}/history/debug_%d{yyyy-MM-dd}_%i.log.zip
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%date [%thread] [%file:%line] [%level %logger{0}] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<appender name="ROLL_FILE_INFO_SYNC" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.home}/${project.name}/info.log</file>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">  
+		    <level>INFO</level>  
+		    <onMatch>ACCEPT</onMatch>
+		    <onMismatch>DENY</onMismatch>
+		</filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.home}/${project.name}/history/info_%d{yyyy-MM-dd}_%i.log.zip
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%date [%thread] [%file:%line] [%level %logger{0}] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<appender name="ROLL_FILE_WARN_SYNC" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.home}/${project.name}/warn.log</file>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">  
+		    <level>WARN</level>  
+		    <onMatch>ACCEPT</onMatch>
+		    <onMismatch>DENY</onMismatch>
+		</filter>  
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.home}/${project.name}/history/warn_%d{yyyy-MM-dd}_%i.log.zip
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%date [%thread] [%file:%line] [%level %logger{50}] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+	<appender name="ROLL_FILE_ERROR_SYNC" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.home}/${project.name}/error.log</file>
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">  
+		    <level>ERROR</level>  
+		    <onMatch>ACCEPT</onMatch>
+		    <onMismatch>DENY</onMismatch>
+		</filter>  
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.home}/${project.name}/history/error_%d{yyyy-MM-dd}_%i.log.zip
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<cleanHistoryOnStart>true</cleanHistoryOnStart>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>100MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%date [%thread] [%file:%line] [%level %logger{50}] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ROLL_FILE_DEBUG" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="ROLL_FILE_DEBUG_SYNC" />
+		<includeCallerData>true</includeCallerData>
+	</appender>
+	<appender name="ROLL_FILE_INFO" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="ROLL_FILE_INFO_SYNC" />
+		<includeCallerData>true</includeCallerData>
+	</appender>
+	<appender name="ROLL_FILE_WARN" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="ROLL_FILE_WARN_SYNC" />
+		<includeCallerData>true</includeCallerData>
+	</appender>
+	<appender name="ROLL_FILE_ERROR" class="ch.qos.logback.classic.AsyncAppender">
+		<appender-ref ref="ROLL_FILE_ERROR_SYNC" />
+		<includeCallerData>true</includeCallerData>
+	</appender>
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern>%date [%thread] [%file:%line] [%level %logger{0}] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="java.sql.Connection" level="DEBUG"/>
+
+	<root level="${log.level}">
+		<appender-ref ref="ROLL_FILE_DEBUG" />
+		<appender-ref ref="ROLL_FILE_INFO" />
+		<appender-ref ref="ROLL_FILE_WARN" />
+		<appender-ref ref="ROLL_FILE_ERROR" />
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>
