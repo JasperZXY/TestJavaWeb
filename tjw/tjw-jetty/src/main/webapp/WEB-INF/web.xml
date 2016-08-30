@@ -13,5 +13,13 @@
 		<servlet-name>hello</servlet-name>
 		<url-pattern>/hello</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>session</servlet-name>
+		<servlet-class>com.jasper.demo.servlet.SessionServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>session</servlet-name>
+		<url-pattern>/session</url-pattern>
+	</servlet-mapping>
 
 </web-app>
