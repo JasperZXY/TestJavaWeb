@@ -1,9 +1,6 @@
 package com.jasper.demo.spring.mybatis;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import org.junit.Ignore;
 import org.junit.Test;
@@ -52,6 +49,24 @@ public class UserDaoTest extends AbstractJUnit4SpringContextTests {
 			userDao.addUser(user);
 			System.out.println(i + " id:" + user.getId());
 		}
+	}
+
+	@Test
+	public void batchAddUser() {
+		List<User> users = new ArrayList<>();
+		Random random = new Random();
+		for (int i=0; i<3; i++) {
+			User user = new User();
+			Calendar calendar = Calendar.getInstance();
+			calendar.set(1951 + random.nextInt(50), random.nextInt(12), random.nextInt(27) + 1);
+			user.setBirthday(calendar.getTime());
+			user.setName("batch" + i);
+			users.add(user);
+		}
+		System.out.println(users);
+
+		userDao.batchAddUser(users);
+		System.out.println(users);
 	}
 
 }

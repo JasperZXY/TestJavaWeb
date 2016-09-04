@@ -1,64 +1,75 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.jasper.demo.spring.mybatis.dao.UserDao">
-	<resultMap id="BaseResultMap" type="com.jasper.demo.spring.mybatis.entity.User">
-		<id column="id" property="id" jdbcType="INTEGER" />
-		<result column="name" property="name" jdbcType="VARCHAR" />
-		<result column="birthday" property="birthday" jdbcType="DATE" />
-	</resultMap>
-	
-	<sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.jasper.demo.spring.mybatis.entity.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="birthday" property="birthday" jdbcType="DATE"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
 		id, name, birthday
 	</sql>
-	
-	<select id="getUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-		select
-		<include refid="Base_Column_List" />
-		from user
-		where id = #{id}
-	</select>
-	
-	<!-- 返回主键，配置useGeneratedKeys="true" keyProperty="id"，“id”是主键字段名，然后就可以通过getId()获取主键值 -->
-	<insert id="addUser" parameterType="com.jasper.demo.spring.mybatis.entity.User" useGeneratedKeys="true" keyProperty="id">
-		insert into user
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				id,
-			</if>
-			<if test="name != null">
-				name,
-			</if>
-			<if test="birthday != null">
-				birthday,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=INTEGER},
-			</if>
-			<if test="name != null">
-				#{name,jdbcType=VARCHAR},
-			</if>
-			<if test="birthday != null">
-				#{birthday,jdbcType=DATE},
-			</if>
-		</trim>
-	</insert>
-	
-	<select id="getUsersByIds" parameterType="list" resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from user
-		where id in
-		<foreach collection="list" item="uid" open="(" close=")" separator="," >
-	      #{uid}
-	    </foreach>
-	</select>
-	
-	<select id="selectByName" resultMap="BaseResultMap" parameterType="string">
-		select
-		<include refid="Base_Column_List" />
-		from user
-		where name like "%"#{name}"%"
-	</select>
+
+    <select id="getUserById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id = #{id}
+    </select>
+
+    <!-- 返回主键，配置useGeneratedKeys="true" keyProperty="id"，“id”是主键字段名，然后就可以通过getId()获取主键值 -->
+    <insert id="addUser" parameterType="com.jasper.demo.spring.mybatis.entity.User" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="birthday != null">
+                birthday,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="birthday != null">
+                #{birthday,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+
+    <insert id="batchAddUser" parameterType="com.jasper.demo.spring.mybatis.entity.User" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into user
+          (name, birthday)
+        VALUES
+        <foreach collection="list" item="user" separator=",">
+            (#{user.name,jdbcType=VARCHAR},#{user.birthday,jdbcType=DATE})
+        </foreach>
+    </insert>
+
+    <select id="getUsersByIds" parameterType="list" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where id in
+        <foreach collection="list" item="uid" open="(" close=")" separator=",">
+            #{uid}
+        </foreach>
+    </select>
+
+    <select id="selectByName" resultMap="BaseResultMap" parameterType="string">
+        select
+        <include refid="Base_Column_List"/>
+        from user
+        where name like "%"#{name}"%"
+    </select>
 </mapper>

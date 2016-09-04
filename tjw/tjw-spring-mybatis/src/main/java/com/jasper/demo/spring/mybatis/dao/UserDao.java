@@ -10,5 +10,6 @@ public interface UserDao {
 	// 模糊查找
 	List<User> selectByName(String name);
 	int addUser(User user);
+	int batchAddUser(List<User> list);
 	
 }

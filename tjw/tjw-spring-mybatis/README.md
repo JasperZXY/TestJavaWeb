@@ -5,7 +5,7 @@ CREATE TABLE `user` (
   `name` varchar(32) NOT NULL,
   `birthday` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
 ## 功能
