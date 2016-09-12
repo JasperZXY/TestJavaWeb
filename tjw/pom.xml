@@ -14,6 +14,7 @@
 		<module>tjw-jsp</module>
 		<module>tjw-hessian-server</module>
 		<module>tjw-hessian-client</module>
+		<module>tjw-common</module>
 	</modules>
 	
 	<properties>
