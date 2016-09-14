@@ -21,5 +21,13 @@
 		<servlet-name>session</servlet-name>
 		<url-pattern>/session</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>userAgent</servlet-name>
+		<servlet-class>com.jasper.demo.servlet.UserAgentServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>userAgent</servlet-name>
+		<url-pattern>/userAgent</url-pattern>
+	</servlet-mapping>
 
 </web-app>
