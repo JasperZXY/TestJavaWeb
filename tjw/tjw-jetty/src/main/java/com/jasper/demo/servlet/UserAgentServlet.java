@@ -1,7 +1,7 @@
 package com.jasper.demo.servlet;
 
-import com.jasper.demo.entity.UserAgentInfo;
 import com.jasper.demo.utils.UserAgentUtil;
+import eu.bitwalker.useragentutils.UserAgent;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,14 +25,20 @@ public class UserAgentServlet extends HttpServlet {
             System.out.println(headerName + "=" + req.getHeader(headerName));
         }
         System.out.println("header end");
-//        UserAgentInfo userAgentInfo = UserAgentUtil.getUserAgent(req.getHeader("User-Agent"));
-//        StringBuilder userAgentInfoBuilder = new StringBuilder();
-//        userAgentInfoBuilder.append("浏览器类型：").append(userAgentInfo.getBrowserType()).append("<br/>")
-//                .append("浏览器版本：").append(userAgentInfo.getBrowserVersion()).append("<br/>")
-//                .append("平台类型：").append(userAgentInfo.getPlatformType()).append("<br/>")
-//                .append("平台系列：").append(userAgentInfo.getPlatformSeries()).append("<br/>")
-//                .append("平台版本：").append(userAgentInfo.getPlatformVersion());
-//        resp.getWriter().write(userAgentInfoBuilder.toString());
-        resp.getWriter().write(req.getHeader("User-Agent"));
+        String userAgentString = req.getHeader("User-Agent");
+        UserAgent userAgentInfo = UserAgent.parseUserAgentString(userAgentString);
+        StringBuilder userAgentInfoBuilder = new StringBuilder();
+        userAgentInfoBuilder.append("浏览器类型：").append(userAgentInfo.getBrowser().getBrowserType()).append("<br/>")
+                .append("浏览器版本：").append(userAgentInfo.getBrowserVersion()).append("<br/>")
+                .append("浏览器版本：").append(userAgentInfo.getBrowser().getBrowserType().getName()).append("<br/>")
+                .append("设备类型：").append(userAgentInfo.getOperatingSystem().getDeviceType().getName()).append("<br/>")
+                .append("操作系统：").append(userAgentInfo.getOperatingSystem().getGroup().getName()).append("<br/>")
+                .append("操作系统跟版本：").append(userAgentInfo.getOperatingSystem().getName()).append("<br/>")
+                .append("制造商：").append(userAgentInfo.getOperatingSystem().getManufacturer().getName()).append("<br/>");
+        if (UserAgentUtil.isMobile(userAgentInfo)) {
+            userAgentInfoBuilder.append("手机型号：").append(UserAgentUtil.getPhoneModel(userAgentString)).append("<br/>");
+        }
+        resp.getWriter().write(userAgentInfoBuilder.toString());
     }
+
 }
