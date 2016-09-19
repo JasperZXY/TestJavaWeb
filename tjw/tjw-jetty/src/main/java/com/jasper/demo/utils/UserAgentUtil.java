@@ -1,6 +1,7 @@
 package com.jasper.demo.utils;
 
 import eu.bitwalker.useragentutils.DeviceType;
+import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
 
 public class UserAgentUtil {
@@ -11,6 +12,15 @@ public class UserAgentUtil {
      */
 	public static boolean isMobile(UserAgent userAgent) {
 		return userAgent != null && userAgent.getOperatingSystem().getDeviceType() == DeviceType.MOBILE;
+	}
+
+	/**
+	 * 是否Android
+	 * @param userAgent
+	 * @return
+     */
+	public static boolean isAndroid(UserAgent userAgent) {
+		return userAgent != null && userAgent.getOperatingSystem() == OperatingSystem.ANDROID;
 	}
 
 	// Mozilla/5.0 (Linux; Android 5.1.1; ATH-AL00 Build/HONORATH-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/37.0.0.0 Mobile MQQBrowser/6.8 TBS/036824 Safari/537.36 MicroMessenger/6.3.25.861 NetType/WIFI Language/zh_CN
