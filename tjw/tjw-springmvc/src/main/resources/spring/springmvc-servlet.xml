@@ -16,6 +16,11 @@
     
    	<!-- 属性配置文件，然后就可以在Controller中使用@Value了 -->
 	<import resource="classpath*:spring/appContext-property.xml" />
+
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <bean class="com.jasper.demo.springmvc.webutil.LogInterceptor" />
+    </mvc:interceptors>
 	
 	<!-- upload settings -->
 	<bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

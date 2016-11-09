@@ -17,8 +17,8 @@ xmlns:mvc="http://www.springframework.org/schema/mvc" xsi:schemaLocation="
 
 	<!-- 这里不排除Controller，才可以在这里配置一份PropertyPlaceholderConfigurer，然后Controller里面就可以用@Value了 -->
 	<context:component-scan base-package="com.jasper.demo.springmvc">
-		<context:exclude-filter type="annotation"
-			expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
 	</context:component-scan>
 	
 	<!-- 属性配置文件 -->

@@ -15,6 +15,8 @@ mvn jetty:run -Djetty.port=8083 -Ppro
 5. 文件上传
 6. 异常的处理：处理局部异常（Controller内）、处理全局异常（所有Controller）
 7. 支持通过命令行来加载不同配置文件
+8. jsonp数据格式返回
+9. 统一日志打印
 
 
 ## Spring MVC集成slf4j-logback
@@ -35,3 +37,5 @@ http://127.0.0.1:8083/tjw-springmvc/user/result
 http://127.0.0.1:8083/tjw-springmvc/user/uploadfileUI
 http://127.0.0.1:8083/tjw-springmvc/same/test/1
 http://127.0.0.1:8083/tjw-springmvc/same/test/2
+http://127.0.0.1:8083/tjw-springmvc/jsonp?callback=test
+http://127.0.0.1:8083/tjw-springmvc/jsonp?fun=test
