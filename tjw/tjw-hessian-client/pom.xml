@@ -11,7 +11,7 @@
     <artifactId>tjw-hessian-client</artifactId>
 
     <properties>
-        <spring_version>4.1.6.RELEASE</spring_version>
+        <spring_version>4.3.4.RELEASE</spring_version>
         <jackson_version>2.7.4</jackson_version>
         <version.hessian>4.0.38</version.hessian>
     </properties>
