@@ -15,6 +15,7 @@
 		<module>tjw-hessian-server</module>
 		<module>tjw-hessian-client</module>
 		<module>tjw-common</module>
+		<module>tjw-admin</module>
 	</modules>
 	
 	<properties>
