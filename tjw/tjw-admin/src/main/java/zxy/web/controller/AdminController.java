@@ -1,10 +1,11 @@
 package zxy.web.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import zxy.utils.Constants;
+import zxy.constants.JspConfig;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -23,30 +24,23 @@ public class AdminController {
         return mv;
     }
 
-    @RequestMapping(path="/demo1")
-    public ModelAndView demo1() {
+    @RequestMapping(path="/demo/{subName}")
+    public ModelAndView demo(@PathVariable String subName) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("demo1");
-        return mv;
-    }
-
-    @RequestMapping(path="/demo2")
-    public ModelAndView demo2() {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("demo2");
+        mv.setViewName("demo/demo" + subName);
         return mv;
     }
 
     @RequestMapping(path="/demo2string")
     public String demo2string() {
-        return "demo2";
+        return "demo/demo2";
     }
 
     @RequestMapping(path="/api")
     @ResponseBody
     public Object api() {
         Map<String, Object> retMap = new HashMap<>();
-        retMap.put("system_name", Constants.SYSTEM_NAME);
+        retMap.put("system_name", JspConfig.SYSTEM_NAME);
         retMap.put("now", new Date());
         return retMap;
     }

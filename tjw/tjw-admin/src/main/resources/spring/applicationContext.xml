@@ -33,6 +33,6 @@
     <task:annotation-driven scheduler="myScheduler"/>
     <task:scheduler id="myScheduler" pool-size="10"/>
 
-    <!--<import resource="applicationContext-*.xml" />-->
+    <import resource="applicationContext-*.xml" />
 
 </beans>

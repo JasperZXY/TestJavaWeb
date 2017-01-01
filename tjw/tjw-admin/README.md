@@ -9,7 +9,7 @@ springmvc
 
 
 ## 说明
-AdminLTE对应的index2.html拆分为template.jsp、menu.jsp及具体的业务JSP页面
+1. AdminLTE对应的index2.html拆分为template.jsp、menu.jsp及具体的业务JSP页面
 
 
 ## 运行
@@ -22,3 +22,6 @@ http://127.0.0.1:9696/static/page/index2.html
 http://127.0.0.1:9696/admin/index
 http://127.0.0.1:9696/admin/api?callback=func
 http://127.0.0.1:9696/admin/api
+http://127.0.0.1:9696/admin/demo/1
+http://127.0.0.1:9696/admin/demo/2
+http://127.0.0.1:9696/admin/demo2string
