@@ -1,4 +1,4 @@
-package zxy.web.controller;
+package zxy.web.controller.page;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,11 +15,18 @@ import java.util.Map;
 @RequestMapping("/admin")
 public class AdminController {
 
+    @RequestMapping(path="/hello")
+    public ModelAndView hello() {
+        ModelAndView mv = new ModelAndView();
+        mv.setViewName("hello");
+        mv.addObject("date", new Date());
+        return mv;
+    }
+
     @RequestMapping(path="/index")
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("index");
-        mv.addObject("subPage", "header");
         mv.addObject("date", new Date());
         return mv;
     }
@@ -27,13 +34,13 @@ public class AdminController {
     @RequestMapping(path="/demo/{subName}")
     public ModelAndView demo(@PathVariable String subName) {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("demo/demo" + subName);
+        mv.setViewName("demo/" + subName);
         return mv;
     }
 
     @RequestMapping(path="/demo2string")
     public String demo2string() {
-        return "demo/demo2";
+        return "demo/2";
     }
 
     @RequestMapping(path="/api")

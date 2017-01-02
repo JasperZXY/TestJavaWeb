@@ -3,7 +3,7 @@
 <ul id="sidebar-menus" class="sidebar-menu">
     <li class="treeview">
         <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Demo</span>
+            <i class="fa fa-dashboard text-green"></i> <span>Demo</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -14,10 +14,10 @@
             <li class=""><a href="${ctxPath}/admin/demo/2"><i class="fa fa-circle-o"></i> demo2</a></li>
         </ul>
     </li>
-    <li class=""><a href="${ctxPath}/admin/demo/sub"><i class="fa fa-circle-o"></i> 单独子项</a></li>
+
     <li class="treeview">
         <a href="#">
-            <i class="fa fa-files-o"></i>
+            <i class="fa fa-files-o text-green"></i>
             <span>内容管理</span>
             <span class="pull-right-container">
                 <span class="label label-primary pull-left">2</span>
@@ -32,11 +32,11 @@
         </ul>
     </li>
     <li>
-        <a href="${ctxPath}/user/list"><i class="fa fa-circle-o text-green"></i><span>用户管理</span></a>
+        <a href="${ctxPath}/user/list"><i class="fa fa-user text-green"></i><span>用户管理</span></a>
     </li>
     <li>
         <a href="#">
-            <i class="fa fa-circle-o text-red"></i>
+            <i class="fa fa-android text-green"></i>
             <span>系统配置</span>
             <span class="pull-right-container">
                 <small class="label pull-right bg-green">开发中</small>

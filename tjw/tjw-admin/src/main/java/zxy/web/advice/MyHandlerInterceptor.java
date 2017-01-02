@@ -12,7 +12,7 @@ import java.util.Set;
 public class MyHandlerInterceptor implements HandlerInterceptor {
     private static final Set<String> IGNORE_VIEWS = new HashSet<>();
     static {
-        IGNORE_VIEWS.add("index");
+        IGNORE_VIEWS.add("hello");
         IGNORE_VIEWS.add("login");
     }
 

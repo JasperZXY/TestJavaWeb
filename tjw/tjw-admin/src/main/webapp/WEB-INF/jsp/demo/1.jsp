@@ -8,7 +8,7 @@
     </h1>
     <!-- 导航 -->
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="${index_url}"><i class="fa fa-dashboard"></i> 首页</a></li>
         <li class="active">Dashboard</li>
     </ol>
 </section>

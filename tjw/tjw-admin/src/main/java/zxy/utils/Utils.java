@@ -41,4 +41,8 @@ public class Utils {
         // 优先级3：直接获取RemoteAddr，有反向代理时这个地址会不准确
         return request.getRemoteAddr();
     }
+
+    public static final boolean validateId(Integer id) {
+        return id != null && id > 0;
+    }
 }

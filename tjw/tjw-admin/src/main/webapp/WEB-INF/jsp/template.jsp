@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ include file="share.jsp" %>
 <html>
+<!-- jQuery提前，让其提前加载 -->
+<!-- jQuery 2.2.3 -->
+<script src="${ctxPath}/static/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -282,7 +285,7 @@
                 </div>
             </div>
             <!-- search form -->
-            <form action="#" method="get" class="sidebar-form">
+            <%--<form action="#" method="get" class="sidebar-form">
                 <div class="input-group">
                     <input type="text" name="q" class="form-control" placeholder="Search...">
               <span class="input-group-btn">
@@ -290,7 +293,7 @@
                 </button>
               </span>
                 </div>
-            </form>
+            </form>--%>
             <!-- /.search form -->
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <%@include file="menu.jsp" %>
@@ -507,9 +510,6 @@
 
 </div>
 <!-- ./wrapper -->
-
-<!-- jQuery 2.2.3 -->
-<script src="${ctxPath}/static/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="${ctxPath}/static/bootstrap/js/bootstrap.min.js"></script>
 <!-- AdminLTE App -->
@@ -552,5 +552,12 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <!-- InputMask -->
+    <script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <script>
+        var ctxPath = '${ctx}';
+    </script>
   </head>
 </html>

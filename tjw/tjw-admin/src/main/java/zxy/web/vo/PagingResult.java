@@ -37,7 +37,7 @@ public class PagingResult<T> {
 		this.result = result;
 	}
 	public PagingResult(int start, long count, int pageSize) {
-		this(start, count, pageSize, new ArrayList<T>());
+		this(start, count, pageSize, new ArrayList<>());
 	}
 	public PagingResult(int start, long count) {
 		this(start, count, DEFAULT_PAGE_SIZE);
