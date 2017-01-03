@@ -6,7 +6,7 @@
     <h1>
         ${window_title}
         <small>用户管理</small>
-        <button class="btn btn-info" onclick="selfOpen('/user/to_add')">新增</button>
+        <button class="btn btn-sm btn-info" onclick="selfOpen('/user/to_add')">新增</button>
     </h1>
     <ol class="breadcrumb">
         <li><a href="${index_url}"><i class="fa fa-dashboard"></i> 首页</a></li>
@@ -21,19 +21,19 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">搜索</h3>
-                    <div class="col-sm-2 box-tools col-md-10">
-                        <div class="col-md-3">
+                    <div class="box-tools col-sm-1 col-md-11">
+                        <div class="col-md-2">
                             <input id="search_name" class="form-control" type="text" name="table_search"
                                    placeholder="昵称" value="${name}">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <select id="search_status" class="form-control" init-value="${status}" select-init>
                                 <option value="">所有</option>
                                 <option value="0">有效</option>
                                 <option value="1">无效</option>
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <button type="button" class="btn btn-default form-control" onclick="topage(1)">搜索</button>
                         </div>
                     </div>
@@ -68,8 +68,8 @@
                                     </c:if>
                                 </td>
                                 <td>
-                                    <a class="btn btn-warning" href="${ctxPath}/user/to_update/${user.id }">编辑</a>
-                                    <button class="btn btn-danger" onclick="deleteUser(${user.id })">删除</button>
+                                    <a class="btn btn-sm btn-warning" href="${ctxPath}/user/to_update/${user.id }">编辑</a>
+                                    <a class="btn btn-sm btn-danger" onclick="deleteUser(${user.id })">删除</a>
                                 </td>
                             </tr>
                         </c:forEach>
