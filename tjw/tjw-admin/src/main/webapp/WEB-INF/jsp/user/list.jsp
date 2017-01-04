@@ -105,7 +105,7 @@
                 , '_self');
     }
     function deleteUser(id) {
-        new MyAjaxHttp({
+        ajax({
             shortUrl: '/api/user/delete/' + id,
             success: function () {
                 $('#tr_user_' + id).remove();
@@ -113,6 +113,6 @@
             error: function (msg) {
                 alert('删除失败：' + msg);
             }
-        }).run();
+        });
     }
 </script>

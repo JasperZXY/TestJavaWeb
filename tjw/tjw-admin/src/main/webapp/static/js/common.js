@@ -137,117 +137,95 @@ function actualUrl(url) {
 }
 
 function isHasText(str) {
-    return str != undefined && str != null && str != '';
+    return !(isNull(str)) && str != '';
+}
+
+function isNull(obj) {
+    return obj == undefined || obj == null;
 }
 
 /**
  * form表单Ajax请求。
- * TODO 修改为继承的方式，MyAjaxForm应该继承MyAjaxHttp
- * @param {MyAjaxForm} obj
+ * @param {Object} obj 包含字段：formId、type、shortUrl，success、error
  * @constructor
  */
-function MyAjaxForm(obj) {
+function ajaxForm(obj) {
     var $formId = obj.formId;
-    var $type = obj.type;
-    var $shortUrl = obj.shortUrl;
-    var success = function (data) {
-        if (obj.success instanceof Function) {
-            obj.success(data);
-        }
-    };
-    var error = function (msg) {
-        if (obj.error instanceof Function) {
-            obj.error(msg);
-        }
-    };
-    var run = function () {
-        if (!isHasText($formId)) {
-            error("formId为空");
-        }
-        new MyAjaxHttp({
-            data : $('#' + $formId).serialize(),
-            shortUrl : $shortUrl,
-            type : $type,
-            success : function (data) {
-                success(data);
-            },
-            error : function (msg) {
-                error(msg);
-            }
-        }).run();
-    };
 
-    this.formId = $formId;
-    this.type = $type;
-    this.shortUrl = $shortUrl;
-    this.success = success;
-    this.error = error;
-    this.run = run;
+    if (!isHasText($formId)) {
+        callbackForError(obj, "formId为空");
+    }
+    obj.data = $('#' + $formId).serialize();
+    ajax(obj);
 }
 
 /**
  * 异步Http请求
- * @param {MyAjaxHttp} obj
+ * @param {Object} obj 包含字段：data、type、shortUrl，success、error
  * @constructor
  */
-function MyAjaxHttp(obj) {
+function ajax(obj) {
     var $data = obj.data;
     var $type = obj.type;
     var $shortUrl = obj.shortUrl;
 
-    var success = function (data) {
-        if (obj.success instanceof Function) {
-            obj.success(data);
-        }
-    };
-    var error = function (msg) {
-        if (obj.error instanceof Function) {
-            obj.error(msg);
-        }
-    };
-    var run = function () {
-        if (!isHasText($type)) {
-            $type = 'POST';
-        }
-        if (!isHasText($shortUrl)) {
-            obj.error('请求不能为空');
-        }
-        if ($data == undefined || $data == null) {
-            $data = {};
-        }
+    if (!isHasText($type)) {
+        $type = 'POST';
+    }
+    if (!isHasText($shortUrl)) {
+        callbackForError(obj, '请求不能为空');
+        return;
+    }
+    if (isNull($data)) {
+        $data = {};
+    }
 
-        $.ajax({
-            url: ctxPath + $shortUrl,
-            data: $data,
-            type: $type,
-            success: function (retData) {
-                if (retData == null) {
-                    error("返回数据为空");
+    $.ajax({
+        url: ctxPath + $shortUrl,
+        data: $data,
+        type: $type,
+        success: function (retData) {
+            if (retData == null) {
+                callbackForError(obj, "返回数据为空");
+            }
+            else {
+                if (retData.status == 10000) {
+                    callbackForSuccess(obj, retData.result);
                 }
                 else {
-                    if (retData.status == 10000) {
-                        success(retData.result);
-                    }
-                    else {
-                        error(retData.msg);
-                    }
-                }
-            },
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                if (!navigator.onLine) {
-                    error("断网了，请检查网络");
-                }
-                else {
-                    error("请求链接有误或服务异常");
+                    callbackForError(obj, retData.msg);
                 }
             }
-        });
-    };
+        },
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
+            if (!navigator.onLine) {
+                callbackForError(obj, "断网了，请检查网络");
+            }
+            else {
+                callbackForError(obj, "请求链接有误或服务异常");
+            }
+        }
+    });
+}
 
-    this.data = $data;
-    this.type = $type;
-    this.shortUrl = $shortUrl;
-    this.success = success;
-    this.error = error;
-    this.run = run;
+/**
+ * 成功回调，与ajaxForm、ajax搭配使用
+ * @param obj
+ * @param data
+ */
+function callbackForSuccess(obj, data) {
+    if (obj.success instanceof Function) {
+        obj.success(data);
+    }
+}
+
+/**
+ * 失败回调，与ajaxForm、ajax搭配使用
+ * @param obj
+ * @param msg
+ */
+function callbackForError(obj, msg) {
+    if (obj.error instanceof Function) {
+        obj.error(msg);
+    }
 }

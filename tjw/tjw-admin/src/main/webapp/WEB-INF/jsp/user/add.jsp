@@ -62,7 +62,8 @@
                         <div class="form-group">
                             <label class="col-sm-2"></label>
                             <div class="col-sm-6">
-                                <button class="btn btn-info btn-block" onclick="addUser()" type="button">提交</button>
+                                <button class="btn btn-info col-sm-6" onclick="addUser()" type="button">提交</button>
+                                <button class="btn btn-info col-sm-6" type="reset">重置</button>
                                 <button style="display:none" type="submit"></button>
                             </div>
                         </div>
@@ -89,7 +90,7 @@
             return;
         }
 
-        new MyAjaxForm({
+        ajaxForm({
             formId: "formForAdd",
             shortUrl: '/api/user/add',
             error: function (msg) {
@@ -98,6 +99,6 @@
             success: function (data) {
                 $('#resultTip').html('成功');
             }
-        }).run();
+        });
     }
 </script>

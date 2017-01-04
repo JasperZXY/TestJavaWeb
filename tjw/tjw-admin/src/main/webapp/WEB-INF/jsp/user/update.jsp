@@ -92,7 +92,7 @@
             return;
         }
 
-        new MyAjaxForm({
+        ajaxForm({
             formId: "formForUpdate",
             shortUrl: '/api/user/update',
             error: function (msg) {
@@ -101,6 +101,6 @@
             success: function (data) {
                 $('#resultTip').html('成功');
             }
-        }).run();
+        });
     }
 </script>
