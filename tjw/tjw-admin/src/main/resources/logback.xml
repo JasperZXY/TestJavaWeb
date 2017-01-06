@@ -168,10 +168,10 @@
 		<appender-ref ref="ROLL_FILE_DEBUG" />
 		${logback.console}
 	</logger>
-	<logger name="${project.package}" additivity="false" level="TRACE">
+	<!--<logger name="${project.package}" additivity="false" level="TRACE">
 		<appender-ref ref="ROLL_FILE_TRACE" />
 		${logback.console}
-	</logger>
+	</logger>-->
 	<root level="${log.level}">
 		${logback.console}
 	</root>
