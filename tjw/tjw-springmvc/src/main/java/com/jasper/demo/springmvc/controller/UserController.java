@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,15 @@ public class UserController {
 
 	public UserController() {
 		System.out.println("UserController");
+		System.out.println("userService=" + userService);
 		System.out.println("uploadPath=" + uploadPath);
 	}
+
+	@PostConstruct
+	public void init() {
+		System.out.println("UserController init=======");
+		System.out.println("userService=" + userService);
+		System.out.println("uploadPath=" + uploadPath);}
 
 	// 处理乱码，加上produces = {"text/json;charset=UTF-8"}
 	@RequestMapping(value = "/string/login", produces = { "text/json;charset=UTF-8" })

@@ -1,4 +1,4 @@
-package zxy.web.vo;
+package zxy.common;
 
 import java.util.ArrayList;
 import java.util.List;

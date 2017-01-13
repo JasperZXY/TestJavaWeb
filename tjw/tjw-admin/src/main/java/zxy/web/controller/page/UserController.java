@@ -13,8 +13,8 @@ import zxy.dao.UserMapper;
 import zxy.entity.User;
 import zxy.entity.UserExample;
 import zxy.service.UserService;
-import zxy.web.vo.PagingCriteria;
-import zxy.web.vo.PagingResult;
+import zxy.common.PagingCriteria;
+import zxy.common.PagingResult;
 
 import java.util.List;
 

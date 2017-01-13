@@ -15,33 +15,6 @@
 		http://zxy.jasper.com/schema/jasperbean http://zxy.jasper.com/schema/jasperbean.xsd
 	">
 
-	<bean id="dateFormat" class="java.text.SimpleDateFormat">
-		<constructor-arg value="yyyy-MM-dd" />
-	</bean>
-
-	<bean name="bean_user" id="user1" class="com.jasper.demo.springmvc.bean.UserInfo">
-		<constructor-arg value="10" />
-		<constructor-arg index="1" value="名字" />
-		<constructor-arg index="2">
-			<bean factory-bean="dateFormat" factory-method="parse">
-				<constructor-arg value="2016-12-19" />
-			</bean>
-		</constructor-arg>
-	</bean>
-
-	<alias name="user_alias1" alias="user_alias2" />
-	<alias name="user1" alias="user_alias1" />
-	<alias name="user_alias1" alias="user_alias3" />
-
-	<context:component-scan base-package="test.jasper.spring" />
-	<bean id="circleAxml" class="test.jasper.spring.CircleA" >
-		<property name="circleB" ref="circleBxml"></property>
-	</bean>
-	<bean id="circleBxml" class="test.jasper.spring.CircleB" >
-		<property name="circleA" ref="circleAxml"></property>
-	</bean>
-
-	<jasperbean:user id="2" name="用户2" birthday="2012-03-12" />
-	<jasperbean:animal id="3" type="cat" name="lucky" />
+	<import resource="file:${user.dir}/src/main/resources/spring/appContext-property.xml" />
 
 </beans>

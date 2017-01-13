@@ -18,9 +18,9 @@
 	<import resource="classpath*:spring/appContext-property.xml" />
 
     <!-- 拦截器 -->
-    <mvc:interceptors>
-        <bean class="com.jasper.demo.springmvc.webutil.LogInterceptor" />
-    </mvc:interceptors>
+    <!--<mvc:interceptors>
+        <bean class="com.jasper.demo.springmvc.controller.handler.LogInterceptor" />
+    </mvc:interceptors>-->
 	
 	<!-- upload settings -->
 	<bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -35,6 +35,6 @@
         <property name="suffix" value=".jsp" />
     </bean>
     <!-- 静态资源 -->
-    <mvc:resources mapping="/static/**" location="/static/" />
-    <mvc:resources mapping="/favicon.ico" location="/favicon.ico" />
+    <!--<mvc:resources mapping="/static/**" location="/static" />
+    <mvc:resources mapping="/favicon.ico" location="/favicon.ico" />-->
 </beans>

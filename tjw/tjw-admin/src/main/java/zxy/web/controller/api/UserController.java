@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import zxy.entity.User;
 import zxy.service.UserService;
-import zxy.web.vo.JsonResult;
+import zxy.common.JsonResult;
 
 @Controller("apiUserController")
 @RequestMapping("/api/user")

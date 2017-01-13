@@ -6,6 +6,8 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.parsing.*;
 import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.beans.factory.xml.*;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.ClassPathResource;
 import org.w3c.dom.Document;
@@ -13,10 +15,14 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import test.jasper.spring.CircleA;
+import test.jasper.spring.CircleB;
+import test.jasper.spring.aop.IHelloWord;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.InputStream;
+import java.util.Arrays;
 
 public class TestSpring {
     private static final String RESOURCE_PATH = "applicationContext-test.xml";
@@ -27,6 +33,7 @@ public class TestSpring {
 
         XmlBeanFactory xmlBeanFactory = new XmlBeanFactory(resource);
 
+        System.out.println("user1: " + xmlBeanFactory.getBean("user1").getClass());
         System.out.println("user1: " + JsonUtils.toString(xmlBeanFactory.getBean("user1")));
         System.out.println("bean_user: " + JsonUtils.toString(xmlBeanFactory.getBean("bean_user")));
         System.out.println("user_alias1:" + test.jasper.JsonUtils.toString(xmlBeanFactory.getBean("user_alias1")));
@@ -77,7 +84,7 @@ public class TestSpring {
 
     @Test
     public void parseXMLImport() {
-        ClassPathResource resource = new ClassPathResource(RESOURCE_PATH);
+        ClassPathResource resource = new ClassPathResource("applicationContext-import.xml");
         BeanFactory xmlBeanFactory = new XmlBeanFactory(resource);
         System.out.println("PropertyPlaceholderConfigurer:" + JsonUtils.toString(xmlBeanFactory.getBean("PropertyPlaceholderConfigurer")));
     }
@@ -115,6 +122,58 @@ public class TestSpring {
             Node node = nodeList.item(i);
             System.out.printf("nodeList %d\t NodeName:%s\t localName:%s\t NamespaceURI:%s\n", i, node.getNodeName(), node.getLocalName(), node.getNamespaceURI());
         }
+    }
+
+    // 用注解的居然用不了Autowired，只能用xml配置文件
+    @Test
+    public void circleDependenceByAnnounce() {
+        ClassPathResource resource = new ClassPathResource(RESOURCE_PATH);
+        XmlBeanFactory spring = new XmlBeanFactory(resource);
+
+        CircleA circleA = (CircleA) spring.getBean("circleA");
+        CircleB circleB = (CircleB) spring.getBean("circleB");
+        System.out.println(circleA);
+        System.out.println(circleA.getCircleB());
+        System.out.println(circleB);
+    }
+
+    @Test
+    public void circleDependenceByXml() {
+        ClassPathResource resource = new ClassPathResource(RESOURCE_PATH);
+        XmlBeanFactory spring = new XmlBeanFactory(resource);
+
+        CircleA circleAxml = (CircleA) spring.getBean("circleAxml");
+        CircleB circleBxml = (CircleB) spring.getBean("circleBxml");
+        System.out.println(circleAxml);
+        System.out.println(circleAxml.getCircleB());
+        System.out.println(circleBxml);
+    }
+
+    @Test
+    public void testApplicationContext() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(RESOURCE_PATH);
+        System.out.println(applicationContext.getBean("user1"));
+    }
+
+    @Test
+    public void circleDependenceByAnnounceWithApplicationContext() {
+        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(RESOURCE_PATH);
+
+        CircleA circleA = (CircleA) applicationContext.getBean("circleA");
+        CircleB circleB = (CircleB) applicationContext.getBean("circleB");
+        System.out.println(circleA);
+        System.out.println(circleA.getCircleB());
+        System.out.println(circleB);
+    }
+
+    @Test
+    public void testAop() {
+        ApplicationContext ctx =new ClassPathXmlApplicationContext("applicationContext-aop.xml");
+
+        IHelloWord helloWord = (IHelloWord)ctx.getBean("helloWord");
+        helloWord.sayHello("Hello Word!!");
+
+        System.out.println("names:" + Arrays.toString(ctx.getBeanDefinitionNames()));
     }
 
 }

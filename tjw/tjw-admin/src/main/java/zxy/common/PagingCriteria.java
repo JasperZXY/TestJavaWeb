@@ -1,4 +1,4 @@
-package zxy.web.vo;
+package zxy.common;
 
 import org.apache.ibatis.session.RowBounds;
 import zxy.constants.JspConfig;

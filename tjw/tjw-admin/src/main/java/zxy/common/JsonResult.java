@@ -1,7 +1,8 @@
-package zxy.web.vo;
+package zxy.common;
 
-import zxy.constants.ResultCode;
-
+/**
+ * JSON结果
+ */
 public class JsonResult<T> {
     private int status;
     private String msg;
@@ -41,14 +42,31 @@ public class JsonResult<T> {
     }
 
     public static <T> JsonResult<T> buildSuccess(T t) {
-        return new JsonResult<>(ResultCode.Success.getCode(), ResultCode.Success.getDescription(), t);
+        return new JsonResult<>(Status.SUCCESS, Message.SUCCESS, t);
     }
 
     public static <T> JsonResult<T> buildsystemError() {
-        return new JsonResult<>(ResultCode.SystemError.getCode(), ResultCode.SystemError.getDescription(), null);
+        return new JsonResult<>(Status.SYSTEM_ERROR, Message.SYSTEM_ERROR, null);
     }
 
     public static <T> JsonResult<T> buildErrorTip(String msg) {
-        return new JsonResult<>(ResultCode.ErrorTip.getCode(), msg, null);
+        return new JsonResult<>(Status.ERROR_TIP, msg, null);
+    }
+
+    /**
+     * 结果状态码常量
+     */
+    public interface Status {
+        int SUCCESS = 10000;
+        int SYSTEM_ERROR = 10001;
+        int ERROR_TIP = 10002;
+    }
+
+    /**
+     * 结果信息提示
+     */
+    public interface Message {
+        String SUCCESS = "成功";
+        String SYSTEM_ERROR = "系统错误";
     }
 }

@@ -1,4 +1,4 @@
-package com.jasper.demo.springmvc.webutil;
+package com.jasper.demo.springmvc.controller.handler;
 
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.AbstractJsonpResponseBodyAdvice;
