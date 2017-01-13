@@ -46,7 +46,7 @@ public class JsonResult<T> {
     }
 
     public static <T> JsonResult<T> buildsystemError() {
-        return new JsonResult<>(Status.SYSTEM_ERROR, Message.SYSTEM_ERROR, null);
+        return new JsonResult<>(Status.ERROR_TIP, Message.SYSTEM_ERROR, null);
     }
 
     public static <T> JsonResult<T> buildErrorTip(String msg) {
@@ -58,7 +58,7 @@ public class JsonResult<T> {
      */
     public interface Status {
         int SUCCESS = 10000;
-        int SYSTEM_ERROR = 10001;
+//        int SYSTEM_ERROR = 10001;
         int ERROR_TIP = 10002;
     }
 
@@ -68,5 +68,6 @@ public class JsonResult<T> {
     public interface Message {
         String SUCCESS = "成功";
         String SYSTEM_ERROR = "系统错误";
+        String ERROR_TIP = SYSTEM_ERROR;
     }
 }
