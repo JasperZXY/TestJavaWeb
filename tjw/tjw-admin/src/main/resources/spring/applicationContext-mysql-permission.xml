@@ -12,15 +12,16 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
 		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd">
 		
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager" p:dataSource-ref="dataSource" />
-    <tx:annotation-driven  transaction-manager="transactionManager"/>
+	<bean id="transactionManager_permission" class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		  p:dataSource-ref="dataSource_permission" />
+    <tx:annotation-driven  transaction-manager="transactionManager_permission"/>
 	
 	<!-- 数据源 -->
-	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	<bean id="dataSource_permission" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="${jdbc.driverClassName}"></property>
-		<property name="jdbcUrl" value="${jdbc.host}"></property>
-		<property name="user" value="${jdbc.username}"></property>
-		<property name="password" value="${jdbc.password}"></property>
+		<property name="jdbcUrl" value="${jdbc.host.permission}"></property>
+		<property name="user" value="${jdbc.username.permission}"></property>
+		<property name="password" value="${jdbc.password.permission}"></property>
 		<property name="initialPoolSize" value="${jdbc.initialPoolSize}" />
 		<property name="minPoolSize" value="${jdbc.minPoolSize}" />
 		<property name="maxPoolSize" value="${jdbc.maxPoolSize}" />
@@ -33,13 +34,13 @@
 	</bean>
 
 	<!-- MyBatis -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource" />
-        <property name="mapperLocations" value="classpath:mapper/**/*.xml"/>
+	<bean id="sqlSessionFactory_permission" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource_permission" />
+        <property name="mapperLocations" value="classpath:mapper/permission/**/*.xml"/>
     </bean>
-	<bean id="MapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="zxy.dao" />
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+	<bean id="MapperScannerConfigurer_permission" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="zxy.permission.dao" />
+		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory_permission"/>
 	</bean>
 
 </beans>

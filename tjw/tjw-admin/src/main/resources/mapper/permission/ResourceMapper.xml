@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="zxy.dao.UserMapper" >
-  <resultMap id="BaseResultMap" type="zxy.entity.User" >
+<mapper namespace="zxy.permission.dao.ResourceMapper" >
+  <resultMap id="BaseResultMap" type="zxy.permission.entity.Resource" >
     <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="account" property="account" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="birthday" property="birthday" jdbcType="DATE" />
-    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
     <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -69,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, account, password, name, birthday, createtime, status
+    id, name, type, parent_id, status
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="zxy.entity.UserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="zxy.permission.entity.ResourceExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user
+    from resource
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,102 +86,82 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from user
+    from resource
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from user
+    delete from resource
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="zxy.entity.UserExample" >
-    delete from user
+  <delete id="deleteByExample" parameterType="zxy.permission.entity.ResourceExample" >
+    delete from resource
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="zxy.entity.User" >
+  <insert id="insert" parameterType="zxy.permission.entity.Resource" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user (account, password, name, 
-      birthday, createtime, status
-      )
-    values (#{account,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{birthday,jdbcType=DATE}, #{createtime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}
-      )
+    insert into resource (name, type, parent_id, 
+      status)
+    values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{parentId,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="zxy.entity.User" >
+  <insert id="insertSelective" parameterType="zxy.permission.entity.Resource" >
     <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user
+    insert into resource
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="account != null" >
-        account,
-      </if>
-      <if test="password != null" >
-        password,
-      </if>
       <if test="name != null" >
         name,
       </if>
-      <if test="birthday != null" >
-        birthday,
+      <if test="type != null" >
+        type,
       </if>
-      <if test="createtime != null" >
-        createtime,
+      <if test="parentId != null" >
+        parent_id,
       </if>
       <if test="status != null" >
         status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="account != null" >
-        #{account,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
-      </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
       </if>
-      <if test="birthday != null" >
-        #{birthday,jdbcType=DATE},
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=TIMESTAMP},
+      <if test="parentId != null" >
+        #{parentId,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="zxy.entity.UserExample" resultType="java.lang.Integer" >
-    select count(*) from user
+  <select id="countByExample" parameterType="zxy.permission.entity.ResourceExample" resultType="java.lang.Integer" >
+    select count(*) from resource
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update user
+    update resource
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.account != null" >
-        account = #{record.account,jdbcType=VARCHAR},
-      </if>
-      <if test="record.password != null" >
-        password = #{record.password,jdbcType=VARCHAR},
-      </if>
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.birthday != null" >
-        birthday = #{record.birthday,jdbcType=DATE},
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
       </if>
-      <if test="record.createtime != null" >
-        createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      <if test="record.parentId != null" >
+        parent_id = #{record.parentId,jdbcType=INTEGER},
       </if>
       <if test="record.status != null" >
         status = #{record.status,jdbcType=INTEGER},
@@ -194,35 +172,27 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update user
+    update resource
     set id = #{record.id,jdbcType=INTEGER},
-      account = #{record.account,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
-      birthday = #{record.birthday,jdbcType=DATE},
-      createtime = #{record.createtime,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=VARCHAR},
+      parent_id = #{record.parentId,jdbcType=INTEGER},
       status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="zxy.entity.User" >
-    update user
+  <update id="updateByPrimaryKeySelective" parameterType="zxy.permission.entity.Resource" >
+    update resource
     <set >
-      <if test="account != null" >
-        account = #{account,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARCHAR},
-      </if>
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="birthday != null" >
-        birthday = #{birthday,jdbcType=DATE},
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
       </if>
-      <if test="createtime != null" >
-        createtime = #{createtime,jdbcType=TIMESTAMP},
+      <if test="parentId != null" >
+        parent_id = #{parentId,jdbcType=INTEGER},
       </if>
       <if test="status != null" >
         status = #{status,jdbcType=INTEGER},
@@ -230,23 +200,21 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="zxy.entity.User" >
-    update user
-    set account = #{account,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      birthday = #{birthday,jdbcType=DATE},
-      createtime = #{createtime,jdbcType=TIMESTAMP},
+  <update id="updateByPrimaryKey" parameterType="zxy.permission.entity.Resource" >
+    update resource
+    set name = #{name,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      parent_id = #{parentId,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select resultMap="BaseResultMap" parameterType="zxy.entity.UserExample" id="selectByExampleWithRowbounds" >
+  <select resultMap="BaseResultMap" parameterType="zxy.permission.entity.ResourceExample" id="selectByExampleWithRowbounds" >
     select
     <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user
+    from resource
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>

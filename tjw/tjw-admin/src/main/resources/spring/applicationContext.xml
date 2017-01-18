@@ -14,7 +14,7 @@
 >
 
     <context:component-scan base-package="zxy">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
     </context:component-scan>
 
     <!-- 属性配置文件 -->
@@ -34,5 +34,6 @@
     <task:scheduler id="myScheduler" pool-size="10"/>
 
     <import resource="applicationContext-*.xml" />
+    <import resource="springmvc.xml" />
 
 </beans>

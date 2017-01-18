@@ -18,12 +18,12 @@ public class UserController {
 
     @RequestMapping(path="/add")
     @ResponseBody
-    public Object add(User user) {
-        String result = userService.add(user);
+    public Object add(User user, String password) {
+        String result = userService.add(user, password);
         if (StringUtils.isBlank(result)) {
             return JsonResult.buildSuccess(null);
         }
-        return JsonResult.buildErrorTip(result);
+        return JsonResult.buildFail(result);
     }
 
     @RequestMapping(path="/update")
@@ -33,15 +33,13 @@ public class UserController {
         if (StringUtils.isBlank(result)) {
             return JsonResult.buildSuccess(null);
         }
-        return JsonResult.buildErrorTip(result);
+        return JsonResult.buildFail(result);
     }
 
     @RequestMapping(path="/delete/{id}")
     @ResponseBody
     public Object delete(@PathVariable int id) {
-        if (userService.delete(id)) {
-            return JsonResult.buildSuccess(null);
-        }
-        return JsonResult.buildErrorTip("记录没找到");
+        userService.delete(id);
+        return JsonResult.buildSuccess(null);
     }
 }

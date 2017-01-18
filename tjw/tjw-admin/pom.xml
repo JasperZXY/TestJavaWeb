@@ -25,6 +25,7 @@
         <commons_lang3_ver>3.5</commons_lang3_ver>
         <mybatis.version>3.3.1</mybatis.version>
         <mybatis-spring.version>1.2.3</mybatis-spring.version>
+        <jpinyin_ver>1.1.8</jpinyin_ver>
     </properties>
 
     <dependencies>
@@ -149,6 +150,13 @@
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
             <version>${mybatis-spring.version}</version>
+        </dependency>
+
+        <!-- 拼音 -->
+        <dependency>
+            <groupId>com.github.stuxuhai</groupId>
+            <artifactId>jpinyin</artifactId>
+            <version>${jpinyin_ver}</version>
         </dependency>
     </dependencies>
 

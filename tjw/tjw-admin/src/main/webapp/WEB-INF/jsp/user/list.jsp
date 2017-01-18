@@ -30,7 +30,8 @@
                             <select id="search_status" class="form-control" init-value="${status}">
                                 <option value="">所有</option>
                                 <option value="0">有效</option>
-                                <option value="1">无效</option>
+                                <option value="1">已删</option>
+                                <option value="2">冻结</option>
                             </select>
                         </div>
                         <div class="col-md-1">
@@ -56,7 +57,7 @@
                         <c:forEach var="user" items="${page.result }" varStatus="status">
                             <tr id="tr_user_${user.id }">
                                 <td>${user.id }</td>
-                                <td>${user.account }</td>
+                                <td>${user.accountId }</td>
                                 <td>${user.name }</td>
                                 <td><fmt:formatDate value="${user.birthday}" pattern="yyyy-MM-dd"/></td>
                                 <td>
@@ -64,12 +65,17 @@
                                         <span class="text-green">有效</span>
                                     </c:if>
                                     <c:if test="${user.status == 1}">
-                                        <span class="text-red">无效</span>
+                                        <span class="text-red">已删</span>
+                                    </c:if>
+                                    <c:if test="${user.status == 2}">
+                                        <span class="text-red">冻结</span>
                                     </c:if>
                                 </td>
                                 <td>
-                                    <a class="btn btn-sm btn-warning" href="${ctxPath}/user/to_update/${user.id }">编辑</a>
-                                    <a class="btn btn-sm btn-danger" onclick="deleteUser(${user.id })">删除</a>
+                                    <c:if test="${user.status != 1}">
+                                        <a class="btn btn-sm btn-warning" href="${ctxPath}/user/to_update/${user.id }">编辑</a>
+                                        <a class="btn btn-sm btn-danger" onclick="deleteUser(${user.id })">删除</a>
+                                    </c:if>
                                 </td>
                             </tr>
                         </c:forEach>

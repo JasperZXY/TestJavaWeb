@@ -29,9 +29,9 @@
                 <div class="box-body">
                     <form id="formForAdd" class="form-horizontal" role="form">
                         <div class="form-group">
-                            <label for="account" class="col-sm-2 control-label">账号</label>
+                            <label for="accountId" class="col-sm-2 control-label">账号</label>
                             <div class="col-sm-6">
-                                <input id="account" name="account" type="text" class="form-control">
+                                <input id="accountId" name="accountId" type="text" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">

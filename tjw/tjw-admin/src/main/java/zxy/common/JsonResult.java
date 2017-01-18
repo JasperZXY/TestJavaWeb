@@ -4,6 +4,10 @@ package zxy.common;
  * JSON结果
  */
 public class JsonResult<T> {
+
+    public static final JsonResult SYSTEM_ERROR_RESULT =
+            new JsonResult(ResultCode.FAIL.getCode(), ResultCode.FAIL.getCndesc(), null);
+
     private int status;
     private String msg;
     private T result;
@@ -42,32 +46,19 @@ public class JsonResult<T> {
     }
 
     public static <T> JsonResult<T> buildSuccess(T t) {
-        return new JsonResult<>(Status.SUCCESS, Message.SUCCESS, t);
+        return new JsonResult<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getCndesc(), t);
     }
 
-    public static <T> JsonResult<T> buildsystemError() {
-        return new JsonResult<>(Status.ERROR_TIP, Message.SYSTEM_ERROR, null);
+//    public static <T> JsonResult<T> buildsystemError() {
+//        return new JsonResult<>(Status.ERROR_TIP, Message.SYSTEM_ERROR, null);
+//    }
+
+    public static <T> JsonResult<T> buildFail(String msg) {
+        return new JsonResult<>(ResultCode.FAIL.getCode(), msg, null);
     }
 
-    public static <T> JsonResult<T> buildErrorTip(String msg) {
-        return new JsonResult<>(Status.ERROR_TIP, msg, null);
+    public static <T> JsonResult<T> buildFail(ResultCode resultCode) {
+        return new JsonResult<>(ResultCode.FAIL.getCode(), resultCode.getCndesc(), null);
     }
 
-    /**
-     * 结果状态码常量
-     */
-    public interface Status {
-        int SUCCESS = 10000;
-//        int SYSTEM_ERROR = 10001;
-        int ERROR_TIP = 10002;
-    }
-
-    /**
-     * 结果信息提示
-     */
-    public interface Message {
-        String SUCCESS = "成功";
-        String SYSTEM_ERROR = "系统错误";
-        String ERROR_TIP = SYSTEM_ERROR;
-    }
 }

@@ -7,38 +7,50 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zxy.constants.EntityStatus;
+import zxy.dao.AccountMapper;
 import zxy.dao.UserMapper;
+import zxy.entity.Account;
 import zxy.entity.User;
 import zxy.entity.UserExample;
 import zxy.utils.Utils;
 
 import java.util.Date;
 
+/**
+ * 注：下面的处理逻辑为了方便，User跟Account的status是一致的、冗余的。
+ */
 @Service
 public class UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private AccountService accountService;
 
     /**
      * 添加用户
+     *
      * @param user
+     * @param password
      * @return 如果失败，这里返回失败的原因
      */
-    public String add(User user) {
+    public String add(User user, String password) {
         if (user == null) {
             return "user不能为空";
         }
-        if (StringUtils.isBlank(user.getAccount())) {
+        if (StringUtils.isBlank(user.getAccountId())) {
             return "账号不能为空";
         }
-
-        UserExample example = new UserExample();
-        example.createCriteria().andAccountEqualTo(user.getAccount());
-        if (userMapper.countByExample(example) > 0) {
-            return "账号已存在";
+        if (StringUtils.isBlank(password)) {
+            return "密码不能为空";
         }
+
+        Account account = new Account();
+        account.setId(user.getAccountId());
+        account.setPassword(password);
+        accountService.add(account);
+
         user.setStatus(EntityStatus.VALID);
         user.setCreatetime(new Date());
         userMapper.insert(user);
@@ -53,21 +65,35 @@ public class UserService {
         if (!Utils.validateId(user.getId())) {
             return "id不合法";
         }
+        // 账号跟创建时间不允许修改
+        user.setAccountId(null);
         user.setCreatetime(null);
-        user.setAccount(null);
+        user.setStatus(null);
+//        user.setAccount(null);
         userMapper.updateByPrimaryKeySelective(user);
         return null;
     }
 
-    public boolean delete(int id) {
+    public void delete(int id) {
+        User userInDB = userMapper.selectByPrimaryKey(id);
+        if (userInDB == null) {
+            return;
+        }
+
         User user = new User();
         user.setId(id);
         user.setStatus(EntityStatus.DELETE);
-        return userMapper.updateByPrimaryKeySelective(user) > 0;
+        userMapper.updateByPrimaryKeySelective(user);
+
+        accountService.delete(userInDB.getAccountId());
     }
 
-    public User getById(int id) {
-        return userMapper.selectByPrimaryKey(id);
+    public User getValidUser(int id) {
+        User user = userMapper.selectByPrimaryKey(id);
+        if (user != null && user.getStatus() == EntityStatus.VALID) {
+            return user;
+        }
+        return null;
     }
 
 }

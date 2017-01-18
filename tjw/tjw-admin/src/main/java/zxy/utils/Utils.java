@@ -5,15 +5,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Random;
 
-/**
- * @author Jasper.Zhong
- */
-public class Utils {
+public abstract class Utils {
     private static final Logger logger = LoggerFactory.getLogger(Utils.class);
 
     public static final String HTTP_HEADER_XFF = "X-Forwarded-For";
     public static final String HTTP_HEADER_XRP = "X-Real-IP";
+
+    public static final String ALL_LETTER = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    public static final String ALL_NUMBER = "0123456789";
+    public static final String ALL_CHAR = ALL_LETTER + ALL_NUMBER;
 
     public static String getRemoteIP(HttpServletRequest request) {
 
@@ -42,7 +44,30 @@ public class Utils {
         return request.getRemoteAddr();
     }
 
+    /**
+     * 验证是否符合ID的要求
+     * @param id
+     * @return
+     */
     public static final boolean validateId(Integer id) {
         return id != null && id > 0;
     }
+
+    /**
+     * 生成随机字符串
+     * @param count
+     * @return
+     */
+    public static String randomString(int count) {
+        if (count <= 0) {
+            return null;
+        }
+        StringBuilder builder = new StringBuilder();
+        Random random = new Random();
+        for (int i=0; i<count; i++) {
+            builder.append(ALL_CHAR.charAt(random.nextInt(ALL_CHAR.length())));
+        }
+        return builder.toString();
+    }
+
 }
