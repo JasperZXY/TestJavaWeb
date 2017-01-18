@@ -55,7 +55,7 @@ public class UserController {
 	}
 	
 	// 自动包箱
-	@RequestMapping(value = "/login", produces = { "text/json;charset=UTF-8" })
+	@RequestMapping(value = "/login")
 	@ResponseBody
 	public Object login(LoginBean loginBean) {
 		return userService.login(loginBean.getUsername(), loginBean.getPassword());
