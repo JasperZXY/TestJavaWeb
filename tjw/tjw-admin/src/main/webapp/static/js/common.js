@@ -6,12 +6,32 @@
 var isDebugLog = true;
 // 在share.jsp中定义了一个“ctxPath”变量
 
-/*$(document).ready(function(){
- myInit();
- });*/
-window.onload = function () {
-    myInit();
+// 基础工具类
+/**
+ * 生成完整的url
+ */
+function createCompleteUrl(shortUrl) {
+    return ctxPath + shortUrl;
 }
+
+function isHasText(str) {
+    return isNotNull(str) && str != '';
+}
+
+function isNull(obj) {
+    return obj == undefined || obj == null;
+}
+
+function isNotNull(obj) {
+    return !isNull(obj);
+}
+
+$(document).ready(function(){
+    myInit();
+});
+// window.onload = function () {
+//     myInit();
+// }
 
 function myInit() {
     printLog("init");
@@ -20,14 +40,17 @@ function myInit() {
     // jQuery配合input-mask使用
     $("[data-mask]").inputmask();
 
-    // 扩展select标签
-    var selectsNeedToInit = $("[select-init]");
-    for (var i=0; i<selectsNeedToInit.length; i++) {
-        var selectItem = $(selectsNeedToInit[i]);
-        var selectOptions = selectItem.children('option');
-        for (var j=0; j<selectOptions.length; j++) {
-            if ($(selectOptions[j]).val() == selectItem.attr('init-value')) {
-                $(selectOptions[j]).attr('selected', 'selected');
+    // 扩展select标签，增加init-value，用于初始化数据
+    var allSelects = $("select");
+    printLog("allSelects length:" + allSelects.length);
+    for (var i=0; i<allSelects.length; i++) {
+        var selectItem = $(allSelects[i]);
+        if (isNotNull(selectItem.attr('init-value'))) {
+            var selectOptions = selectItem.children('option');
+            for (var j=0; j<selectOptions.length; j++) {
+                if ($(selectOptions[j]).val() == selectItem.attr('init-value')) {
+                    $(selectOptions[j]).attr('selected', 'selected');
+                }
             }
         }
     }
@@ -38,7 +61,7 @@ function myInit() {
  * @param shortUrl
  */
 function selfOpen(shortUrl) {
-    window.open(ctxPath + shortUrl, "_self");
+    window.open(createCompleteUrl(shortUrl), "_self");
 }
 
 function printLog(msg) {
@@ -54,7 +77,7 @@ function printLog(msg) {
  * @returns {string}
  */
 function toPageUrl(shortUrl, topage) {
-    return ctxPath + shortUrl + "?topage=" + topage + "&pageSize=" + $('#pageSize').val();
+    return createCompleteUrl(shortUrl) + "?topage=" + topage + "&pageSize=" + $('#pageSize').val();
 }
 
 /**
@@ -136,14 +159,6 @@ function actualUrl(url) {
     return retUrl;
 }
 
-function isHasText(str) {
-    return !(isNull(str)) && str != '';
-}
-
-function isNull(obj) {
-    return obj == undefined || obj == null;
-}
-
 /**
  * form表单Ajax请求。
  * @param {Object} obj 包含字段：formId、type、shortUrl，success、error
@@ -181,7 +196,7 @@ function ajax(obj) {
     }
 
     $.ajax({
-        url: ctxPath + $shortUrl,
+        url: createCompleteUrl($shortUrl),
         data: $data,
         type: $type,
         success: function (retData) {

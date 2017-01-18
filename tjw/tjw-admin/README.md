@@ -19,9 +19,7 @@ springmvc
 
 ## 部分接口与页面
 - http://127.0.0.1:9696/static/page/index2.html
-- http://127.0.0.1:9696/admin/index
-- http://127.0.0.1:9696/admin/api?callback=func
-- http://127.0.0.1:9696/admin/api
-- http://127.0.0.1:9696/admin/demo/1
-- http://127.0.0.1:9696/admin/demo/2
-- http://127.0.0.1:9696/admin/demo2string  
+- http://127.0.0.1:9696
+- http://127.0.0.1:9696/demo/1
+- http://127.0.0.1:9696/demo/2
+- http://127.0.0.1:9696/demo/demo2string

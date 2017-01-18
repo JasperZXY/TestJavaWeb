@@ -4,4 +4,4 @@
 
 <c:set var="ctxPath" value="${pageContext.request.contextPath}"/>
 <c:set var="window_title" value="<%=zxy.constants.JspConfig.SYSTEM_NAME %>" />
-<c:set var="index_url" value="${ctxPath}/admin/index"/>
+<c:set var="index_url" value="${ctxPath}/"/>

@@ -27,7 +27,7 @@
                                    placeholder="昵称" value="${name}">
                         </div>
                         <div class="col-md-2">
-                            <select id="search_status" class="form-control" init-value="${status}" select-init>
+                            <select id="search_status" class="form-control" init-value="${status}">
                                 <option value="">所有</option>
                                 <option value="0">有效</option>
                                 <option value="1">无效</option>
