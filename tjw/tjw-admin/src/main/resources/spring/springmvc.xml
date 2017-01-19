@@ -12,9 +12,15 @@
 
     <!-- 拦截器 -->
     <mvc:interceptors>
-        <bean class="zxy.web.handler.MyHandlerInterceptor"/>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/auth/**" />
+            <bean class="zxy.web.handler.LoginInterceptor" />
+        </mvc:interceptor>
+        <bean class="zxy.web.handler.ViewTemplateInterceptor"/>
+        <ref bean="privilegeInterceptor"/>
     </mvc:interceptors>
-
+    
     <!-- 等价于上面两个bean的默认定义 -->
     <mvc:annotation-driven/>
 

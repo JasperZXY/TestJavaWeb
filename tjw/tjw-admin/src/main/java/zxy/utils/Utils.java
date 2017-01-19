@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Random;
 
 public abstract class Utils {
@@ -69,5 +70,22 @@ public abstract class Utils {
         }
         return builder.toString();
     }
+
+    public static void requestRedirect(HttpServletResponse response, String url) {
+        try {
+            response.sendRedirect(url);
+        } catch (Exception e) {
+            // ignore
+        }
+    }
+
+    public static void requestForward(HttpServletRequest request, HttpServletResponse response, String url) {
+        try {
+            request.getRequestDispatcher(url).forward(request, response);
+        } catch (Exception e) {
+            // ignore
+        }
+    }
+
 
 }

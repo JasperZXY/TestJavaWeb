@@ -7,7 +7,7 @@
         ${window_title}
         <small>用户管理</small>
         <button class="btn btn-sm btn-info" onclick="selfOpen('/user/to_add')">新增</button>
-    </h1>
+        </h1>
     <ol class="breadcrumb">
         <li><a href="${index_url}"><i class="fa fa-dashboard"></i> 首页</a></li>
         <li class="active">用户管理</li>

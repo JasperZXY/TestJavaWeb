@@ -1,5 +1,6 @@
 package zxy.service;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import zxy.entity.UserExample;
 import zxy.utils.Utils;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 注：下面的处理逻辑为了方便，User跟Account的status是一致的、冗余的。
@@ -94,6 +96,23 @@ public class UserService {
             return user;
         }
         return null;
+    }
+
+    public User getUserByAccount(String account) {
+        if (StringUtils.isBlank(account)) {
+            return null;
+        }
+
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andAccountIdEqualTo(account).andStatusEqualTo(EntityStatus.VALID);
+        List<User> userList = userMapper.selectByExample(userExample);
+        if (CollectionUtils.isEmpty(userList)) {
+            return null;
+        }
+        if (userList.size() > 1) {
+            logger.warn("getUserByAccount more than one. account:" + account);
+        }
+        return userList.get(0);
     }
 
 }

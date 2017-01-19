@@ -6,6 +6,9 @@ package zxy.common;
 public enum ResultCode {
     SUCCESS(10000, "success", "成功"),
     FAIL(10001, "fail", "系统错误"),
+    NO_LOGIN(10002, "no login", "没有登录"),
+    NO_PERMISSION(10003, "no permission", "没有操作权限"),
+    DATA_NO_FOUND(10004, "data no found", "没找到相应的数据"),
     ACCOUNT_EXIST(20001, "account exist", "账号已存在"),
     ;
 

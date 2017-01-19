@@ -12,6 +12,7 @@ import zxy.constants.JspConfig;
 import zxy.dao.UserMapper;
 import zxy.entity.User;
 import zxy.entity.UserExample;
+import zxy.permission.support.PrivilegeAnnotation;
 import zxy.service.UserService;
 import zxy.common.PagingCriteria;
 import zxy.common.PagingResult;

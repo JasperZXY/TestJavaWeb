@@ -1,9 +1,9 @@
 package zxy.permission.entity;
 
 /**
- * 用户与分组的关系
+ * 用户与角色的关系
  */
-public class UserGroupRelation {
+public class UserRoleRelation {
     private Integer id;
 
     /**
@@ -12,9 +12,9 @@ public class UserGroupRelation {
     private Integer userId;
 
     /**
-     * 分组对应的ID
+     * 角色对应的ID
      */
-    private Integer groupId;
+    private Integer roleId;
 
     public Integer getId() {
         return id;
@@ -32,11 +32,11 @@ public class UserGroupRelation {
         this.userId = userId;
     }
 
-    public Integer getGroupId() {
-        return groupId;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setGroupId(Integer groupId) {
-        this.groupId = groupId;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 }

@@ -36,5 +36,10 @@ public class AdminController {
         return "admin/500";
     }
 
+    @RequestMapping(path="/error")
+    public String error() {
+        return "admin/error";
+    }
+
 
 }

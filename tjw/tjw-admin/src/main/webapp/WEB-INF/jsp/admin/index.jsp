@@ -25,6 +25,8 @@
             </div>
         </div>
         <div class="box-body">
+            欢迎你:${loginUserName}
+            <br/>
             服务器时间:<fmt:formatDate value="${date}" pattern="yyyy-MM-dd HH:mm:ss"/>
             <br/>
             index_url : "${index_url}"
@@ -32,6 +34,7 @@
             ctxPath : "${ctxPath}"
             <br/>
             window_title : "${window_title}"
+
         </div>
         <div class="box-footer">
         </div>

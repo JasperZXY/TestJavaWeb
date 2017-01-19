@@ -49,7 +49,7 @@
                     <li class="dropdown user user-menu">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img src="${ctxPath}/static/AdminLTE/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                            <span class="hidden-xs">Z.X.Y</span>
+                            <span class="hidden-xs">${loginUserName}</span>
                         </a>
                     </li>
                     <li>
@@ -70,7 +70,7 @@
                     <img src="${ctxPath}/static/AdminLTE/img/user2-160x160.jpg" class="img-circle" alt="User Image">
                 </div>
                 <div class="pull-left info">
-                    <p>Z.X.Y</p>
+                    <p>${loginUserName}</p>
                     <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                 </div>
             </div>

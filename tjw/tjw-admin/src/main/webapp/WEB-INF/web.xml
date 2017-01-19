@@ -3,6 +3,14 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
     http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
+    <!-- 自定义标签配置 -->
+    <jsp-config>
+        <taglib>
+            <taglib-uri>http://permission.demo.zxy/taglib</taglib-uri>
+            <taglib-location>/META-INF/permission.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>classpath:spring/applicationContext.xml</param-value>

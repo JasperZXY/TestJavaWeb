@@ -39,11 +39,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="group" domainObjectName="Group">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>
         <table tableName="resource" domainObjectName="Resource">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
         <table tableName="role" domainObjectName="Role">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
@@ -51,7 +47,7 @@
         <table tableName="role_resource_relation" domainObjectName="RoleResourceRelation">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="user_group_relation" domainObjectName="UserGroupRelation">
+        <table tableName="user_role_relation" domainObjectName="UserRoleRelation">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 

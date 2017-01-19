@@ -19,9 +19,6 @@ import java.io.File;
 import java.util.Date;
 import java.util.Random;
 
-/**
- * @author Jasper.Zhong
- */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/applicationContext.xml" })
 public class UserServiceTest {

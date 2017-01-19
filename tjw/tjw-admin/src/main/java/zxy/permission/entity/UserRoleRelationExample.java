@@ -3,14 +3,14 @@ package zxy.permission.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserGroupRelationExample {
+public class UserRoleRelationExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public UserGroupRelationExample() {
+    public UserRoleRelationExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -224,63 +224,63 @@ public class UserGroupRelationExample {
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdIsNull() {
-            addCriterion("group_id is null");
+        public Criteria andRoleIdIsNull() {
+            addCriterion("role_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdIsNotNull() {
-            addCriterion("group_id is not null");
+        public Criteria andRoleIdIsNotNull() {
+            addCriterion("role_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdEqualTo(Integer value) {
-            addCriterion("group_id =", value, "groupId");
+        public Criteria andRoleIdEqualTo(Integer value) {
+            addCriterion("role_id =", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdNotEqualTo(Integer value) {
-            addCriterion("group_id <>", value, "groupId");
+        public Criteria andRoleIdNotEqualTo(Integer value) {
+            addCriterion("role_id <>", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdGreaterThan(Integer value) {
-            addCriterion("group_id >", value, "groupId");
+        public Criteria andRoleIdGreaterThan(Integer value) {
+            addCriterion("role_id >", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdGreaterThanOrEqualTo(Integer value) {
-            addCriterion("group_id >=", value, "groupId");
+        public Criteria andRoleIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("role_id >=", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdLessThan(Integer value) {
-            addCriterion("group_id <", value, "groupId");
+        public Criteria andRoleIdLessThan(Integer value) {
+            addCriterion("role_id <", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdLessThanOrEqualTo(Integer value) {
-            addCriterion("group_id <=", value, "groupId");
+        public Criteria andRoleIdLessThanOrEqualTo(Integer value) {
+            addCriterion("role_id <=", value, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdIn(List<Integer> values) {
-            addCriterion("group_id in", values, "groupId");
+        public Criteria andRoleIdIn(List<Integer> values) {
+            addCriterion("role_id in", values, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdNotIn(List<Integer> values) {
-            addCriterion("group_id not in", values, "groupId");
+        public Criteria andRoleIdNotIn(List<Integer> values) {
+            addCriterion("role_id not in", values, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdBetween(Integer value1, Integer value2) {
-            addCriterion("group_id between", value1, value2, "groupId");
+        public Criteria andRoleIdBetween(Integer value1, Integer value2) {
+            addCriterion("role_id between", value1, value2, "roleId");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdNotBetween(Integer value1, Integer value2) {
-            addCriterion("group_id not between", value1, value2, "groupId");
+        public Criteria andRoleIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("role_id not between", value1, value2, "roleId");
             return (Criteria) this;
         }
     }

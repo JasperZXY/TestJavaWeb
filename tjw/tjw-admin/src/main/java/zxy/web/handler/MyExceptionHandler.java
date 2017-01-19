@@ -8,13 +8,15 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import zxy.common.JsonResult;
+import zxy.common.ResultCode;
 import zxy.common.ServiceException;
+import zxy.constants.JspConfig;
+import zxy.permission.support.NoPermissionException;
 import zxy.utils.JsonUtils;
 import zxy.utils.Utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * 异常统一拦截、异常日志
@@ -23,25 +25,49 @@ import java.io.IOException;
 public class MyExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(MyExceptionHandler.class);
 
-    private boolean toPage500(HttpServletRequest request, HttpServletResponse response) {
-        // 后续可以改为根据具体的controller方法上的注解进行判断
-        if (request.getRequestURI().startsWith("/api")) {
-            return false;
+    // FIXME 判断是返回json数据还是view视图
+    private boolean isAjax(HttpServletRequest request) {
+        return request.getRequestURI().startsWith("/api");
+    }
+
+    private void forward(HttpServletRequest request, HttpServletResponse response, String msg) {
+        request.setAttribute(JspConfig.KEY_MSG, msg);
+        Utils.requestForward(request, response, JspConfig.ERROR_URL);
+    }
+
+    private void forwardLogin(HttpServletRequest request, HttpServletResponse response) {
+        Utils.requestForward(request, response, JspConfig.LOGIN_URL);
+    }
+
+    @ExceptionHandler(NoPermissionException.class)
+    @ResponseBody
+    public Object noPermissionException(NoPermissionException ex, HttpServletRequest request, HttpServletResponse response) {
+        if (!isAjax(request)) {
+            forward(request, response, ResultCode.NO_PERMISSION.getCndesc());
+            return null;
         }
 
-        try {
-            request.getRequestDispatcher("/500").forward(request, response);
-        } catch (Exception e) {
-            // ignore
-        }
-        return true;
+        return JsonResult.buildFail(ResultCode.NO_PERMISSION);
     }
 
     @ExceptionHandler(ServiceException.class)
     @ResponseBody
-    public Object eduServiceException(ServiceException ex, HttpServletRequest request, HttpServletResponse response) {
+    public Object serviceException(ServiceException ex, HttpServletRequest request, HttpServletResponse response) {
         printLog(ex, request);
-        if (toPage500(request, response)) {
+
+        // 对未登陆的做特殊处理
+        if (ex.getCode() == ResultCode.NO_LOGIN) {
+            if (!isAjax(request)) {
+                Utils.requestRedirect(response, JspConfig.LOGIN_URL);
+                return null;
+            }
+            else {
+                return JsonResult.buildNoLogin();
+            }
+        }
+
+        if (!isAjax(request)) {
+            forward(request, response, ex.getMessage());
             return null;
         }
 
@@ -52,7 +78,8 @@ public class MyExceptionHandler {
     @ResponseBody
     public Object exception(Exception ex, HttpServletRequest request, HttpServletResponse response) {
         printLog(ex, request);
-        if (toPage500(request, response)) {
+        if (!isAjax(request)) {
+            forward(request, response, ResultCode.FAIL.getCndesc());
             return null;
         }
 

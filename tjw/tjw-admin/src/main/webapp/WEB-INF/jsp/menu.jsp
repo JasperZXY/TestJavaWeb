@@ -1,3 +1,4 @@
+<%@ page import="zxy.common.PrivilegeCode" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <ul id="sidebar-menus" class="sidebar-menu">
@@ -43,4 +44,24 @@
             </span>
         </a>
     </li>
+
+    <permisssion:pass code="1">
+    <li class="treeview">
+        <a href="#">
+            <i class="fa fa-gear text-green"></i>
+            <span>权限相关</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+            <permisssion:pass code="1001">
+                <li><a href="${ctxPath}/permission/resource/list/all"><i class="fa fa-circle-o"></i> 资源管理</a></li>
+            </permisssion:pass>
+            <permisssion:pass code="2001">
+                <li><a href="#"><i class="fa fa-circle-o"></i> 角色管理</a></li>
+            </permisssion:pass>
+        </ul>
+    </li>
+    </permisssion:pass>
 </ul>

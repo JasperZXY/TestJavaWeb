@@ -49,9 +49,9 @@ public class JsonResult<T> {
         return new JsonResult<>(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getCndesc(), t);
     }
 
-//    public static <T> JsonResult<T> buildsystemError() {
-//        return new JsonResult<>(Status.ERROR_TIP, Message.SYSTEM_ERROR, null);
-//    }
+    public static <T> JsonResult<T> buildNoLogin() {
+        return new JsonResult<>(ResultCode.NO_LOGIN.getCode(), ResultCode.NO_LOGIN.getCndesc(), null);
+    }
 
     public static <T> JsonResult<T> buildFail(String msg) {
         return new JsonResult<>(ResultCode.FAIL.getCode(), msg, null);
