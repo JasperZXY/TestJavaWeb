@@ -37,7 +37,7 @@
                         </thead>
                         <tbody>
                         <c:forEach var="resource" items="${list}" varStatus="status">
-                            <tr id="tr_resource_${user.id }">
+                            <tr id="tr_resource_${resource.id }">
                                 <td>${resource.id }</td>
                                 <td>${resource.parentId }</td>
                                 <td>${resource.name }</td>
@@ -53,7 +53,7 @@
                                 <td>
                                     <c:if test="${resource.status != 1}">
                                         <a class="btn btn-sm btn-warning" href="${ctxPath}/permission/resource/to_update/${resource.id }">编辑</a>
-                                        <a class="btn btn-sm btn-danger" onclick="deleteUser(${user.id })">删除</a>
+                                        <a class="btn btn-sm btn-danger" onclick="deleteResource(${resource.id })">删除</a>
                                     </c:if>
                                 </td>
                             </tr>
@@ -82,4 +82,15 @@
 <!-- /.content -->
 
 <script>
+    function deleteResource(id) {
+        ajax({
+            shortUrl: '/api/permission/resource/delete/' + id,
+            success: function () {
+                $('#tr_resource_' + id).remove();
+            },
+            error: function (msg) {
+                alert('删除失败：' + msg);
+            }
+        });
+    }
 </script>
