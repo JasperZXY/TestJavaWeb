@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import zxy.common.JsonResult;
 import zxy.common.PrivilegeCode;
 import zxy.common.ResultCode;
@@ -19,18 +18,17 @@ import zxy.permission.dao.RoleMapper;
 import zxy.permission.dao.RoleResourceRelationMapper;
 import zxy.permission.dao.UserRoleRelationMapper;
 import zxy.permission.entity.Resource;
-import zxy.permission.entity.ResourceExample;
+import zxy.permission.entity.Role;
 import zxy.permission.support.PrivilegeAnnotation;
 import zxy.permission.support.ResourceType;
 import zxy.utils.Utils;
-import zxy.web.controller.page.*;
 
 /**
  * 权限相关
  */
 @Controller("apiPermissionController")
 @RequestMapping("/api/permission")
-public class PermissionController {
+public class PermissionController extends BaseApiController {
     private static final Logger logger = LoggerFactory.getLogger(zxy.web.controller.page.UserController.class);
 
     @Autowired
@@ -43,6 +41,9 @@ public class PermissionController {
     private RoleResourceRelationMapper roleResourceRelationMapper;
 
     public JsonResult check(Resource resource) {
+        if (resource == null) {
+            return JsonResult.buildFail(ResultCode.FAIL);
+        }
         if (!Utils.validateId(resource.getId())) {
             return JsonResult.buildFail("ID不合法");
         }
@@ -87,16 +88,107 @@ public class PermissionController {
         return JsonResult.buildSuccess(null);
     }
 
+    private void updateResourceStatus(int id, int status) {
+        Resource resouce = new Resource();
+        resouce.setId(id);
+        resouce.setStatus(status);
+        resourceMapper.updateByPrimaryKeySelective(resouce);
+    }
+
     @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_DELETE)
     @RequestMapping(path="/resource/delete/{id}")
     @ResponseBody
     public Object deleteResource(@PathVariable int id) {
-        Resource resource = new Resource();
-        resource.setId(id);
-        resource.setStatus(EntityStatus.DELETE);
-        resourceMapper.updateByPrimaryKeySelective(resource);
+        updateResourceStatus(id, EntityStatus.DELETE);
         return JsonResult.buildSuccess(null);
     }
 
+    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_LOCK)
+    @RequestMapping(path="/resource/lock/{id}")
+    @ResponseBody
+    public Object lockResource(@PathVariable int id) {
+        updateResourceStatus(id, EntityStatus.FORBIDDEN);
+        return JsonResult.buildSuccess(null);
+    }
+
+    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_UNLOCK)
+    @RequestMapping(path="/resource/unlock/{id}")
+    @ResponseBody
+    public Object unlockResource(@PathVariable int id) {
+        updateResourceStatus(id, EntityStatus.VALID);
+        return JsonResult.buildSuccess(null);
+    }
+
+    public JsonResult check(Role role) {
+        if (role == null) {
+            return JsonResult.buildFail(ResultCode.FAIL);
+        }
+        if (StringUtils.isBlank(role.getName())) {
+            return JsonResult.buildFail("名称不能为空");
+        }
+        return null;
+    }
+
+    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_ADD)
+    @RequestMapping(path="/role/add")
+    @ResponseBody
+    public Object addRole(Role role) {
+        JsonResult jsonResult = check(role);
+        if (jsonResult != null) {
+            return jsonResult;
+        }
+
+        role.setStatus(EntityStatus.VALID);
+        roleMapper.insert(role);
+
+        return JsonResult.buildSuccess(role.getId());
+    }
+
+    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_UPDATE)
+    @RequestMapping(path="/role/update")
+    @ResponseBody
+    public Object updateRole(Role role) {
+        JsonResult jsonResult = check(role);
+        if (jsonResult != null) {
+            return jsonResult;
+        }
+        if (!Utils.validateId(role.getId())) {
+            return JsonResult.buildFail("ID不能为空");
+        }
+
+        roleMapper.updateByPrimaryKeySelective(role);
+        return JsonResult.buildSuccess(null);
+    }
+
+    private void updateRoleStatus(int id, int status) {
+        Role role = new Role();
+        role.setId(id);
+        role.setStatus(status);
+        roleMapper.updateByPrimaryKeySelective(role);
+    }
+
+    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_DELETE)
+    @RequestMapping(path="/role/delete/{id}")
+    @ResponseBody
+    public Object deleteRole(@PathVariable int id) {
+        updateRoleStatus(id, EntityStatus.DELETE);
+        return JsonResult.buildSuccess(null);
+    }
+
+    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_LOCK)
+    @RequestMapping(path="/role/lock/{id}")
+    @ResponseBody
+    public Object lockRole(@PathVariable int id) {
+        updateRoleStatus(id, EntityStatus.FORBIDDEN);
+        return JsonResult.buildSuccess(null);
+    }
+
+    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_UNLOCK)
+    @RequestMapping(path="/role/unlock/{id}")
+    @ResponseBody
+    public Object unlockRole(@PathVariable int id) {
+        updateRoleStatus(id, EntityStatus.VALID);
+        return JsonResult.buildSuccess(null);
+    }
 
 }

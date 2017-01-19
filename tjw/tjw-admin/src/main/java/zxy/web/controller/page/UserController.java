@@ -12,7 +12,6 @@ import zxy.constants.JspConfig;
 import zxy.dao.UserMapper;
 import zxy.entity.User;
 import zxy.entity.UserExample;
-import zxy.permission.support.PrivilegeAnnotation;
 import zxy.service.UserService;
 import zxy.common.PagingCriteria;
 import zxy.common.PagingResult;
@@ -24,7 +23,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/user")
-public class UserController extends BaseController {
+public class UserController extends BasePageController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired

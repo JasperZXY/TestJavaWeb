@@ -5,7 +5,7 @@
 <section class="content-header">
     <h1>
         ${window_title}
-        <small>新增用资源</small>
+        <small>新增资源</small>
         <button class="btn btn-default" onclick="history.back();">
             <span class="fa fa-mail-reply">返回资源管理</span>
         </button>

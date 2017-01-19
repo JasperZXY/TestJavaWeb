@@ -53,7 +53,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" data-toggle="control-sidebar"><span class="ion-android-exit">退出</span></a>
+                        <a href="${ctxPath}/auth/logout"><span class="ion-android-exit">退出</span></a>
                     </li>
                 </ul>
             </div>
@@ -116,6 +116,6 @@
 <script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
 <script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 <!-- 自定义JS -->
-<script src="${ctxPath}/static/js/common.js"></script>
+<script src="${ctxPath}/static/js/common.js?a=1"></script>
 </body>
 </html>

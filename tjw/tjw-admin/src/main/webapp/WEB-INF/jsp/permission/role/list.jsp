@@ -4,12 +4,12 @@
 <section class="content-header">
     <h1>
         ${window_title}
-        <small>资源管理</small>
-        <button class="btn btn-sm btn-info" onclick="selfOpen('/permission/resource/to_add')">新增</button>
+        <small>角色管理</small>
+        <button class="btn btn-sm btn-info" onclick="selfOpen('/permission/role/to_add')">新增</button>
     </h1>
     <ol class="breadcrumb">
         <li><a href="${index_url}"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li><a href="#">资源管理</a></li>
+        <li><a href="#">角色管理</a></li>
     </ol>
 </section>
 
@@ -19,7 +19,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">说明：目前权限对应的资源层级关系只实现了nav-->menu-->button，只要有对应的menu权限，nav即可展示。</h3>
+                    <h3 class="box-title"></h3>
                 </div>
 
                 <!-- /.box-header -->
@@ -28,50 +28,46 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>父ID</th>
                             <th>名称</th>
-                            <th>类型</th>
                             <th>状态</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="resource" items="${list}" varStatus="status">
-                            <tr id="tr_resource_${resource.id }">
-                                <td>${resource.id }</td>
-                                <td>${resource.parentId }</td>
-                                <td>${resource.name }</td>
-                                <td>${resource.type }</td>
+                        <c:forEach var="role" items="${list}" varStatus="status">
+                            <tr id="tr_role_${role.id }">
+                                <td>${role.id }</td>
+                                <td>${role.name }</td>
                                 <td>
-                                    <c:if test="${resource.status == 0}">
+                                    <c:if test="${role.status == 0}">
                                         <span class="text-green">有效</span>
                                     </c:if>
-                                    <c:if test="${resource.status == 1}">
+                                    <c:if test="${role.status == 1}">
                                         <span class="text-red">已删</span>
                                     </c:if>
-                                    <c:if test="${resource.status == 2}">
+                                    <c:if test="${role.status == 2}">
                                         <span class="text-warning">禁用</span>
                                     </c:if>
                                 </td>
                                 <td>
-                                    <c:if test="${resource.status == 0}">
-                                        <permisssion:pass code="1003">
-                                            <a class="btn btn-sm btn-warning" href="${ctxPath}/permission/resource/to_update/${resource.id }">编辑</a>
+                                    <c:if test="${role.status == 0}">
+                                        <permisssion:pass code="2003">
+                                            <a class="btn btn-sm btn-warning" href="${ctxPath}/permission/role/to_update/${role.id }">编辑</a>
                                         </permisssion:pass>
                                     </c:if>
-                                    <c:if test="${resource.status != 1}">
-                                        <permisssion:pass code="1004">
-                                            <a class="btn btn-sm btn-danger" onclick="optionResource(${resource.id }, 'delete')">删除</a>
+                                    <c:if test="${role.status != 1}">
+                                        <permisssion:pass code="2004">
+                                            <a class="btn btn-sm btn-danger" onclick="optionRole(${role.id }, 'delete')">删除</a>
                                         </permisssion:pass>
                                     </c:if>
-                                    <c:if test="${resource.status == 0}">
-                                        <permisssion:pass code="1005">
-                                            <a class="btn btn-sm btn-danger" onclick="optionResource(${resource.id }, 'lock')">禁用</a>
+                                    <c:if test="${role.status == 0}">
+                                        <permisssion:pass code="2005">
+                                            <a class="btn btn-sm btn-danger" onclick="optionRole(${role.id }, 'lock')">禁用</a>
                                         </permisssion:pass>
                                     </c:if>
-                                    <c:if test="${resource.status == 2}">
-                                        <permisssion:pass code="1006">
-                                            <a class="btn btn-sm btn-danger" onclick="optionResource(${resource.id }, 'unlock')">解禁</a>
+                                    <c:if test="${role.status == 2}">
+                                        <permisssion:pass code="2006">
+                                            <a class="btn btn-sm btn-danger" onclick="optionRole(${role.id }, 'unlock')">解禁</a>
                                         </permisssion:pass>
                                     </c:if>
                                 </td>
@@ -81,9 +77,7 @@
                         <tfoot>
                         <tr>
                             <th>ID</th>
-                            <th>父ID</th>
                             <th>名称</th>
-                            <th>类型</th>
                             <th>状态</th>
                             <th>操作</th>
                         </tr>
@@ -101,9 +95,9 @@
 <!-- /.content -->
 
 <script>
-    function optionResource(id, option) {
+    function optionRole(id, option) {
         ajax({
-            shortUrl: '/api/permission/resource/' + option + '/' + id,
+            shortUrl: '/api/permission/role/' + option + '/' + id,
             success: function () {
                 location.reload();  // 成功后直接刷新界面，简单处理
             },

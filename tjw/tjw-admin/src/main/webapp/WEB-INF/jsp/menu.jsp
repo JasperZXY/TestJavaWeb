@@ -59,7 +59,7 @@
                 <li><a href="${ctxPath}/permission/resource/list/all"><i class="fa fa-circle-o"></i> 资源管理</a></li>
             </permisssion:pass>
             <permisssion:pass code="2001">
-                <li><a href="#"><i class="fa fa-circle-o"></i> 角色管理</a></li>
+                <li><a href="${ctxPath}/permission/role/list/all"><i class="fa fa-circle-o"></i> 角色管理</a></li>
             </permisssion:pass>
         </ul>
     </li>

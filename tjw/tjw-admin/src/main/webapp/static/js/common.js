@@ -207,6 +207,9 @@ function ajax(obj) {
                 if (retData.status == 10000) {
                     callbackForSuccess(obj, retData.result);
                 }
+                else if (retData.status == 10002) {
+                    selfOpen('/auth/login');
+                }
                 else {
                     callbackForError(obj, retData.msg);
                 }
