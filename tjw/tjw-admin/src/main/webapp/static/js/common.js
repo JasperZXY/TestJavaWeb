@@ -208,7 +208,7 @@ function ajax(obj) {
                     callbackForSuccess(obj, retData.result);
                 }
                 else if (retData.status == 10002) {
-                    selfOpen('/auth/login');
+                    selfOpen('/auth/login?msg=' + encodeURI('登录超时'));
                 }
                 else {
                     callbackForError(obj, retData.msg);

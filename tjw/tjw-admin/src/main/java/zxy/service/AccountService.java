@@ -42,7 +42,7 @@ public class AccountService {
         updateStatus(id, EntityStatus.DELETE);
     }
 
-    private void updateStatus(String id, int status) {
+    public void updateStatus(String id, int status) {
         Account accountUpdate = new Account();
         accountUpdate.setId(id);
         accountUpdate.setStatus(status);
@@ -53,19 +53,22 @@ public class AccountService {
      * 是否登录验证成功
      * @param id
      * @param password
-     * @return
+     * @return 0成功；1账号不存在；2已冻结；3密码有误
      */
-    public boolean login(String id, String password) {
+    public int login(String id, String password) {
         Account accountDB = accountMapper.selectByPrimaryKey(id);
         if (accountDB == null) {
-            return false;
+            return 1;
         }
 
         if (accountDB.getStatus() != EntityStatus.VALID) {
-            return false;
+            return 2;
         }
 
-        return createPassword(password, accountDB.getSalt()).equals(accountDB.getPassword());
+        if (createPassword(password, accountDB.getSalt()).equals(accountDB.getPassword())) {
+            return 0;
+        }
+        return 3;
     }
 
     protected String createSalt() {

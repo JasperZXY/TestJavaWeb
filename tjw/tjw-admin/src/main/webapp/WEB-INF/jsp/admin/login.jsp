@@ -26,7 +26,7 @@
 <div class="login-box">
     <div class="login-box-body">
         <p class="login-box-msg text-red">
-            <c:if test="${error}">账号或密码错误</c:if>
+            ${msg}${param.msg}
         </p>
 
         <form action="${ctxPath}/auth/login" method="post">

@@ -6,7 +6,9 @@
     <h1>
         ${window_title}
         <small>用户管理</small>
-        <button class="btn btn-sm btn-info" onclick="selfOpen('/user/to_add')">新增</button>
+        <permisssion:pass code="3002">
+            <button class="btn btn-sm btn-info" onclick="selfOpen('/user/to_add')">新增</button>
+        </permisssion:pass>
         </h1>
     <ol class="breadcrumb">
         <li><a href="${index_url}"><i class="fa fa-dashboard"></i> 首页</a></li>
@@ -77,11 +79,21 @@
                                             <a class="btn btn-sm btn-info" href="${ctxPath}/permission/role/to_assign/foruser/${user.id }">指定角色</a>
                                         </permisssion:pass>
                                         <permisssion:pass code="3003">
-                                            <a class="btn btn-sm btn-warning" href="${ctxPath}/user/to_update/${user.id }">编辑</a>
+                                            <a class="btn btn-sm btn-info" href="${ctxPath}/user/to_update/${user.id }">编辑</a>
                                         </permisssion:pass>
                                         <permisssion:pass code="3004">
-                                            <a class="btn btn-sm btn-danger" onclick="deleteUser(${user.id })">删除</a>
+                                            <a class="btn btn-sm btn-danger" onclick="optionUser(${user.id }, 'delete')">删除</a>
                                         </permisssion:pass>
+                                        <c:if test="${user.status == 0}">
+                                            <permisssion:pass code="3005">
+                                                <a class="btn btn-sm btn-warning" onclick="optionUser(${user.id }, 'lock')">冻结</a>
+                                            </permisssion:pass>
+                                        </c:if>
+                                        <c:if test="${user.status == 2}">
+                                            <permisssion:pass code="3005">
+                                                <a class="btn btn-sm btn-danger" onclick="optionUser(${user.id }, 'unlock')">解冻</a>
+                                            </permisssion:pass>
+                                        </c:if>
                                     </c:if>
                                 </td>
                             </tr>
@@ -117,14 +129,14 @@
                 + '&status=' + $('#search_status option:selected').val()
                 , '_self');
     }
-    function deleteUser(id) {
+    function optionUser(id, option) {
         ajax({
-            shortUrl: '/api/user/delete/' + id,
+            shortUrl: '/api/user/' + option + '/' + id,
             success: function () {
-                $('#tr_user_' + id).remove();
+                location.reload();
             },
             error: function (msg) {
-                alert('删除失败：' + msg);
+                alert('操作失败：' + msg);
             }
         });
     }

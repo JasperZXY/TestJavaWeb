@@ -37,7 +37,8 @@ public class AuthController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("admin/login");
         if (StringUtils.isNotBlank(account) && StringUtils.isNotBlank(password)) {
-            if (accountService.login(account, password)) {
+            int result = accountService.login(account, password);
+            if (result == 0) {
                 User user = userService.getUserByAccount(account);
                 HttpSession session = request.getSession();
                 SessionManager.setCurrentUser(session, user);
@@ -47,7 +48,19 @@ public class AuthController {
                 return null;
             }
             else {
-                modelAndView.addObject("error", true);
+                switch (result) {
+                    case 1:
+                        modelAndView.addObject(JspConfig.KEY_MSG, "账号不存在");
+                        break;
+                    case 2:
+                        modelAndView.addObject(JspConfig.KEY_MSG, "冻结");
+                        break;
+                    case 3:
+                        modelAndView.addObject(JspConfig.KEY_MSG, "密码有误");
+                        break;
+                    default:
+                        modelAndView.addObject(JspConfig.KEY_MSG, "登录失败");
+                }
             }
         }
         return modelAndView;

@@ -34,7 +34,7 @@
     <script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
     <script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.extensions.js"></script>
     <!-- 自定义JS -->
-    <script src="${ctxPath}/static/js/common.js?version=3"></script>
+    <script src="${ctxPath}/static/js/common.js?version=4"></script>
     <script>
         var ctxPath = '${ctx}';
     </script>

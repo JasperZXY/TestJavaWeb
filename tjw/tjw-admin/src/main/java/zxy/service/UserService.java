@@ -76,18 +76,19 @@ public class UserService {
         return null;
     }
 
-    public void delete(int id) {
-        User userInDB = userMapper.selectByPrimaryKey(id);
+    // 这里直接暴露一个修改状态的方法不太好，正式开发下慎重使用，有风险，还需要根据user的状态进行修改
+    public void updateStatus(int uid, int status) {
+        User userInDB = userMapper.selectByPrimaryKey(uid);
         if (userInDB == null) {
             return;
         }
 
         User user = new User();
-        user.setId(id);
-        user.setStatus(EntityStatus.DELETE);
+        user.setId(uid);
+        user.setStatus(status);
         userMapper.updateByPrimaryKeySelective(user);
 
-        accountService.delete(userInDB.getAccountId());
+        accountService.updateStatus(userInDB.getAccountId(), status);
     }
 
     public User getValidUser(int id) {
