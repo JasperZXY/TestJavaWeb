@@ -4,7 +4,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +16,17 @@ import zxy.permission.dao.ResourceMapper;
 import zxy.permission.dao.RoleMapper;
 import zxy.permission.dao.RoleResourceRelationMapper;
 import zxy.permission.dao.UserRoleRelationMapper;
-import zxy.permission.entity.Resource;
 import zxy.permission.entity.Role;
+import zxy.permission.entity.RoleResourceRelation;
+import zxy.permission.entity.UserRoleRelation;
+import zxy.permission.entity.UserRoleRelationExample;
 import zxy.permission.support.PrivilegeAnnotation;
-import zxy.permission.support.ResourceType;
+import zxy.permission.support.PrivilegeService;
 import zxy.utils.Utils;
+import zxy.web.SessionManager;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 权限相关
@@ -39,6 +44,8 @@ public class PermissionController extends BaseApiController {
     private UserRoleRelationMapper userRoleRelationMapper;
     @Autowired
     private RoleResourceRelationMapper roleResourceRelationMapper;
+    @Autowired
+    private PrivilegeService privilegeService;
 
 //    public JsonResult check(Resource resource) {
 //        if (resource == null) {
@@ -172,6 +179,38 @@ public class PermissionController extends BaseApiController {
     @ResponseBody
     public Object unlockRole(@PathVariable int id) {
         updateRoleStatus(id, EntityStatus.VALID);
+        return JsonResult.buildSuccess(null);
+    }
+
+    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_ALLOCATE_RESOURCE)
+    @RequestMapping(path="/role/allocate/resource/{id}")
+    @ResponseBody
+    public Object roleAllocateResource(HttpServletRequest request, @PathVariable int id, String resourceIds) {
+        RoleResourceRelation roleResourceRelation = new RoleResourceRelation();
+        roleResourceRelation.setCreateUid(SessionManager.getCurrentUserId(request.getSession()));
+        roleResourceRelation.setRoleId(id);
+        roleResourceRelation.setResourceIds(resourceIds);
+        privilegeService.addRoleResourceRelation(roleResourceRelation);
+        return JsonResult.buildSuccess(null);
+    }
+
+    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_ASSIGN_USER_ROLE)
+    @RequestMapping(path="/role/assign/foruser/{uid}")
+    @ResponseBody
+    public Object assignRoleForUser(HttpServletRequest request, @PathVariable int uid, String roleIds) {
+        // 这里简单处理，先删除后新增
+        List<Integer> roleList = Utils.stringToIntegerList(roleIds);
+        UserRoleRelationExample example = new UserRoleRelationExample();
+        example.createCriteria().andUserIdEqualTo(uid);
+        userRoleRelationMapper.deleteByExample(example);
+
+        for (Integer roleId : roleList) {
+            UserRoleRelation relation = new UserRoleRelation();
+            relation.setRoleId(roleId);
+            relation.setUserId(uid);
+            userRoleRelationMapper.insert(relation);
+        }
+
         return JsonResult.buildSuccess(null);
     }
 

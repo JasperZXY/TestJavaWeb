@@ -19,6 +19,22 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="${ctxPath}/static/AdminLTE/css/AdminLTE.min.css">
     <link rel="stylesheet" href="${ctxPath}/static/AdminLTE/css/skins/_all-skins.min.css">
+
+    <!-- JS -->
+    <!-- jQuery 2.2.3 -->
+    <script src="${ctxPath}/static/plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <!-- Bootstrap -->
+    <script src="${ctxPath}/static/bootstrap/js/bootstrap.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="${ctxPath}/static/AdminLTE/js/app.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <script src="${ctxPath}/static/AdminLTE/js/demo.js"></script>
+    <!-- InputMask -->
+    <script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.js"></script>
+    <script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <!-- 自定义JS -->
+    <script src="${ctxPath}/static/js/common.js?version=3"></script>
     <script>
         var ctxPath = '${ctx}';
     </script>
@@ -103,19 +119,5 @@
     <div class="control-sidebar-bg"></div>
 
 </div>
-<!-- jQuery 2.2.3 -->
-<script src="${ctxPath}/static/plugins/jQuery/jquery-2.2.3.min.js"></script>
-<!-- Bootstrap -->
-<script src="${ctxPath}/static/bootstrap/js/bootstrap.min.js"></script>
-<!-- AdminLTE App -->
-<script src="${ctxPath}/static/AdminLTE/js/app.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="${ctxPath}/static/AdminLTE/js/demo.js"></script>
-<!-- InputMask -->
-<script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.js"></script>
-<script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
-<script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.extensions.js"></script>
-<!-- 自定义JS -->
-<script src="${ctxPath}/static/js/common.js?a=1"></script>
 </body>
 </html>

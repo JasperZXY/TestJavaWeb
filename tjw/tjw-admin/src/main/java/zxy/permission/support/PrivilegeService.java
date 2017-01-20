@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import zxy.constants.EntityStatus;
 import zxy.permission.dao.ResourceMapper;
@@ -14,9 +13,9 @@ import zxy.permission.dao.RoleResourceRelationMapper;
 import zxy.permission.dao.UserRoleRelationMapper;
 import zxy.permission.entity.*;
 
-import javax.annotation.PostConstruct;
 import java.util.*;
 
+// TODO 这部分代码需要抽离，已经跟业务关联在一起了
 @Service
 public class PrivilegeService {
     @Autowired
@@ -30,10 +29,6 @@ public class PrivilegeService {
 
     private Map<Integer, Resource> resourceCache = Collections.emptyMap();
     public static final String SPLIT = ",";
-
-    public Map<Integer, Resource> getResourceCache() {
-        return resourceCache;
-    }
 
     public void setResourceCache(Map<Integer, Resource> resourceCache) {
         this.resourceCache = resourceCache;
@@ -76,24 +71,7 @@ public class PrivilegeService {
             return Collections.emptyList();
         }
 
-        RoleResourceRelationExample roleResourceRelationExample = new RoleResourceRelationExample();
-        roleResourceRelationExample.createCriteria().andRoleIdIn(userRoleIds);
-        roleResourceRelationExample.setOrderByClause(" id desc");
-        List<RoleResourceRelation> roleResourceRelations =
-                roleResourceRelationMapper.selectByExampleWithRowbounds(roleResourceRelationExample, new RowBounds(0, 1));
-        if (CollectionUtils.isEmpty(roleResourceRelations)) {
-            return Collections.emptyList();
-        }
-
-        RoleResourceRelation relation = roleResourceRelations.get(0);
-        if (StringUtils.isBlank(relation.getResourceIds())) {
-            return Collections.emptyList();
-        }
-
-        Set<Integer> resourceIds = new HashSet<>();
-        for (String rid : relation.getResourceIds().split(SPLIT)) {
-            resourceIds.add(NumberUtils.toInt(rid));
-        }
+        Set<Integer> resourceIds = getResourceIdsForRole(userRoleIds);
         return getResources(new ArrayList<>(resourceIds));
     }
 
@@ -108,6 +86,37 @@ public class PrivilegeService {
             ids.add(resource.getId());
         }
         return ids;
+    }
+
+    public Set<Integer> getResourceIdsForRole(List<Integer> roleIds) {
+        RoleResourceRelationExample roleResourceRelationExample = new RoleResourceRelationExample();
+        roleResourceRelationExample.createCriteria().andRoleIdIn(roleIds);
+        roleResourceRelationExample.setOrderByClause(" id desc");
+        List<RoleResourceRelation> roleResourceRelations =
+                roleResourceRelationMapper.selectByExampleWithRowbounds(roleResourceRelationExample, new RowBounds(0, 1));
+        if (CollectionUtils.isEmpty(roleResourceRelations)) {
+            return Collections.emptySet();
+        }
+
+        RoleResourceRelation relation = roleResourceRelations.get(0);
+        if (StringUtils.isBlank(relation.getResourceIds())) {
+            return Collections.emptySet();
+        }
+
+        Set<Integer> resourceIds = new HashSet<>();
+        for (String rid : relation.getResourceIds().split(SPLIT)) {
+            resourceIds.add(NumberUtils.toInt(rid));
+        }
+        return resourceIds;
+    }
+
+    public Set<Integer> getResourceIdsForRole(Integer roleId) {
+        return getResourceIdsForRole(Collections.singletonList(roleId));
+    }
+
+    public void addRoleResourceRelation(RoleResourceRelation roleResourceRelation) {
+        roleResourceRelation.setCreateTime(new Date());
+        roleResourceRelationMapper.insert(roleResourceRelation);
     }
 
     public List<Integer> getRoleIdsForUser(Integer uid) {
@@ -137,6 +146,12 @@ public class PrivilegeService {
 
         RoleExample roleExample = new RoleExample();
         roleExample.createCriteria().andIdIn(roleIds);
+        return roleMapper.selectByExample(roleExample);
+    }
+
+    public List<Role> getAllValidRoles() {
+        RoleExample roleExample = new RoleExample();
+        roleExample.createCriteria().andStatusEqualTo(EntityStatus.VALID);
         return roleMapper.selectByExample(roleExample);
     }
 

@@ -12,7 +12,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="${index_url}"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li><a href="/user/list">用户管理</a></li>
+        <li><a href="${ctxPath}/user/list">用户管理</a></li>
         <li class="active">编辑用户</li>
     </ol>
 </section>

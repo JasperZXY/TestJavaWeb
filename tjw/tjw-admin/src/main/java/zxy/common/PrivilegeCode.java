@@ -19,7 +19,8 @@ public interface PrivilegeCode {
     int ROLE_UPDATE = 2003;
 //    int ROLE_DELETE = 2004;
     int ROLE_LOCK_UNLOCK = 2005;
-    int ROLE_ALLOCATION_RESOURCE = 2006;
+    int ROLE_ALLOCATE_RESOURCE = 2006;
+    int ROLE_ASSIGN_USER_ROLE = 2007;
 
     // 用户相关
     int USER_ACCESS = 3001;

@@ -32,9 +32,11 @@
             <li><a href="#"><i class="fa fa-circle-o"></i> 消息</a></li>
         </ul>
     </li>
+    <permisssion:pass code="3001">
     <li>
         <a href="${ctxPath}/user/list"><i class="fa fa-user text-green"></i><span>用户管理</span></a>
     </li>
+    </permisssion:pass>
     <li>
         <a href="#">
             <i class="fa fa-android text-green"></i>

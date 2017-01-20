@@ -73,8 +73,15 @@
                                 </td>
                                 <td>
                                     <c:if test="${user.status != 1}">
-                                        <a class="btn btn-sm btn-warning" href="${ctxPath}/user/to_update/${user.id }">编辑</a>
-                                        <a class="btn btn-sm btn-danger" onclick="deleteUser(${user.id })">删除</a>
+                                        <permisssion:pass code="2007">
+                                            <a class="btn btn-sm btn-info" href="${ctxPath}/permission/role/to_assign/foruser/${user.id }">指定角色</a>
+                                        </permisssion:pass>
+                                        <permisssion:pass code="3003">
+                                            <a class="btn btn-sm btn-warning" href="${ctxPath}/user/to_update/${user.id }">编辑</a>
+                                        </permisssion:pass>
+                                        <permisssion:pass code="3004">
+                                            <a class="btn btn-sm btn-danger" onclick="deleteUser(${user.id })">删除</a>
+                                        </permisssion:pass>
                                     </c:if>
                                 </td>
                             </tr>

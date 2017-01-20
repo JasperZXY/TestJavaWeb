@@ -247,3 +247,17 @@ function callbackForError(obj, msg) {
         obj.error(msg);
     }
 }
+
+function findInArray(array, data) {
+    if (isNull(array)) {
+        return false;
+    }
+    if (array instanceof Array) {
+        for (var i=0; i<array.length; i++) {
+            if (array[i] == data) {
+                return true;
+            }
+        }
+    }
+    return false;
+}

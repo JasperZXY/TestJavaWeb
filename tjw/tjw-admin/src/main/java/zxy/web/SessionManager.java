@@ -15,6 +15,14 @@ public abstract class SessionManager {
         return (User) session.getAttribute(LOGIN_USER);
     }
 
+    public static Integer getCurrentUserId(HttpSession session) {
+        User user = getCurrentUser(session);
+        if (user == null) {
+            return null;
+        }
+        return user.getId();
+    }
+
     public static void setCurrentUser(HttpSession session, User loginUser) {
         if (session == null) {
             return;

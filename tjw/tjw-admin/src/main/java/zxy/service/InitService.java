@@ -48,6 +48,14 @@ public class InitService {
     private List<Resource> allResources = new ArrayList<>();
     private Map<Integer, Resource> resourceMap = new HashMap<>();
 
+    public List<Resource> getAllResources() {
+        return allResources;
+    }
+
+    public Map<Integer, Resource> getResourceMap() {
+        return resourceMap;
+    }
+
     @PostConstruct
     public void init() {
         // 下面大部分初始化代码可以换成SQL脚本
@@ -85,7 +93,8 @@ public class InitService {
         allResources.add(newResource(PrivilegeCode.ROLE_ADD, "角色新增", ResourceType.button, PrivilegeCode.ROLE_ACCESS));
         allResources.add(newResource(PrivilegeCode.ROLE_UPDATE, "角色更新", ResourceType.button, PrivilegeCode.ROLE_ACCESS));
         allResources.add(newResource(PrivilegeCode.ROLE_LOCK_UNLOCK, "角色禁用/解禁", ResourceType.button, PrivilegeCode.ROLE_ACCESS));
-        allResources.add(newResource(PrivilegeCode.ROLE_ALLOCATION_RESOURCE, "角色分配资源", ResourceType.button, PrivilegeCode.ROLE_ACCESS));
+        allResources.add(newResource(PrivilegeCode.ROLE_ALLOCATE_RESOURCE, "给角色分配资源", ResourceType.button, PrivilegeCode.ROLE_ACCESS));
+        allResources.add(newResource(PrivilegeCode.ROLE_ASSIGN_USER_ROLE, "给用户指定角色", ResourceType.menu, PrivilegeCode.USER_ACCESS));
         allResources.add(newResource(PrivilegeCode.USER_ACCESS, "用户管理", ResourceType.menu, root));
         allResources.add(newResource(PrivilegeCode.USER_ADD, "用户新增", ResourceType.button, PrivilegeCode.USER_ACCESS));
         allResources.add(newResource(PrivilegeCode.USER_UPDATE, "用户修改", ResourceType.button, PrivilegeCode.USER_ACCESS));
