@@ -4,14 +4,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import zxy.common.PrivilegeCode;
 import zxy.constants.EntityStatus;
 import zxy.dao.AccountMapper;
 import zxy.entity.Account;
 import zxy.entity.User;
 import zxy.permission.dao.ResourceMapper;
-import zxy.permission.entity.Resource;
-import zxy.permission.entity.ResourceExample;
+import zxy.permission.dao.RoleMapper;
+import zxy.permission.dao.RoleResourceRelationMapper;
+import zxy.permission.dao.UserRoleRelationMapper;
+import zxy.permission.entity.*;
 import zxy.permission.support.PrivilegeService;
 import zxy.permission.support.ResourceType;
 
@@ -24,25 +27,33 @@ public class InitService {
 
     private static final String ROOT_ACCOUNT = "root";
     private static final String ROOT_PASSWORD = "zxy@123";
+    private static final String ROOT_ROLE = "Root";
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private PrivilegeService privilegeService;
+
     @Autowired
     private AccountMapper accountMapper;
     @Autowired
     private ResourceMapper resourceMapper;
     @Autowired
-    private PrivilegeService privilegeService;
+    private UserRoleRelationMapper userRoleRelationMapper;
+    @Autowired
+    private RoleMapper roleMapper;
+    @Autowired
+    private RoleResourceRelationMapper roleResourceRelationMapper;
 
     private List<Resource> allResources = new ArrayList<>();
     private Map<Integer, Resource> resourceMap = new HashMap<>();
 
     @PostConstruct
     public void init() {
+        // 下面大部分初始化代码可以换成SQL脚本
         initRootUser();
         initResource();
-        // TODO 给root用户添加权限
-
+        initRootPrivilege();
         privilegeService.setResourceCache(resourceMap);
     }
 
@@ -74,6 +85,7 @@ public class InitService {
         allResources.add(newResource(PrivilegeCode.ROLE_ADD, "角色新增", ResourceType.button, PrivilegeCode.ROLE_ACCESS));
         allResources.add(newResource(PrivilegeCode.ROLE_UPDATE, "角色更新", ResourceType.button, PrivilegeCode.ROLE_ACCESS));
         allResources.add(newResource(PrivilegeCode.ROLE_LOCK_UNLOCK, "角色禁用/解禁", ResourceType.button, PrivilegeCode.ROLE_ACCESS));
+        allResources.add(newResource(PrivilegeCode.ROLE_ALLOCATION_RESOURCE, "角色分配资源", ResourceType.button, PrivilegeCode.ROLE_ACCESS));
         allResources.add(newResource(PrivilegeCode.USER_ACCESS, "用户管理", ResourceType.menu, root));
         allResources.add(newResource(PrivilegeCode.USER_ADD, "用户新增", ResourceType.button, PrivilegeCode.USER_ACCESS));
         allResources.add(newResource(PrivilegeCode.USER_UPDATE, "用户修改", ResourceType.button, PrivilegeCode.USER_ACCESS));
@@ -132,6 +144,38 @@ public class InitService {
             return true;
         }
         return false;
+    }
+
+    private void initRootPrivilege() {
+        User rootUser = userService.getUserByAccount(ROOT_ACCOUNT);
+
+        UserRoleRelationExample userRoleRelationExample = new UserRoleRelationExample();
+        userRoleRelationExample.createCriteria().andUserIdEqualTo(rootUser.getId());
+        if (userRoleRelationMapper.countByExample(userRoleRelationExample) > 0) {
+            return;
+        }
+
+        Role role = new Role();
+        role.setStatus(EntityStatus.VALID);
+        role.setName(ROOT_ROLE);
+        roleMapper.insert(role);
+
+        RoleResourceRelation roleResourceRelation = new RoleResourceRelation();
+        roleResourceRelation.setRoleId(role.getId());
+        roleResourceRelation.setCreateUid(rootUser.getId());
+        roleResourceRelation.setCreateTime(new Date());
+        StringBuilder resourceIdBuilder = new StringBuilder();
+        for (Resource resource : allResources) {
+            resourceIdBuilder.append(resource.getId()).append(PrivilegeService.SPLIT);
+        }
+        resourceIdBuilder.replace(resourceIdBuilder.length() - PrivilegeService.SPLIT.length(), resourceIdBuilder.length(), "");
+        roleResourceRelation.setResourceIds(resourceIdBuilder.toString());
+        roleResourceRelationMapper.insert(roleResourceRelation);
+
+        UserRoleRelation userRoleRelation = new UserRoleRelation();
+        userRoleRelation.setRoleId(role.getId());
+        userRoleRelation.setUserId(rootUser.getId());
+        userRoleRelationMapper.insert(userRoleRelation);
     }
 
 }

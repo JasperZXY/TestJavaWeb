@@ -29,7 +29,7 @@ public class PrivilegeService {
     private RoleResourceRelationMapper roleResourceRelationMapper;
 
     private Map<Integer, Resource> resourceCache = Collections.emptyMap();
-    private static final String SPLIT = ",";
+    public static final String SPLIT = ",";
 
     public Map<Integer, Resource> getResourceCache() {
         return resourceCache;
