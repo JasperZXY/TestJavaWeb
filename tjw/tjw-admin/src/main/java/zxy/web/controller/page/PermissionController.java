@@ -112,7 +112,7 @@ public class PermissionController extends BasePageController {
 
     // 给角色分配资源
     @PrivilegeAnnotation(code = PrivilegeCode.ROLE_ALLOCATE_RESOURCE)
-    @RequestMapping(path="/role/to_allocation/resource/{id}")
+    @RequestMapping(path="/role/to_allocate/resource/{id}")
     public ModelAndView roleAllocationResource(@PathVariable int id) {
         Role role = roleMapper.selectByPrimaryKey(id);
         if (role == null) {

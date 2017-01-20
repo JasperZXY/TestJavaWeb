@@ -53,6 +53,9 @@
                             <th>生日</th>
                             <th>状态</th>
                             <th>操作</th>
+                        <permisssion:pass code="3006">
+                            <th>协助修改密码</th>
+                        </permisssion:pass>
                         </tr>
                         </thead>
                         <tbody>
@@ -96,6 +99,19 @@
                                         </c:if>
                                     </c:if>
                                 </td>
+                                <td>
+                                    <c:if test="${user.status != 1}">
+                                        <permisssion:pass code="3006">
+                                            <div id="change_password_${user.id}" class="input-group">
+                                                <input type="hidden" class="accountId" value="${user.accountId}" />
+                                                <input type="password" class="form-control password" placeholder="密码" value="">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-danger" type="button" onclick="changePassword(${user.id})">提交</button>
+                                                </span>
+                                            </div>
+                                        </permisssion:pass>
+                                    </c:if>
+                                </td>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -107,6 +123,9 @@
                             <th>生日</th>
                             <th>状态</th>
                             <th>操作</th>
+                            <permisssion:pass code="3006">
+                                <th>协助修改密码</th>
+                            </permisssion:pass>
                         </tr>
                         </tfoot>
                     </table>
@@ -134,6 +153,22 @@
             shortUrl: '/api/user/' + option + '/' + id,
             success: function () {
                 location.reload();
+            },
+            error: function (msg) {
+                alert('操作失败：' + msg);
+            }
+        });
+    }
+    function changePassword(uid) {
+        ajax({
+            shortUrl: '/api/user/help/change/password',
+            data : {
+                accountId : $('#change_password_' + uid).children('.accountId').val(),
+                password : $('#change_password_' + uid).children('.password').val(),
+            },
+            success: function () {
+                $('#change_password_' + uid).children('.password').val('');
+                alert('成功');
             },
             error: function (msg) {
                 alert('操作失败：' + msg);

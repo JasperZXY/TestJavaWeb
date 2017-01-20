@@ -100,6 +100,7 @@ public class InitService {
         allResources.add(newResource(PrivilegeCode.USER_UPDATE, "用户修改", ResourceType.button, PrivilegeCode.USER_ACCESS));
         allResources.add(newResource(PrivilegeCode.USER_DELETE, "用户删除", ResourceType.button, PrivilegeCode.USER_ACCESS));
         allResources.add(newResource(PrivilegeCode.USER_LOCK_UNLOCK, "用户冻结/解冻", ResourceType.button, PrivilegeCode.USER_ACCESS));
+        allResources.add(newResource(PrivilegeCode.USER_HELP_CHANGE_PASSWORD, "协助修改用户密码", ResourceType.button, PrivilegeCode.USER_ACCESS));
 
         for (Resource resource : allResources) {
             resourceMap.put(resource.getId(), resource);

@@ -71,6 +71,14 @@ public class AccountService {
         return 3;
     }
 
+    public void changePassword(String accountId, String password) {
+        Account account = new Account();
+        account.setId(accountId);
+        account.setSalt(createSalt());
+        account.setPassword(createPassword(password, account.getSalt()));
+        accountMapper.updateByPrimaryKeySelective(account);
+    }
+
     protected String createSalt() {
         try {
             SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");

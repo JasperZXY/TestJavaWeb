@@ -28,5 +28,6 @@ public interface PrivilegeCode {
     int USER_UPDATE = 3003;
     int USER_DELETE = 3004;
     int USER_LOCK_UNLOCK = 3005;
+    int USER_HELP_CHANGE_PASSWORD = 3006;
 
 }

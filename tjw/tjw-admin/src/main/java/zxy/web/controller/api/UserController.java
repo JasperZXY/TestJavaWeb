@@ -10,6 +10,7 @@ import zxy.common.PrivilegeCode;
 import zxy.constants.EntityStatus;
 import zxy.entity.User;
 import zxy.permission.support.PrivilegeAnnotation;
+import zxy.service.AccountService;
 import zxy.service.UserService;
 import zxy.common.JsonResult;
 
@@ -18,6 +19,8 @@ import zxy.common.JsonResult;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private AccountService accountService;
 
     @PrivilegeAnnotation(code = PrivilegeCode.USER_ADD)
     @RequestMapping(path="/add")
@@ -62,6 +65,14 @@ public class UserController {
     @ResponseBody
     public Object unlock(@PathVariable int id) {
         userService.updateStatus(id, EntityStatus.VALID);
+        return JsonResult.buildSuccess(null);
+    }
+
+    @PrivilegeAnnotation(code = PrivilegeCode.USER_LOCK_UNLOCK)
+    @RequestMapping(path="/help/change/password")
+    @ResponseBody
+    public Object helpChangePassowd(String accountId, String password) {
+        accountService.changePassword(accountId, password);
         return JsonResult.buildSuccess(null);
     }
 

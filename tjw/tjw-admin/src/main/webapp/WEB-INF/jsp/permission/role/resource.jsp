@@ -24,6 +24,9 @@
 
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <div>
+                        提示：分配完资源，需要用户重新登录才能看到结果。
+                    </div>
                     <input id="resourceIdsForRole" type="hidden" value="${resourceIdsForRole}" />
                     <input id="roleId" value="${role.id}" type="hidden" />
                     <div id="allResources">
