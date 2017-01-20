@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="${ctxPath}/static/AdminLTE/css/AdminLTE.min.css">
     <link rel="stylesheet" href="${ctxPath}/static/AdminLTE/css/skins/_all-skins.min.css">
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="height:500px;">
 <div class="login-box">
     <div class="login-box-body">
         <p class="login-box-msg text-red">

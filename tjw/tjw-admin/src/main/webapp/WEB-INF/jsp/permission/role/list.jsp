@@ -54,18 +54,11 @@
                                         <permisssion:pass code="2003">
                                             <a class="btn btn-sm btn-warning" href="${ctxPath}/permission/role/to_update/${role.id }">编辑</a>
                                         </permisssion:pass>
-                                    </c:if>
-                                    <c:if test="${role.status != 1}">
-                                        <permisssion:pass code="2004">
-                                            <a class="btn btn-sm btn-danger" onclick="optionRole(${role.id }, 'delete')">删除</a>
-                                        </permisssion:pass>
-                                    </c:if>
-                                    <c:if test="${role.status == 0}">
                                         <permisssion:pass code="2005">
                                             <a class="btn btn-sm btn-danger" onclick="optionRole(${role.id }, 'lock')">禁用</a>
                                         </permisssion:pass>
                                     </c:if>
-                                    <c:if test="${role.status == 2}">
+                                    <c:if test="${role.status != 0}">
                                         <permisssion:pass code="2006">
                                             <a class="btn btn-sm btn-danger" onclick="optionRole(${role.id }, 'unlock')">解禁</a>
                                         </permisssion:pass>

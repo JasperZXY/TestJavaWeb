@@ -45,27 +45,27 @@ public class PermissionController extends BasePageController {
         return modelAndView;
     }
 
-    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_ADD)
-    @RequestMapping(path="/resource/to_add")
-    public ModelAndView toAddResource() {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("permission/resource/add");
-        return modelAndView;
-    }
-
-    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_UPDATE)
-    @RequestMapping(path="/resource/to_update/{id}")
-    public ModelAndView toUpdateResource(@PathVariable int id) {
-        Resource resource = resourceMapper.selectByPrimaryKey(id);
-        if (resource == null) {
-            return toErrorView(ResultCode.DATA_NO_FOUND);
-        }
-
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("permission/resource/update");
-        modelAndView.addObject("resource", resource);
-        return modelAndView;
-    }
+//    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_ADD)
+//    @RequestMapping(path="/resource/to_add")
+//    public ModelAndView toAddResource() {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("permission/resource/add");
+//        return modelAndView;
+//    }
+//
+//    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_UPDATE)
+//    @RequestMapping(path="/resource/to_update/{id}")
+//    public ModelAndView toUpdateResource(@PathVariable int id) {
+//        Resource resource = resourceMapper.selectByPrimaryKey(id);
+//        if (resource == null) {
+//            return toErrorView(ResultCode.DATA_NO_FOUND);
+//        }
+//
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("permission/resource/update");
+//        modelAndView.addObject("resource", resource);
+//        return modelAndView;
+//    }
 
     @PrivilegeAnnotation(code = PrivilegeCode.ROLE_ACCESS)
     @RequestMapping(path="/role/list/all")

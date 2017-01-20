@@ -1,6 +1,9 @@
 package zxy.permission.support;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -26,16 +29,14 @@ public class PrivilegeService {
     private RoleResourceRelationMapper roleResourceRelationMapper;
 
     private Map<Integer, Resource> resourceCache = Collections.emptyMap();
+    private static final String SPLIT = ",";
 
-    @PostConstruct
-    @Scheduled(cron="3 0/10 * * * ? ") //间隔10分钟执行
-    public void task() {
-        List<Resource> resources = listAllResources();
-        Map<Integer, Resource> map = new HashMap<>();
-        for (Resource resource : resources) {
-            map.put(resource.getId(), resource);
-        }
-        resourceCache = map;
+    public Map<Integer, Resource> getResourceCache() {
+        return resourceCache;
+    }
+
+    public void setResourceCache(Map<Integer, Resource> resourceCache) {
+        this.resourceCache = resourceCache;
     }
 
     /**
@@ -69,12 +70,6 @@ public class PrivilegeService {
         return resource != null && ResourceType.nav.equals(ResourceType.valueOf(resource.getType()));
     }
 
-    public List<Resource> listAllResources() {
-        ResourceExample resourceExample = new ResourceExample();
-        resourceExample.createCriteria().andStatusEqualTo(EntityStatus.VALID);
-        return resourceMapper.selectByExample(resourceExample);
-    }
-
     public List<Resource> getResourcesForUser(Integer uid) {
         List<Integer> userRoleIds = getRoleIdsForUser(uid);
         if (CollectionUtils.isEmpty(userRoleIds)) {
@@ -83,14 +78,21 @@ public class PrivilegeService {
 
         RoleResourceRelationExample roleResourceRelationExample = new RoleResourceRelationExample();
         roleResourceRelationExample.createCriteria().andRoleIdIn(userRoleIds);
-        List<RoleResourceRelation> roleResourceRelations = roleResourceRelationMapper.selectByExample(roleResourceRelationExample);
+        roleResourceRelationExample.setOrderByClause(" id desc");
+        List<RoleResourceRelation> roleResourceRelations =
+                roleResourceRelationMapper.selectByExampleWithRowbounds(roleResourceRelationExample, new RowBounds(0, 1));
         if (CollectionUtils.isEmpty(roleResourceRelations)) {
             return Collections.emptyList();
         }
 
+        RoleResourceRelation relation = roleResourceRelations.get(0);
+        if (StringUtils.isBlank(relation.getResourceIds())) {
+            return Collections.emptyList();
+        }
+
         Set<Integer> resourceIds = new HashSet<>();
-        for (RoleResourceRelation relation : roleResourceRelations) {
-            resourceIds.add(relation.getResourceId());
+        for (String rid : relation.getResourceIds().split(SPLIT)) {
+            resourceIds.add(NumberUtils.toInt(rid));
         }
         return getResources(new ArrayList<>(resourceIds));
     }

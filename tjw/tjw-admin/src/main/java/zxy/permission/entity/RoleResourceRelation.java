@@ -1,5 +1,7 @@
 package zxy.permission.entity;
 
+import java.util.Date;
+
 /**
  * 角色与资源的关系
  */
@@ -12,9 +14,19 @@ public class RoleResourceRelation {
     private Integer roleId;
 
     /**
-     * 资源对应ID
+     * 资源对应ID集合
      */
-    private Integer resourceId;
+    private String resourceIds;
+
+    /**
+     * 创建人id
+     */
+    private Integer createUid;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
 
     public Integer getId() {
         return id;
@@ -32,11 +44,27 @@ public class RoleResourceRelation {
         this.roleId = roleId;
     }
 
-    public Integer getResourceId() {
-        return resourceId;
+    public String getResourceIds() {
+        return resourceIds;
     }
 
-    public void setResourceId(Integer resourceId) {
-        this.resourceId = resourceId;
+    public void setResourceIds(String resourceIds) {
+        this.resourceIds = resourceIds == null ? null : resourceIds.trim();
+    }
+
+    public Integer getCreateUid() {
+        return createUid;
+    }
+
+    public void setCreateUid(Integer createUid) {
+        this.createUid = createUid;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

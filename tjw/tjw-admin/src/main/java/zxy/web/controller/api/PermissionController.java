@@ -40,84 +40,76 @@ public class PermissionController extends BaseApiController {
     @Autowired
     private RoleResourceRelationMapper roleResourceRelationMapper;
 
-    public JsonResult check(Resource resource) {
-        if (resource == null) {
-            return JsonResult.buildFail(ResultCode.FAIL);
-        }
-        if (!Utils.validateId(resource.getId())) {
-            return JsonResult.buildFail("ID不合法");
-        }
-        if (StringUtils.isBlank(resource.getName())) {
-            return JsonResult.buildFail("名称不能为空");
-        }
-        if (ResourceType.valueOf(resource.getType()) == null) {
-            return JsonResult.buildFail("类型有误");
-        }
-        return null;
-    }
-
-    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_ADD)
-    @RequestMapping(path="/resource/add")
-    @ResponseBody
-    public Object addResource(Resource resource) {
-        JsonResult jsonResult = check(resource);
-        if (jsonResult != null) {
-            return jsonResult;
-        }
-
-        try {
-            resource.setStatus(EntityStatus.VALID);
-            resourceMapper.insert(resource);
-        } catch (DuplicateKeyException e) {
-            return JsonResult.buildFail("ID已经存在");
-        }
-
-        return JsonResult.buildSuccess(null);
-    }
-
-    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_UPDATE)
-    @RequestMapping(path="/resource/update")
-    @ResponseBody
-    public Object updateResource(Resource resource) {
-        JsonResult jsonResult = check(resource);
-        if (jsonResult != null) {
-            return jsonResult;
-        }
-
-        resourceMapper.updateByPrimaryKeySelective(resource);
-        return JsonResult.buildSuccess(null);
-    }
-
-    private void updateResourceStatus(int id, int status) {
-        Resource resouce = new Resource();
-        resouce.setId(id);
-        resouce.setStatus(status);
-        resourceMapper.updateByPrimaryKeySelective(resouce);
-    }
-
-    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_DELETE)
-    @RequestMapping(path="/resource/delete/{id}")
-    @ResponseBody
-    public Object deleteResource(@PathVariable int id) {
-        updateResourceStatus(id, EntityStatus.DELETE);
-        return JsonResult.buildSuccess(null);
-    }
-
-    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_LOCK)
-    @RequestMapping(path="/resource/lock/{id}")
-    @ResponseBody
-    public Object lockResource(@PathVariable int id) {
-        updateResourceStatus(id, EntityStatus.FORBIDDEN);
-        return JsonResult.buildSuccess(null);
-    }
-
-    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_UNLOCK)
-    @RequestMapping(path="/resource/unlock/{id}")
-    @ResponseBody
-    public Object unlockResource(@PathVariable int id) {
-        updateResourceStatus(id, EntityStatus.VALID);
-        return JsonResult.buildSuccess(null);
-    }
+//    public JsonResult check(Resource resource) {
+//        if (resource == null) {
+//            return JsonResult.buildFail(ResultCode.FAIL);
+//        }
+//        if (!Utils.validateId(resource.getId())) {
+//            return JsonResult.buildFail("ID不合法");
+//        }
+//        if (StringUtils.isBlank(resource.getName())) {
+//            return JsonResult.buildFail("名称不能为空");
+//        }
+//        if (ResourceType.valueOf(resource.getType()) == null) {
+//            return JsonResult.buildFail("类型有误");
+//        }
+//        return null;
+//    }
+//
+//    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_ADD)
+//    @RequestMapping(path="/resource/add")
+//    @ResponseBody
+//    public Object addResource(Resource resource) {
+//        JsonResult jsonResult = check(resource);
+//        if (jsonResult != null) {
+//            return jsonResult;
+//        }
+//
+//        try {
+//            resource.setStatus(EntityStatus.VALID);
+//            resourceMapper.insert(resource);
+//        } catch (DuplicateKeyException e) {
+//            return JsonResult.buildFail("ID已经存在");
+//        }
+//
+//        return JsonResult.buildSuccess(null);
+//    }
+//
+//    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_UPDATE)
+//    @RequestMapping(path="/resource/update")
+//    @ResponseBody
+//    public Object updateResource(Resource resource) {
+//        JsonResult jsonResult = check(resource);
+//        if (jsonResult != null) {
+//            return jsonResult;
+//        }
+//
+//        resourceMapper.updateByPrimaryKeySelective(resource);
+//        return JsonResult.buildSuccess(null);
+//    }
+//
+//    private void updateResourceStatus(int id, int status) {
+//        Resource resouce = new Resource();
+//        resouce.setId(id);
+//        resouce.setStatus(status);
+//        resourceMapper.updateByPrimaryKeySelective(resouce);
+//    }
+//
+//    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_LOCK)
+//    @RequestMapping(path="/resource/lock/{id}")
+//    @ResponseBody
+//    public Object lockResource(@PathVariable int id) {
+//        updateResourceStatus(id, EntityStatus.FORBIDDEN);
+//        return JsonResult.buildSuccess(null);
+//    }
+//
+//    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_UNLOCK)
+//    @RequestMapping(path="/resource/unlock/{id}")
+//    @ResponseBody
+//    public Object unlockResource(@PathVariable int id) {
+//        updateResourceStatus(id, EntityStatus.VALID);
+//        return JsonResult.buildSuccess(null);
+//    }
 
     public JsonResult check(Role role) {
         if (role == null) {
@@ -167,15 +159,7 @@ public class PermissionController extends BaseApiController {
         roleMapper.updateByPrimaryKeySelective(role);
     }
 
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_DELETE)
-    @RequestMapping(path="/role/delete/{id}")
-    @ResponseBody
-    public Object deleteRole(@PathVariable int id) {
-        updateRoleStatus(id, EntityStatus.DELETE);
-        return JsonResult.buildSuccess(null);
-    }
-
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_LOCK)
+    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_LOCK_UNLOCK)
     @RequestMapping(path="/role/lock/{id}")
     @ResponseBody
     public Object lockRole(@PathVariable int id) {
@@ -183,7 +167,7 @@ public class PermissionController extends BaseApiController {
         return JsonResult.buildSuccess(null);
     }
 
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_UNLOCK)
+    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_LOCK_UNLOCK)
     @RequestMapping(path="/role/unlock/{id}")
     @ResponseBody
     public Object unlockRole(@PathVariable int id) {
