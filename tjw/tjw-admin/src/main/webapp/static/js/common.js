@@ -160,6 +160,20 @@ function cutShortUrl(url) {
 }
 
 /**
+ * 获取请求url中的参数值
+ * @param name
+ * @returns {String}
+ */
+function getQueryString(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return unescape(r[2]);
+    }
+    return null;
+}
+
+/**
  * form表单Ajax请求。
  * @param {Object} obj 包含字段：formId、type、shortUrl，success、error
  * @constructor
@@ -208,7 +222,8 @@ function ajax(obj) {
                     callbackForSuccess(obj, retData.result);
                 }
                 else if (retData.status == 10002) {
-                    selfOpen('/auth/login?msg=' + encodeURI('登录超时'));
+                    selfOpen('/auth/login?msg=' + encodeURI('登录超时')
+                        + '&redirect_url=' + encodeURI(window.location));
                 }
                 else {
                     callbackForError(obj, retData.msg);

@@ -58,7 +58,9 @@ public class MyExceptionHandler {
         // 对未登陆的做特殊处理
         if (ex.getCode() == ResultCode.NO_LOGIN) {
             if (!isAjax(request)) {
-                Utils.requestRedirect(response, JspConfig.LOGIN_URL);
+                // 把当前url带回去，在登录完后才可以跳转到原位置
+                Utils.requestRedirect(response,
+                        JspConfig.LOGIN_URL + "?" + JspConfig.REDIRECT_URL_KEY + "=" + request.getRequestURI());
                 return null;
             }
             else {

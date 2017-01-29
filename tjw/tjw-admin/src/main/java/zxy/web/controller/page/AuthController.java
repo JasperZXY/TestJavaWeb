@@ -32,7 +32,7 @@ public class AuthController {
     @Autowired
     private PrivilegeContext privilegeContext;
 
-    @RequestMapping(path="login")
+    @RequestMapping(path = "login")
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response, String account, String password) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("admin/login");
@@ -44,7 +44,13 @@ public class AuthController {
                 SessionManager.setCurrentUser(session, user);
                 privilegeContext.initUserPrivilege(session, user.getId());
 
-                Utils.requestRedirect(response, JspConfig.INDEX_URL);
+                String redirectUrl = request.getParameter(JspConfig.REDIRECT_URL_KEY);
+                if (StringUtils.isNotBlank(redirectUrl)) {
+                    Utils.requestRedirect(response, redirectUrl);
+                }
+                else {
+                    Utils.requestRedirect(response, JspConfig.INDEX_URL);
+                }
                 return null;
             }
             else {
@@ -66,7 +72,7 @@ public class AuthController {
         return modelAndView;
     }
 
-    @RequestMapping(path="logout")
+    @RequestMapping(path = "logout")
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
         SessionManager.setCurrentUser(session, null);

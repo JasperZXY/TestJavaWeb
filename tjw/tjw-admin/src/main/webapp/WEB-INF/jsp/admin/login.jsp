@@ -29,7 +29,7 @@
             ${msg}${param.msg}
         </p>
 
-        <form action="${ctxPath}/auth/login" method="post">
+        <form action="${ctxPath}/auth/login?redirect_url=${param.redirect_url}" method="post">
             <div class="form-group has-feedback">
                 <input name="account" type="text" class="form-control" placeholder="账号">
                 <span class="glyphicon glyphicon-user form-control-feedback"></span>

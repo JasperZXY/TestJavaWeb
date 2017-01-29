@@ -23,7 +23,8 @@ springmvc
 
 
 ## 运行
-注意：要先创建好数据库
+`注意`：要先创建好数据库
+
 - mvn jetty:run -Djetty.port=9696 -Pdev
 - mvn jetty:run -Djetty.port=9696 -Ppro
 
@@ -43,3 +44,4 @@ springmvc
 
 ### 2017-01-29
 1. 提示对话框优化
+2. 登录优化，登录完后跳转回登录前的位置

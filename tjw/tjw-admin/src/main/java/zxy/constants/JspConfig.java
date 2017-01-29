@@ -10,4 +10,5 @@ public interface JspConfig {
     String LOGIN_URL = "/auth/login";
     String ERROR_URL = "/error";
     String KEY_MSG = "msg";
+    String REDIRECT_URL_KEY = "redirect_url";
 }
