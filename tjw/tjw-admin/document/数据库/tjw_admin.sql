@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `account` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='账号';
 
 INSERT INTO `account` (`id`, `password`, `salt`, `status`) VALUES
-	('root', '8612cae08e0b3abb8ad549ba76a24b4989b4d183f0394020d578ce4a99aa8a76', '50f92d1d620e91766c9cbf3dd90324fc', 0)
+	('root', 'b72785c8842eae13a3d063449478e60c8a81ccb9449695d6fce252aaf43b4085', '50f92d1d620e91766c9cbf3dd90324fc', 0)
 	;
 
 -- 导出  表 tjw_admin.user 结构

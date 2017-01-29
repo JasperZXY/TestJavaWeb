@@ -31,7 +31,7 @@ public class UserServiceTest {
         User user = new User();
         user.setAccountId("root");
         user.setName("root用户");
-        String password = "1234456";
+        String password = "zxy@123";
 
         String result = userService.add(user, password);
         System.out.println("result :" + result);
@@ -42,7 +42,7 @@ public class UserServiceTest {
         User user = new User();
         user.setAccountId("root");
         user.setName("root用户");
-        String password = "1234456";
+        String password = "zxy@123";
 
         try {
             String result = userService.add(user, password);

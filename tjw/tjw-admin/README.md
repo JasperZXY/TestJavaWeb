@@ -23,6 +23,7 @@ springmvc
 
 
 ## 运行
+注意：要先创建好数据库
 - mvn jetty:run -Djetty.port=9696 -Pdev
 - mvn jetty:run -Djetty.port=9696 -Ppro
 
