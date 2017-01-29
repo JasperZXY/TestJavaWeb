@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>测试文件上传</title>
+</head>
+<body>
+	<script type="text/javascript" src="jquery-3.1.0.js"></script>
+
+	<div>表单异步提交</div>
+	<form id="uploadForm1" method="post" enctype="multipart/form-data" onchange="uploadFile()">
+		<p>
+			选择文件:<input type="file" name="file" id="file1">
+		</p>
+	</form>
+
+	<br/>
+	<div>表单同步提交</div>
+	<form id="uploadForm2" method="post" enctype="multipart/form-data" action="http://java.zxy:8083/tjw-springmvc/test/file/upload">
+		<p>
+			选择文件:<input type="file" name="file">
+			<button type="submit">submit</button>
+		</p>
+	</form>
+
+
+</body>
+
+<script type="text/javascript">
+	var url = 'http://java.zxy:8083/tjw-springmvc/test/file/upload';
+	function uploadFile() {
+		$.ajax({
+			url : url,
+			type : 'POST',
+		    cache: false,
+			dataType : "json",
+			data : new FormData($('#uploadForm1')[0]),
+			processData: false,
+			contentType: false,
+			xhrFields: {    // 使用cookie
+				withCredentials: true
+			},
+			success: function(result) {
+		        alert("success:"  + JSON.stringify(result));
+		    },
+			error: function(result, status) {
+		        alert("error:"  + JSON.stringify(result) + " status:" + status);
+		    }
+		})
+	}
+
+</script>
+</html>

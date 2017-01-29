@@ -6,8 +6,10 @@
     <h1>
         ${window_title}
         <small>用户管理</small>
-        <button class="btn btn-sm btn-info" onclick="selfOpen('/user/to_add')">新增</button>
-    </h1>
+        <permisssion:pass code="3002">
+            <button class="btn btn-sm btn-info" onclick="selfOpen('/user/to_add')">新增</button>
+        </permisssion:pass>
+        </h1>
     <ol class="breadcrumb">
         <li><a href="${index_url}"><i class="fa fa-dashboard"></i> 首页</a></li>
         <li class="active">用户管理</li>
@@ -27,10 +29,11 @@
                                    placeholder="昵称" value="${name}">
                         </div>
                         <div class="col-md-2">
-                            <select id="search_status" class="form-control" init-value="${status}" select-init>
+                            <select id="search_status" class="form-control" init-value="${status}">
                                 <option value="">所有</option>
                                 <option value="0">有效</option>
-                                <option value="1">无效</option>
+                                <option value="1">已删</option>
+                                <option value="2">冻结</option>
                             </select>
                         </div>
                         <div class="col-md-1">
@@ -50,13 +53,16 @@
                             <th>生日</th>
                             <th>状态</th>
                             <th>操作</th>
+                        <permisssion:pass code="3006">
+                            <th>协助修改密码</th>
+                        </permisssion:pass>
                         </tr>
                         </thead>
                         <tbody>
                         <c:forEach var="user" items="${page.result }" varStatus="status">
                             <tr id="tr_user_${user.id }">
                                 <td>${user.id }</td>
-                                <td>${user.account }</td>
+                                <td>${user.accountId }</td>
                                 <td>${user.name }</td>
                                 <td><fmt:formatDate value="${user.birthday}" pattern="yyyy-MM-dd"/></td>
                                 <td>
@@ -64,12 +70,47 @@
                                         <span class="text-green">有效</span>
                                     </c:if>
                                     <c:if test="${user.status == 1}">
-                                        <span class="text-red">无效</span>
+                                        <span class="text-red">已删</span>
+                                    </c:if>
+                                    <c:if test="${user.status == 2}">
+                                        <span class="text-red">冻结</span>
                                     </c:if>
                                 </td>
                                 <td>
-                                    <a class="btn btn-sm btn-warning" href="${ctxPath}/user/to_update/${user.id }">编辑</a>
-                                    <a class="btn btn-sm btn-danger" onclick="deleteUser(${user.id })">删除</a>
+                                    <c:if test="${user.status != 1}">
+                                        <permisssion:pass code="2007">
+                                            <a class="btn btn-sm btn-info" href="${ctxPath}/permission/role/to_assign/foruser/${user.id }">指定角色</a>
+                                        </permisssion:pass>
+                                        <permisssion:pass code="3003">
+                                            <a class="btn btn-sm btn-info" href="${ctxPath}/user/to_update/${user.id }">编辑</a>
+                                        </permisssion:pass>
+                                        <permisssion:pass code="3004">
+                                            <a class="btn btn-sm btn-danger" onclick="optionUser(${user.id }, 'delete')">删除</a>
+                                        </permisssion:pass>
+                                        <c:if test="${user.status == 0}">
+                                            <permisssion:pass code="3005">
+                                                <a class="btn btn-sm btn-warning" onclick="optionUser(${user.id }, 'lock')">冻结</a>
+                                            </permisssion:pass>
+                                        </c:if>
+                                        <c:if test="${user.status == 2}">
+                                            <permisssion:pass code="3005">
+                                                <a class="btn btn-sm btn-danger" onclick="optionUser(${user.id }, 'unlock')">解冻</a>
+                                            </permisssion:pass>
+                                        </c:if>
+                                    </c:if>
+                                </td>
+                                <td>
+                                    <c:if test="${user.status != 1}">
+                                        <permisssion:pass code="3006">
+                                            <div id="change_password_${user.id}" class="input-group">
+                                                <input type="hidden" class="accountId" value="${user.accountId}" />
+                                                <input type="password" class="form-control password" placeholder="密码" value="">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-danger" type="button" onclick="changePassword(${user.id})">提交</button>
+                                                </span>
+                                            </div>
+                                        </permisssion:pass>
+                                    </c:if>
                                 </td>
                             </tr>
                         </c:forEach>
@@ -82,6 +123,9 @@
                             <th>生日</th>
                             <th>状态</th>
                             <th>操作</th>
+                            <permisssion:pass code="3006">
+                                <th>协助修改密码</th>
+                            </permisssion:pass>
                         </tr>
                         </tfoot>
                     </table>
@@ -104,14 +148,30 @@
                 + '&status=' + $('#search_status option:selected').val()
                 , '_self');
     }
-    function deleteUser(id) {
+    function optionUser(id, option) {
         ajax({
-            shortUrl: '/api/user/delete/' + id,
+            shortUrl: '/api/user/' + option + '/' + id,
             success: function () {
-                $('#tr_user_' + id).remove();
+                location.reload();
             },
             error: function (msg) {
-                alert('删除失败：' + msg);
+                alert('操作失败：' + msg);
+            }
+        });
+    }
+    function changePassword(uid) {
+        ajax({
+            shortUrl: '/api/user/help/change/password',
+            data : {
+                accountId : $('#change_password_' + uid).children('.accountId').val(),
+                password : $('#change_password_' + uid).children('.password').val(),
+            },
+            success: function () {
+                $('#change_password_' + uid).children('.password').val('');
+                alert('成功');
+            },
+            error: function (msg) {
+                alert('操作失败：' + msg);
             }
         });
     }

@@ -42,6 +42,10 @@ public class JsonPrettyUtils {
 	}
 	
 	public static String toString(Object obj) {
+		if (obj == null) {
+			return "{}";
+		}
+
 		try {
 			return mapper.writeValueAsString(obj);
 		} catch (Exception e) {

@@ -1,38 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xsi:schemaLocation="
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xsi:schemaLocation="
     http://www.springframework.org/schema/beans 
-    http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
-    http://www.springframework.org/schema/context
-    http://www.springframework.org/schema/context/spring-context-3.2.xsd
+    http://www.springframework.org/schema/beans/spring-beans.xsd
     http://www.springframework.org/schema/mvc
-    http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd
     ">
-    
+
     <!-- 自动扫描且只扫描@Controller -->
-    <context:component-scan base-package="com.jasper.demo.springmvc" >
+    <!--<context:component-scan base-package="com.jasper.demo.springmvc" >
     	<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 		<context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
-    </context:component-scan>
-    
-   	<!-- 属性配置文件，然后就可以在Controller中使用@Value了 -->
-	<import resource="classpath*:spring/appContext-property.xml" />
+    </context:component-scan>-->
+
+    <!-- 属性配置文件，然后就可以在Controller中使用@Value了 -->
+    <!--<import resource="classpath*:spring/appContext-property.xml" />-->
 
     <!-- 拦截器 -->
-    <!--<mvc:interceptors>
-        <bean class="com.jasper.demo.springmvc.controller.handler.LogInterceptor" />
-    </mvc:interceptors>-->
-	
-	<!-- upload settings -->
-	<bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	    <property name="maxUploadSize" value="102400000"></property>
-	</bean>
-	
+    <mvc:interceptors>
+        <bean class="com.jasper.demo.springmvc.controller.handler.MyHandlerInterceptor"/>
+    </mvc:interceptors>
+
+    <!-- cors支持 -->
+    <mvc:cors>
+        <mvc:mapping path="/**"
+                     allowed-origins="http://html1.zxy:8083,http://html.zxy:8083,http://dev.html.zxy:8083"/>
+    </mvc:cors>
+
+    <!-- upload settings -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="102400000"></property>
+    </bean>
+
     <!-- 添加注解驱动 -->
-    <mvc:annotation-driven />
+    <mvc:annotation-driven/>
     <!-- 定义跳转的文件的前后缀 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-        <property name="prefix" value="/WEB-INF/jsp/" />
-        <property name="suffix" value=".jsp" />
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
     </bean>
     <!-- 静态资源 -->
     <!--<mvc:resources mapping="/static/**" location="/static" />

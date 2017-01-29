@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController extends BasePageController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
@@ -56,9 +56,14 @@ public class UserController {
 
     @RequestMapping(path="/to_update/{id}")
     public ModelAndView toUpdate(@PathVariable int id) {
+        User user = userService.getValidUser(id);
+        if (user == null) {
+            return toErrorView("没有找到该用户");
+        }
+
         ModelAndView mv = new ModelAndView();
         mv.setViewName("user/update");
-        mv.addObject("user", userService.getById(id));
+        mv.addObject("user", user);
         return mv;
     }
 

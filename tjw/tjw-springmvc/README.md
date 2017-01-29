@@ -24,6 +24,16 @@ mvn jetty:run -Djetty.port=8083 -Ppro
 2. 编写logback.xml
 3. 配置web.xml
 
+## 跨域文件上传
+说明：在用WebMvcConfigurerAdapter做全局的实现时，一直无法生效，只能改用xml配置进行全局配置
+
+测试的时候，需要配置host
+```
+127.0.0.1 java.zxy
+127.0.0.1 html.zxy
+```
+对应的页面  http://html.zxy:8083/tjw-springmvc/static/uploadtest.html
+
 
 ## 部分接口
 http://127.0.0.1:8083/tjw-springmvc/user/hello

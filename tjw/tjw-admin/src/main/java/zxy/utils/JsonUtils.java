@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class JsonUtils {
+public abstract class JsonUtils {
 	
 	private static final Logger logger = LoggerFactory.getLogger(JsonUtils.class);
 	private static ObjectMapper mapper = new ObjectMapper();
@@ -42,6 +42,9 @@ public class JsonUtils {
 	}
 	
 	public static String toString(Object obj) {
+		if (obj == null) {
+			return "{}";
+		}
 		try {
 			return mapper.writeValueAsString(obj);
 		} catch (Exception e) {

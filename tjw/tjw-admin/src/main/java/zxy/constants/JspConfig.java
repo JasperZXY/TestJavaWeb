@@ -6,4 +6,8 @@ public interface JspConfig {
     String WINDOW_TITLE = "window_title";
     Integer PAGE_SIZE_DEFAULT = 20;
     Integer PAGE_SIZE_MAX = 200;
+    String INDEX_URL = "/";
+    String LOGIN_URL = "/auth/login";
+    String ERROR_URL = "/error";
+    String KEY_MSG = "msg";
 }

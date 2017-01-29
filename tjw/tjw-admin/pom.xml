@@ -23,8 +23,10 @@
         <spring_version>4.3.4.RELEASE</spring_version>
         <jackson_version>2.7.4</jackson_version>
         <commons_lang3_ver>3.5</commons_lang3_ver>
+        <commons_collections_ver>3.2.2</commons_collections_ver>
         <mybatis.version>3.3.1</mybatis.version>
         <mybatis-spring.version>1.2.3</mybatis-spring.version>
+        <jpinyin_ver>1.1.8</jpinyin_ver>
     </properties>
 
     <dependencies>
@@ -46,6 +48,12 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.2</version>
             <scope>provided</scope>
         </dependency>
 
@@ -123,6 +131,11 @@
             <artifactId>commons-lang3</artifactId>
             <version>${commons_lang3_ver}</version>
         </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>${commons_collections_ver}</version>
+        </dependency>
 
         <!-- mysql连接 -->
         <dependency>
@@ -149,6 +162,13 @@
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
             <version>${mybatis-spring.version}</version>
+        </dependency>
+
+        <!-- 拼音 -->
+        <dependency>
+            <groupId>com.github.stuxuhai</groupId>
+            <artifactId>jpinyin</artifactId>
+            <version>${jpinyin_ver}</version>
         </dependency>
     </dependencies>
 

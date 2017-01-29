@@ -3,7 +3,7 @@ package zxy.entity;
 import java.util.Date;
 
 /**
- * 用户（后续account跟password要分开）
+ * 用户
  */
 public class User {
     /**
@@ -12,14 +12,9 @@ public class User {
     private Integer id;
 
     /**
-     * 账号名，登录用
+     * 账号对应ID
      */
-    private String account;
-
-    /**
-     * 密码，登录用
-     */
-    private String password;
+    private String accountId;
 
     /**
      * 用户昵称
@@ -49,20 +44,12 @@ public class User {
         this.id = id;
     }
 
-    public String getAccount() {
-        return account;
+    public String getAccountId() {
+        return accountId;
     }
 
-    public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setAccountId(String accountId) {
+        this.accountId = accountId == null ? null : accountId.trim();
     }
 
     public String getName() {

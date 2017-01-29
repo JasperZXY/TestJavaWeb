@@ -12,7 +12,7 @@
     </h1>
     <ol class="breadcrumb">
         <li><a href="${index_url}"><i class="fa fa-dashboard"></i> 首页</a></li>
-        <li><a href="/user/list">用户管理</a></li>
+        <li><a href="${ctxPath}/user/list">用户管理</a></li>
         <li class="active">编辑用户</li>
     </ol>
 </section>
@@ -31,21 +31,9 @@
                         <input name="id" type="hidden" value="${user.id}" />
                         <input name="status" type="hidden" value="${user.status}" />
                         <div class="form-group">
-                            <label for="account" class="col-sm-2 control-label">账号</label>
+                            <label for="accountId" class="col-sm-2 control-label">账号</label>
                             <div class="col-sm-6">
-                                <input id="account" name="account" type="text" readonly value="${user.account}" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="password" class="col-sm-2 control-label">密码</label>
-                            <div class="col-sm-6">
-                                <input id="password" name="password" type="password" value="${user.password}" class="form-control">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="passwordConfirm" class="col-sm-2 control-label">密码</label>
-                            <div class="col-sm-6">
-                                <input id="passwordConfirm" name="passwordConfirm" type="password" value="${user.password}" class="form-control">
+                                <input id="accountId" name="accountId" type="text" readonly value="${user.accountId}" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
@@ -87,10 +75,6 @@
 <script>
     function updateUser() {
         $('#resultTip').html('处理中。。。');
-        if ($('#password').val() != $('#passwordConfirm').val()) {
-            $('#resultTip').html('两次密码不一致');
-            return;
-        }
 
         ajaxForm({
             formId: "formForUpdate",
