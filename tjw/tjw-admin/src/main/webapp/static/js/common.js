@@ -101,7 +101,7 @@ function menuInit() {
 function dealMenu(expectUrl, childrenLi) {
     for (var i = 0; i < childrenLi.length; i++) {
         var childrenItem = $(childrenLi[i]);
-        printLog("item: " + childrenItem.html());
+        //printLog("item: " + childrenItem.html());
         var aChild = childrenItem.children('a');
         if (aChild.length > 0) {
             for (var j = 0; j < aChild.length; j++) {
@@ -114,7 +114,7 @@ function dealMenu(expectUrl, childrenLi) {
         }
 
         var ulChile = childrenItem.children('ul');
-        printLog("ulChile:" + ulChile.length);
+        //printLog("ulChile:" + ulChile.length);
         if (ulChile.length > 0) {
             for (var j = 0; j < ulChile.length; j++) {
                 // 递归调用
