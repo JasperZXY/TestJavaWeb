@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import zxy.JsonPrettyUtils;
 import zxy.JunitUtils;
 import zxy.permission.entity.Resource;
-import zxy.permission.support.PrivilegeService;
+import zxy.permission.support.PermissionService;
 
 import java.util.List;
 
@@ -18,7 +18,7 @@ import java.util.List;
 @ContextConfiguration(locations = { "classpath:spring/applicationContext.xml" })
 public class PrivilegeServiceTest {
     @Autowired
-    private PrivilegeService privilegeService;
+    private PermissionService privilegeService;
 
     @Test
     public void getResourcesForUser() {

@@ -3,8 +3,8 @@ package zxy.common;
 /**
  * 权限编码
  */
-public interface PrivilegeCode {
-    int PRIVILEGES = 1;
+public interface PermissionCode {
+    int PERMISSIONS = 1;
 
     // 资源相关
     int RESOURCE_ACCESS = 1001;

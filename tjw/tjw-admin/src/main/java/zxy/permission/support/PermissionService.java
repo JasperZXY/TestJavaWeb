@@ -17,7 +17,7 @@ import java.util.*;
 
 // TODO 这部分代码需要抽离，已经跟业务关联在一起了
 @Service
-public class PrivilegeService {
+public class PermissionService {
     @Autowired
     private ResourceMapper resourceMapper;
     @Autowired

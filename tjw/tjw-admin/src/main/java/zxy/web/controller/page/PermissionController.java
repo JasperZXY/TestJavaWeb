@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import zxy.common.PrivilegeCode;
+import zxy.common.PermissionCode;
 import zxy.common.ResultCode;
 import zxy.constants.EntityStatus;
 import zxy.permission.dao.ResourceMapper;
@@ -15,8 +15,8 @@ import zxy.permission.dao.RoleMapper;
 import zxy.permission.dao.RoleResourceRelationMapper;
 import zxy.permission.dao.UserRoleRelationMapper;
 import zxy.permission.entity.*;
-import zxy.permission.support.PrivilegeAnnotation;
-import zxy.permission.support.PrivilegeService;
+import zxy.permission.support.PermissionAnnotation;
+import zxy.permission.support.PermissionService;
 import zxy.permission.support.ResourceType;
 import zxy.service.InitService;
 import zxy.service.UserService;
@@ -44,11 +44,11 @@ public class PermissionController extends BasePageController {
     @Autowired
     private InitService initService;
     @Autowired
-    private PrivilegeService privilegeService;
+    private PermissionService permissionService;
     @Autowired
     private UserService userService;
 
-    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_ACCESS)
+    @PermissionAnnotation(code = PermissionCode.RESOURCE_ACCESS)
     @RequestMapping(path="/resource/list/all")
     public ModelAndView listAllResources() {
         ModelAndView modelAndView = new ModelAndView();
@@ -57,7 +57,7 @@ public class PermissionController extends BasePageController {
         return modelAndView;
     }
 
-//    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_ADD)
+//    @PermissionAnnotation(code = PermissionCode.RESOURCE_ADD)
 //    @RequestMapping(path="/resource/to_add")
 //    public ModelAndView toAddResource() {
 //        ModelAndView modelAndView = new ModelAndView();
@@ -65,7 +65,7 @@ public class PermissionController extends BasePageController {
 //        return modelAndView;
 //    }
 //
-//    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_UPDATE)
+//    @PermissionAnnotation(code = PermissionCode.RESOURCE_UPDATE)
 //    @RequestMapping(path="/resource/to_update/{id}")
 //    public ModelAndView toUpdateResource(@PathVariable int id) {
 //        Resource resource = resourceMapper.selectByPrimaryKey(id);
@@ -79,7 +79,7 @@ public class PermissionController extends BasePageController {
 //        return modelAndView;
 //    }
 
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_ACCESS)
+    @PermissionAnnotation(code = PermissionCode.ROLE_ACCESS)
     @RequestMapping(path="/role/list/all")
     public ModelAndView listAllRoles() {
         ModelAndView modelAndView = new ModelAndView();
@@ -88,7 +88,7 @@ public class PermissionController extends BasePageController {
         return modelAndView;
     }
 
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_ADD)
+    @PermissionAnnotation(code = PermissionCode.ROLE_ADD)
     @RequestMapping(path="/role/to_add")
     public ModelAndView toAddRole() {
         ModelAndView modelAndView = new ModelAndView();
@@ -96,7 +96,7 @@ public class PermissionController extends BasePageController {
         return modelAndView;
     }
 
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_UPDATE)
+    @PermissionAnnotation(code = PermissionCode.ROLE_UPDATE)
     @RequestMapping(path="/role/to_update/{id}")
     public ModelAndView toUpdateRole(@PathVariable int id) {
         Role role = roleMapper.selectByPrimaryKey(id);
@@ -111,7 +111,7 @@ public class PermissionController extends BasePageController {
     }
 
     // 给角色分配资源
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_ALLOCATE_RESOURCE)
+    @PermissionAnnotation(code = PermissionCode.ROLE_ALLOCATE_RESOURCE)
     @RequestMapping(path="/role/to_allocate/resource/{id}")
     public ModelAndView roleAllocationResource(@PathVariable int id) {
         Role role = roleMapper.selectByPrimaryKey(id);
@@ -122,7 +122,7 @@ public class PermissionController extends BasePageController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("permission/role/resource");
         modelAndView.addObject("role", role);
-        modelAndView.addObject("resourceIdsForRole", Utils.toString(privilegeService.getResourceIdsForRole(id)));
+        modelAndView.addObject("resourceIdsForRole", Utils.toString(permissionService.getResourceIdsForRole(id)));
 
         List<Resource> allResources = new ArrayList<>(initService.getAllResources());
         Collections.sort(allResources, new Comparator<Resource>() {
@@ -156,14 +156,14 @@ public class PermissionController extends BasePageController {
     }
 
     // 给用户指定角色
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_ASSIGN_USER_ROLE)
+    @PermissionAnnotation(code = PermissionCode.ROLE_ASSIGN_USER_ROLE)
     @RequestMapping(path="/role/to_assign/foruser/{uid}")
     public ModelAndView toAssignRoleForUser(@PathVariable int uid) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("permission/role/foruser");
         modelAndView.addObject("user", userService.getValidUser(uid));
-        modelAndView.addObject("userRoleIds", Utils.toString(privilegeService.getRoleIdsForUser(uid)));
-        modelAndView.addObject("allRoles", privilegeService.getAllValidRoles());
+        modelAndView.addObject("userRoleIds", Utils.toString(permissionService.getRoleIdsForUser(uid)));
+        modelAndView.addObject("allRoles", permissionService.getAllValidRoles());
         return modelAndView;
     }
 

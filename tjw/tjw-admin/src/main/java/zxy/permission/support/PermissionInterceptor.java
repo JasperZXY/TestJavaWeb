@@ -14,18 +14,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @see zxy.permission.support.NoPermissionException
  */
-@ControllerAdvice("privilegeInterceptor")
-public class PrivilegeInterceptor implements HandlerInterceptor {
+@ControllerAdvice("permissionInterceptor")
+public class PermissionInterceptor implements HandlerInterceptor {
     @Autowired
-    private PrivilegeContext privilegeContext;
+    private PermissionContext permissionContext;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
             HandlerMethod method = (HandlerMethod)handler;
-            PrivilegeAnnotation permissionAnnotation = method.getMethodAnnotation(PrivilegeAnnotation.class);
+            PermissionAnnotation permissionAnnotation = method.getMethodAnnotation(PermissionAnnotation.class);
             if (permissionAnnotation != null) {
-                if (!privilegeContext.pass(request.getSession(false), permissionAnnotation.code())) {
+                if (!permissionContext.pass(request.getSession(false), permissionAnnotation.code())) {
                     throw new NoPermissionException();
                 }
             }

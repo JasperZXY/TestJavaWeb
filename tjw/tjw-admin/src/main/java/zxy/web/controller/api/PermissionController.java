@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import zxy.common.JsonResult;
-import zxy.common.PrivilegeCode;
+import zxy.common.PermissionCode;
 import zxy.common.ResultCode;
 import zxy.constants.EntityStatus;
 import zxy.permission.dao.ResourceMapper;
@@ -20,8 +20,8 @@ import zxy.permission.entity.Role;
 import zxy.permission.entity.RoleResourceRelation;
 import zxy.permission.entity.UserRoleRelation;
 import zxy.permission.entity.UserRoleRelationExample;
-import zxy.permission.support.PrivilegeAnnotation;
-import zxy.permission.support.PrivilegeService;
+import zxy.permission.support.PermissionAnnotation;
+import zxy.permission.support.PermissionService;
 import zxy.utils.Utils;
 import zxy.web.SessionManager;
 
@@ -45,7 +45,7 @@ public class PermissionController extends BaseApiController {
     @Autowired
     private RoleResourceRelationMapper roleResourceRelationMapper;
     @Autowired
-    private PrivilegeService privilegeService;
+    private PermissionService permissionService;
 
 //    public JsonResult check(Resource resource) {
 //        if (resource == null) {
@@ -63,7 +63,7 @@ public class PermissionController extends BaseApiController {
 //        return null;
 //    }
 //
-//    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_ADD)
+//    @PermissionAnnotation(code = PermissionCode.RESOURCE_ADD)
 //    @RequestMapping(path="/resource/add")
 //    @ResponseBody
 //    public Object addResource(Resource resource) {
@@ -82,7 +82,7 @@ public class PermissionController extends BaseApiController {
 //        return JsonResult.buildSuccess(null);
 //    }
 //
-//    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_UPDATE)
+//    @PermissionAnnotation(code = PermissionCode.RESOURCE_UPDATE)
 //    @RequestMapping(path="/resource/update")
 //    @ResponseBody
 //    public Object updateResource(Resource resource) {
@@ -102,7 +102,7 @@ public class PermissionController extends BaseApiController {
 //        resourceMapper.updateByPrimaryKeySelective(resouce);
 //    }
 //
-//    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_LOCK)
+//    @PermissionAnnotation(code = PermissionCode.RESOURCE_LOCK)
 //    @RequestMapping(path="/resource/lock/{id}")
 //    @ResponseBody
 //    public Object lockResource(@PathVariable int id) {
@@ -110,7 +110,7 @@ public class PermissionController extends BaseApiController {
 //        return JsonResult.buildSuccess(null);
 //    }
 //
-//    @PrivilegeAnnotation(code = PrivilegeCode.RESOURCE_UNLOCK)
+//    @PermissionAnnotation(code = PermissionCode.RESOURCE_UNLOCK)
 //    @RequestMapping(path="/resource/unlock/{id}")
 //    @ResponseBody
 //    public Object unlockResource(@PathVariable int id) {
@@ -128,7 +128,7 @@ public class PermissionController extends BaseApiController {
         return null;
     }
 
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_ADD)
+    @PermissionAnnotation(code = PermissionCode.ROLE_ADD)
     @RequestMapping(path="/role/add")
     @ResponseBody
     public Object addRole(Role role) {
@@ -143,7 +143,7 @@ public class PermissionController extends BaseApiController {
         return JsonResult.buildSuccess(role.getId());
     }
 
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_UPDATE)
+    @PermissionAnnotation(code = PermissionCode.ROLE_UPDATE)
     @RequestMapping(path="/role/update")
     @ResponseBody
     public Object updateRole(Role role) {
@@ -166,7 +166,7 @@ public class PermissionController extends BaseApiController {
         roleMapper.updateByPrimaryKeySelective(role);
     }
 
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_LOCK_UNLOCK)
+    @PermissionAnnotation(code = PermissionCode.ROLE_LOCK_UNLOCK)
     @RequestMapping(path="/role/lock/{id}")
     @ResponseBody
     public Object lockRole(@PathVariable int id) {
@@ -174,7 +174,7 @@ public class PermissionController extends BaseApiController {
         return JsonResult.buildSuccess(null);
     }
 
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_LOCK_UNLOCK)
+    @PermissionAnnotation(code = PermissionCode.ROLE_LOCK_UNLOCK)
     @RequestMapping(path="/role/unlock/{id}")
     @ResponseBody
     public Object unlockRole(@PathVariable int id) {
@@ -182,7 +182,7 @@ public class PermissionController extends BaseApiController {
         return JsonResult.buildSuccess(null);
     }
 
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_ALLOCATE_RESOURCE)
+    @PermissionAnnotation(code = PermissionCode.ROLE_ALLOCATE_RESOURCE)
     @RequestMapping(path="/role/allocate/resource/{id}")
     @ResponseBody
     public Object roleAllocateResource(HttpServletRequest request, @PathVariable int id, String resourceIds) {
@@ -190,11 +190,11 @@ public class PermissionController extends BaseApiController {
         roleResourceRelation.setCreateUid(SessionManager.getCurrentUserId(request.getSession()));
         roleResourceRelation.setRoleId(id);
         roleResourceRelation.setResourceIds(resourceIds);
-        privilegeService.addRoleResourceRelation(roleResourceRelation);
+        permissionService.addRoleResourceRelation(roleResourceRelation);
         return JsonResult.buildSuccess(null);
     }
 
-    @PrivilegeAnnotation(code = PrivilegeCode.ROLE_ASSIGN_USER_ROLE)
+    @PermissionAnnotation(code = PermissionCode.ROLE_ASSIGN_USER_ROLE)
     @RequestMapping(path="/role/assign/foruser/{uid}")
     @ResponseBody
     public Object assignRoleForUser(HttpServletRequest request, @PathVariable int uid, String roleIds) {

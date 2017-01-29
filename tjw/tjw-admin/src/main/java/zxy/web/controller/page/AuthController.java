@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import zxy.constants.JspConfig;
 import zxy.entity.User;
-import zxy.permission.support.PrivilegeContext;
+import zxy.permission.support.PermissionContext;
 import zxy.service.AccountService;
 import zxy.service.UserService;
 import zxy.utils.Utils;
@@ -30,7 +30,7 @@ public class AuthController {
     @Autowired
     private UserService userService;
     @Autowired
-    private PrivilegeContext privilegeContext;
+    private PermissionContext permissionContext;
 
     @RequestMapping(path = "login")
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response, String account, String password) {
@@ -42,7 +42,7 @@ public class AuthController {
                 User user = userService.getUserByAccount(account);
                 HttpSession session = request.getSession();
                 SessionManager.setCurrentUser(session, user);
-                privilegeContext.initUserPrivilege(session, user.getId());
+                permissionContext.initUserPermission(session, user.getId());
 
                 String redirectUrl = request.getParameter(JspConfig.REDIRECT_URL_KEY);
                 if (StringUtils.isNotBlank(redirectUrl)) {
