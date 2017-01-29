@@ -24,4 +24,4 @@ springmvc
 - http://127.0.0.1:9696/admin/api
 - http://127.0.0.1:9696/admin/demo/1
 - http://127.0.0.1:9696/admin/demo/2
-- http://127.0.0.1:9696/admin/demo2string  
+- http://127.0.0.1:9696/admin/demo2string
