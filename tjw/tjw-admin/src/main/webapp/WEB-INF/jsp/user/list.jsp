@@ -155,7 +155,7 @@
                 location.reload();
             },
             error: function (msg) {
-                alert('操作失败：' + msg);
+                showTips('操作失败：' + msg, 'error');
             }
         });
     }
@@ -168,10 +168,10 @@
             },
             success: function () {
                 $('#change_password_' + uid).children('.password').val('');
-                alert('成功');
+                showTips('成功', 'success');
             },
             error: function (msg) {
-                alert('操作失败：' + msg);
+                showTips('操作失败：' + msg, 'error');
             }
         });
     }

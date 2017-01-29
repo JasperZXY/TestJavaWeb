@@ -86,10 +86,10 @@ function assignRoleForUser() {
         shortUrl:"/api/permission/role/assign/foruser/" + $('#userId').val(),
         data : {roleIds:$("#roleIds").val()},
         success : function() {
-            alert('成功');
+            showTips("成功", 'success');
         },
         error : function() {
-            alert('失败');
+            showTips("失败", 'error');
         }
     });
 }

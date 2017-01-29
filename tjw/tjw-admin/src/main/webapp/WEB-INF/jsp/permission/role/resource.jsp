@@ -95,10 +95,10 @@ function allocateResource() {
         shortUrl:"/api/permission/role/allocate/resource/" + $('#roleId').val(),
         data : {resourceIds:$("#resourceIds").val()},
         success : function() {
-            alert('成功');
+            showTips("成功", 'success');
         },
         error : function() {
-            alert('失败');
+            showTips("失败", 'error');
         }
     });
 }

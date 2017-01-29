@@ -98,7 +98,7 @@
                 location.reload();  // 成功后直接刷新界面，简单处理
             },
             error: function (msg) {
-                alert('操作失败：' + msg);
+                showTips('操作失败：' + msg, 'error');
             }
         });
     }

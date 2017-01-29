@@ -19,6 +19,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="${ctxPath}/static/AdminLTE/css/AdminLTE.min.css">
     <link rel="stylesheet" href="${ctxPath}/static/AdminLTE/css/skins/_all-skins.min.css">
+    <!-- jQuery toast -->
+    <link rel="stylesheet" href="${ctxPath}/static/plugins/jQueryToast/css/jquery.toast.css">
 
     <!-- JS -->
     <!-- jQuery 2.2.3 -->
@@ -33,6 +35,8 @@
     <script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.js"></script>
     <script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
     <script src="${ctxPath}/static/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+    <!-- jQuery toast -->
+    <script src="${ctxPath}/static/plugins/jQueryToast/js/jquery.toast.js"></script>
     <!-- 自定义JS -->
     <script src="${ctxPath}/static/js/common.js?version=4"></script>
     <script>

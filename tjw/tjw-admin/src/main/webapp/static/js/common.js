@@ -86,8 +86,8 @@ function toPageUrl(shortUrl, topage) {
 function menuInit() {
     var url = location.href;
     //printLog("menuInit url:" + url);
-    var au = actualUrl(url);
-    //printLog("actualUrl url:" + au);
+    var au = cutShortUrl(url);
+    //printLog("cutShortUrl url:" + au);
 
     dealMenu(au, $('#sidebar-menus').children('li'));
 }
@@ -132,7 +132,7 @@ function dealMenu(expectUrl, childrenLi) {
  * @param url {string}
  * @returns {string}
  */
-function actualUrl(url) {
+function cutShortUrl(url) {
     var urlIndex = -1;
     var retUrl = url;
 
@@ -261,3 +261,38 @@ function findInArray(array, data) {
     }
     return false;
 }
+
+// --------------------------
+// ======弹窗提示 start======
+// --------------------------
+/**
+ * 展示提示
+ * @param text 提示文字
+ * @param type 类型，默认info，可取success、info、warning、error
+ * @param duration 持续时间，默认1.5秒，毫秒
+ */
+function showTips(text, type, duration) {
+    if (!isHasText(type)) {
+        type = 'info';
+    }
+    if (!isHasText(duration)) {
+        duration = 1500;
+    }
+    $.toast({
+        text: text, // Text that is to be shown in the toast
+        heading: '', // Optional heading to be shown on the toast
+        icon: type, // Type of toast icon
+        showHideTransition: 'fade', // fade, slide or plain
+        allowToastClose: false, // Boolean value true or false
+        hideAfter: duration, // false to make it sticky or number representing the miliseconds as time after which toast needs to be hidden
+        stack: 5, // false if there should be only one toast at a time or a number representing the maximum number of toasts to be shown at a time
+        position: 'mid-center', // bottom-left or bottom-right or bottom-center or top-left or top-right or top-center or mid-center or an object representing the left, right, top, bottom values
+        textAlign: 'left',  // Text alignment i.e. left, right or center
+        loader: false,  // Whether to show loader or not. True by default
+        loaderBg: '#000000',  // Background color of the toast loader
+    });
+}
+
+// --------------------------
+// ======弹窗提示 end  ======
+// --------------------------
