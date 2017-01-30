@@ -1,4 +1,4 @@
-package zxy.permission.support;
+package zxy.permission;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -15,7 +15,6 @@ import zxy.permission.entity.*;
 
 import java.util.*;
 
-// TODO 这部分代码需要抽离，已经跟业务关联在一起了
 @Service
 public class PermissionService {
     @Autowired
@@ -34,35 +33,8 @@ public class PermissionService {
         this.resourceCache = resourceCache;
     }
 
-    /**
-     * 根据用户已有的权限判断是否该权限可以通过验证
-     * @param userResources     用户已有权限
-     * @param checkResourceId   需要判断的权限
-     * @return
-     */
-    public boolean pass(Set<Integer> userResources, Integer checkResourceId) {
-        if (CollectionUtils.isEmpty(userResources)) {
-            return false;
-        }
-
-        if (userResources.contains(checkResourceId)) {
-            return true;
-        }
-
-        Resource resource = resourceCache.get(checkResourceId);
-        if (relateToSubResource(resource)) {
-            for (Resource resourceInCache : resourceCache.values()) {
-                if (resource.getId().equals(resourceInCache.getParentId()) && userResources.contains(resourceInCache.getId())) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public boolean relateToSubResource(Resource resource) {
-        return resource != null && ResourceType.nav.equals(ResourceType.valueOf(resource.getType()));
+    public Map<Integer, Resource> getResourceCache() {
+        return resourceCache;
     }
 
     public List<Resource> getResourcesForUser(Integer uid) {

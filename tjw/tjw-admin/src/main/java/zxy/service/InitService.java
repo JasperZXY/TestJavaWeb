@@ -14,8 +14,8 @@ import zxy.permission.dao.RoleMapper;
 import zxy.permission.dao.RoleResourceRelationMapper;
 import zxy.permission.dao.UserRoleRelationMapper;
 import zxy.permission.entity.*;
-import zxy.permission.support.PermissionService;
-import zxy.permission.support.ResourceType;
+import zxy.permission.PermissionService;
+import zxy.permission.ResourceType;
 
 import javax.annotation.PostConstruct;
 import java.util.*;

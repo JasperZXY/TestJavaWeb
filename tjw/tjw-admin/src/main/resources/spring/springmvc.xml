@@ -18,7 +18,9 @@
             <bean class="zxy.web.handler.LoginInterceptor" />
         </mvc:interceptor>
         <bean class="zxy.web.handler.ViewTemplateInterceptor"/>
-        <ref bean="privilegeInterceptor"/>
+        <!-- 权限拦截配置 -->
+        <bean class="zxy.permission.support.PermissionInterceptor">
+        </bean>
     </mvc:interceptors>
     
     <!-- 等价于上面两个bean的默认定义 -->

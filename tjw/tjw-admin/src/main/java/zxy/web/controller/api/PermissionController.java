@@ -21,7 +21,7 @@ import zxy.permission.entity.RoleResourceRelation;
 import zxy.permission.entity.UserRoleRelation;
 import zxy.permission.entity.UserRoleRelationExample;
 import zxy.permission.support.PermissionAnnotation;
-import zxy.permission.support.PermissionService;
+import zxy.permission.PermissionService;
 import zxy.utils.Utils;
 import zxy.web.SessionManager;
 

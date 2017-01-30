@@ -8,10 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import zxy.common.PermissionCode;
 import zxy.constants.JspConfig;
 import zxy.dao.UserMapper;
 import zxy.entity.User;
 import zxy.entity.UserExample;
+import zxy.permission.support.PermissionAnnotation;
 import zxy.service.UserService;
 import zxy.common.PagingCriteria;
 import zxy.common.PagingResult;
@@ -31,6 +33,7 @@ public class UserController extends BasePageController {
     @Autowired
     private UserMapper userMapper;
 
+    @PermissionAnnotation(code = PermissionCode.USER_ACCESS)
     @RequestMapping(path="/list")
     public ModelAndView list(PagingCriteria pagingCriteria, String name, Integer status) {
         ModelAndView view = new ModelAndView();
@@ -54,6 +57,7 @@ public class UserController extends BasePageController {
         return view;
     }
 
+    @PermissionAnnotation(code = PermissionCode.USER_UPDATE)
     @RequestMapping(path="/to_update/{id}")
     public ModelAndView toUpdate(@PathVariable int id) {
         User user = userService.getValidUser(id);
@@ -67,6 +71,7 @@ public class UserController extends BasePageController {
         return mv;
     }
 
+    @PermissionAnnotation(code = PermissionCode.USER_ADD)
     @RequestMapping(path="/to_add")
     public String toAdd() {
         return "user/add";

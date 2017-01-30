@@ -9,8 +9,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import zxy.JsonPrettyUtils;
 import zxy.JunitUtils;
+import zxy.permission.NavPermissionPass;
 import zxy.permission.entity.Resource;
-import zxy.permission.support.PermissionService;
+import zxy.permission.PermissionService;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ import java.util.List;
 public class PrivilegeServiceTest {
     @Autowired
     private PermissionService privilegeService;
+    @Autowired
+    private NavPermissionPass navPermissionPass;
 
     @Test
     public void getResourcesForUser() {
@@ -31,10 +34,10 @@ public class PrivilegeServiceTest {
     @Test
     public void pass() {
         System.out.println("===pass===");
-        Assert.assertFalse(privilegeService.pass(JunitUtils.toSet(1001), 1002));
-        Assert.assertFalse(privilegeService.pass(JunitUtils.toSet(1002), 1001));
-        Assert.assertTrue(privilegeService.pass(JunitUtils.toSet(1001), 1001));
-        Assert.assertTrue(privilegeService.pass(JunitUtils.toSet(1001), 1));
+        Assert.assertFalse(navPermissionPass.pass(null, JunitUtils.toSet(1001), 1002));
+        Assert.assertFalse(navPermissionPass.pass(null, JunitUtils.toSet(1002), 1001));
+        Assert.assertTrue(navPermissionPass.pass(null, JunitUtils.toSet(1001), 1001));
+        Assert.assertTrue(navPermissionPass.pass(null, JunitUtils.toSet(1001), 1));
         System.out.println("===pass===");
     }
 

@@ -1,7 +1,5 @@
 package zxy.permission.support;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -10,14 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 权限拦截器，权限没通过的，抛出NoPermissionException
+ * 权限拦截器，权限没通过的，抛出NoPermissionException，需结合ExceptionHandler一起使用
  *
  * @see zxy.permission.support.NoPermissionException
  */
-@ControllerAdvice("permissionInterceptor")
 public class PermissionInterceptor implements HandlerInterceptor {
-    @Autowired
-    private PermissionContext permissionContext;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -25,7 +20,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
             HandlerMethod method = (HandlerMethod)handler;
             PermissionAnnotation permissionAnnotation = method.getMethodAnnotation(PermissionAnnotation.class);
             if (permissionAnnotation != null) {
-                if (!permissionContext.pass(request.getSession(false), permissionAnnotation.code())) {
+                if (!PermissionSessionUtils.pass(request.getSession(false), permissionAnnotation.code())) {
                     throw new NoPermissionException();
                 }
             }
