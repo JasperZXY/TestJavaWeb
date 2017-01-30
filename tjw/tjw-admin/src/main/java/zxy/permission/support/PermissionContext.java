@@ -5,6 +5,14 @@ package zxy.permission.support;
  */
 public class PermissionContext {
     private static PermissionPass permissionPass = null;
+    private static NoPermissionListener noPermissionListener = null;
+
+    public static PermissionPass getPermissionPass() {
+        if (permissionPass == null) {
+            permissionPass = new DefaultPermissionPassDelegate<>();
+        }
+        return permissionPass;
+    }
 
     /**
      * 设置PermissionPass，若没有设置，默认为
@@ -15,15 +23,14 @@ public class PermissionContext {
         PermissionContext.permissionPass = permissionPass;
     }
 
-    public static PermissionPass getPermissionPass() {
-        if (permissionPass == null) {
-            synchronized (PermissionContext.class) {
-                if (permissionPass == null) {
-                    permissionPass = new DefaultPermissionPassDelegate<>();
-                }
-            }
+    public static NoPermissionListener getNoPermissionListener() {
+        if (noPermissionListener == null) {
+            noPermissionListener = new DefaultNoPermissionListener<>();
         }
-        return permissionPass;
+        return noPermissionListener;
     }
 
+    public static void setNoPermissionListener(NoPermissionListener noPermissionListener) {
+        PermissionContext.noPermissionListener = noPermissionListener;
+    }
 }

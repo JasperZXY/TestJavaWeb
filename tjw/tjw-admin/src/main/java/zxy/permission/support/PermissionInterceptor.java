@@ -6,6 +6,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * 权限拦截器，权限没通过的，抛出NoPermissionException，需结合ExceptionHandler一起使用
@@ -20,8 +21,9 @@ public class PermissionInterceptor implements HandlerInterceptor {
             HandlerMethod method = (HandlerMethod)handler;
             PermissionAnnotation permissionAnnotation = method.getMethodAnnotation(PermissionAnnotation.class);
             if (permissionAnnotation != null) {
-                if (!PermissionSessionUtils.pass(request.getSession(false), permissionAnnotation.code())) {
-                    throw new NoPermissionException();
+                HttpSession session = request.getSession(false);
+                if (!PermissionSessionUtils.pass(session, permissionAnnotation.code())) {
+                    return PermissionContext.getNoPermissionListener().noPermission(session, permissionAnnotation.getClass());
                 }
             }
         }
