@@ -7,7 +7,7 @@
         ${window_title}
         <small>新增用户</small>
         <button class="btn btn-default" onclick="history.back();">
-            <span class="fa fa-mail-reply">返回用户管理</span>
+            <span class="fa fa-mail-reply">回退</span>
         </button>
     </h1>
     <ol class="breadcrumb">

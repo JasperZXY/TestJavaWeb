@@ -34,14 +34,13 @@ nav类用1~3位数字表示。
 
 
 ## TODO
--[x] 权限控制与业务分离
--[ ] PermissionSessionUtils类的setSessionUserPermission()方法可再优化一下，
+- PermissionSessionUtils类的setSessionUserPermission()方法可再优化一下，
 应该封装自己的登录的方法，然后暴露相关方法让业务方填充
--[ ] PermissionContext类可以重新设计一下
--[ ] 权限分配可以考虑正则表达式
--[ ] 考虑给单个人分配权限
--[ ] 账号添加邮箱等字段，用于用户找回密码用
--[ ] 操作日志 + 简单日志展示
+- PermissionContext类可以重新设计一下
+- 权限分配可以考虑正则表达式
+- 考虑给单个人分配权限
+- 账号添加邮箱等字段，用于用户找回密码用
+- 操作日志 + 简单日志展示
 
 
 ## 运行

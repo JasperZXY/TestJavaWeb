@@ -6,6 +6,9 @@
     <h1>
         ${window_title}
         <small>toast</small>
+            <button class="btn btn-default" onclick="history.back();">
+                <span class="fa fa-mail-reply">回退</span>
+            </button>
     </h1>
     <ol class="breadcrumb">
         <li><a href="${index_url}"><i class="fa fa-dashboard"></i> 首页</a></li>

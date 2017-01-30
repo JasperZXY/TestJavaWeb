@@ -5,6 +5,9 @@
     <h1>
         ${window_title}
         <small>指定角色</small>
+        <button class="btn btn-default" onclick="history.back();">
+            <span class="fa fa-mail-reply">返回角色管理</span>
+        </button>
     </h1>
     <ol class="breadcrumb">
         <li><a href="${index_url}"><i class="fa fa-dashboard"></i> 首页</a></li>
