@@ -47,6 +47,12 @@
         </a>
     </li>
 
+    <permisssion:pass code="4001">
+        <li>
+            <a href="${ctxPath}/log/list"><i class="fa fa-openid text-green"></i><span>操作日志</span></a>
+        </li>
+    </permisssion:pass>
+
     <permisssion:pass code="1">
     <li class="treeview">
         <a href="#">

@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import zxy.common.LogCode;
 import zxy.constants.JspConfig;
 import zxy.entity.User;
 import zxy.permission.PermissionService;
 import zxy.permission.support.PermissionSessionUtils;
 import zxy.service.AccountService;
+import zxy.service.LoginfoService;
 import zxy.service.UserService;
 import zxy.utils.Utils;
 import zxy.web.SessionManager;
@@ -32,6 +34,8 @@ public class AuthController {
     private UserService userService;
     @Autowired
     private PermissionService permissionService;
+    @Autowired
+    private LoginfoService loginfoService;
 
     @RequestMapping(path = "login")
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response, String account, String password) {
@@ -53,21 +57,28 @@ public class AuthController {
                 else {
                     Utils.requestRedirect(response, JspConfig.INDEX_URL);
                 }
+                loginfoService.addLog(request, LogCode.ACCOUT_PRE + "login", "登录", null, "成功");
                 return null;
             }
             else {
+                String errorMsg = null;
                 switch (result) {
                     case 1:
-                        modelAndView.addObject(JspConfig.KEY_MSG, "账号不存在");
+                        errorMsg = "账号不存在";
                         break;
                     case 2:
-                        modelAndView.addObject(JspConfig.KEY_MSG, "冻结");
+                        errorMsg = "账号已冻结";
                         break;
                     case 3:
-                        modelAndView.addObject(JspConfig.KEY_MSG, "密码有误");
+                        errorMsg = "密码有误";
                         break;
                     default:
-                        modelAndView.addObject(JspConfig.KEY_MSG, "登录失败");
+                        errorMsg = "账号不存在";
+                }
+
+                if (StringUtils.isNotBlank(errorMsg)) {
+                    modelAndView.addObject(JspConfig.KEY_MSG, errorMsg);
+                    loginfoService.addLog(request, LogCode.ACCOUT_PRE + "login", "登录", null, "失败：" + errorMsg);
                 }
             }
         }
@@ -77,6 +88,7 @@ public class AuthController {
     @RequestMapping(path = "logout")
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
+        loginfoService.addLog(request, LogCode.ACCOUT_PRE + "logout", "退出登录");
         SessionManager.setCurrentUser(session, null);
         session.invalidate();
 

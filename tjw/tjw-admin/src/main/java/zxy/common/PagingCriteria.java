@@ -7,20 +7,20 @@ import zxy.constants.JspConfig;
  * 分页条件
  */
 public class PagingCriteria {
-    private Integer topage;
-    private Integer pageSize;
+    private Integer topage = 1;
+    private Integer pageSize = JspConfig.PAGE_SIZE_DEFAULT;
 
     public RowBounds createRowBounds() {
-        if (pageSize == null) {
-            pageSize = JspConfig.PAGE_SIZE_DEFAULT;
-        }
+//        if (pageSize == null) {
+//            pageSize = JspConfig.PAGE_SIZE_DEFAULT;
+//        }
         if (pageSize > JspConfig.PAGE_SIZE_MAX) {
             pageSize = JspConfig.PAGE_SIZE_MAX;
         }
 
-        if (topage == null) {
-            topage = 1;
-        }
+//        if (topage == null) {
+//            topage = 1;
+//        }
 
         return new RowBounds(getStart(), pageSize);
     }

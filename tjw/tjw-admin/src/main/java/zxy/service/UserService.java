@@ -1,6 +1,7 @@
 package zxy.service;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +16,7 @@ import zxy.entity.User;
 import zxy.entity.UserExample;
 import zxy.utils.Utils;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 注：下面的处理逻辑为了方便，User跟Account的status是一致的、冗余的。
@@ -114,6 +114,38 @@ public class UserService {
             logger.warn("getUserByAccount more than one. account:" + account);
         }
         return userList.get(0);
+    }
+
+    public Map<Integer, String> getUsersName(Set<Integer> uids) {
+        Map<Integer, User> userMap = getUsers(uids);
+        if (userMap == null || userMap.isEmpty()) {
+            return Collections.emptyMap();
+        }
+
+        Map<Integer, String> map = new HashedMap();
+        for (User user : userMap.values()) {
+            map.put(user.getId(), user.getName());
+        }
+        return map;
+    }
+
+    public Map<Integer, User> getUsers(Set<Integer> uids) {
+        if (CollectionUtils.isEmpty(uids)) {
+            return Collections.emptyMap();
+        }
+
+        UserExample example = new UserExample();
+        example.createCriteria().andIdIn(new ArrayList<>(uids));
+        List<User> users = userMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(users)) {
+            return Collections.emptyMap();
+        }
+
+        Map<Integer, User> map = new HashedMap();
+        for (User user : users) {
+            map.put(user.getId(), user);
+        }
+        return map;
     }
 
 }

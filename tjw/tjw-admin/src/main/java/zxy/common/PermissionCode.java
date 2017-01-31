@@ -30,4 +30,7 @@ public interface PermissionCode {
     int USER_LOCK_UNLOCK = 3005;
     int USER_HELP_CHANGE_PASSWORD = 3006;
 
+    // 日志相关
+    int LOGINFO_ACCESS = 4001;
+
 }
