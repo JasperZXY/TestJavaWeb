@@ -48,7 +48,7 @@
                                 <td>${log.ip }</td>
                                 <td><fmt:formatDate value="${log.createtime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                                 <td>${log.target }</td>
-                                <td>${log.extra }</td>
+                                <td style="max-width: 200px; word-break: break-all">${log.extra }</td>
                             </tr>
                         </c:forEach>
                         </tbody>

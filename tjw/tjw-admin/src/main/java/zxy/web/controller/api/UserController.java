@@ -34,9 +34,9 @@ public class UserController {
     public Object add(HttpServletRequest request, User user, String password) {
         String result = userService.add(user, password);
         if (StringUtils.isBlank(result)) {
+            loginfoService.addLog(request, LogCode.USER_ADD, "添加用户", user.getId());
             return JsonResult.buildSuccess(null);
         }
-        loginfoService.addLog(request, LogCode.USER_ADD, "添加用户", Integer.toString(user.getId()));
         return JsonResult.buildFail(result);
     }
 
