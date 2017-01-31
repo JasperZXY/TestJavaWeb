@@ -57,7 +57,7 @@ public class AuthController {
                 else {
                     Utils.requestRedirect(response, JspConfig.INDEX_URL);
                 }
-                loginfoService.addLog(request, LogCode.ACCOUT_PRE + "login", "登录", null, "成功");
+                loginfoService.addLog(request, LogCode.ACCOUNT_LOGIN, "登录", null, "成功");
                 return null;
             }
             else {
@@ -78,7 +78,7 @@ public class AuthController {
 
                 if (StringUtils.isNotBlank(errorMsg)) {
                     modelAndView.addObject(JspConfig.KEY_MSG, errorMsg);
-                    loginfoService.addLog(request, LogCode.ACCOUT_PRE + "login", "登录", null, "失败：" + errorMsg);
+                    loginfoService.addLog(request, LogCode.ACCOUNT_LOGIN, "登录", null, "失败：" + errorMsg);
                 }
             }
         }
@@ -88,7 +88,7 @@ public class AuthController {
     @RequestMapping(path = "logout")
     public ModelAndView logout(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        loginfoService.addLog(request, LogCode.ACCOUT_PRE + "logout", "退出登录");
+        loginfoService.addLog(request, LogCode.ACCOUNT_LOGOUT, "退出登录");
         SessionManager.setCurrentUser(session, null);
         session.invalidate();
 

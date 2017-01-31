@@ -38,7 +38,7 @@
     <!-- jQuery toast -->
     <script src="${ctxPath}/static/plugins/jQueryToast/js/jquery.toast.js"></script>
     <!-- 自定义JS -->
-    <script src="${ctxPath}/static/js/common.js?version=5"></script>
+    <script src="${ctxPath}/static/js/common.js?version=6"></script>
     <script>
         var ctxPath = '${ctx}';
     </script>

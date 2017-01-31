@@ -23,6 +23,19 @@ public class LoginfoService {
         addLog(request, code, operation, null, null);
     }
 
+    public void addLog(HttpServletRequest request, String code, String operation, String target) {
+        addLog(request, code, operation, target, null);
+    }
+
+    public void addLog(HttpServletRequest request, String code, String operation, Integer target) {
+        if (target == null) {
+            addLog(request, code, operation, null, null);
+        }
+        else {
+            addLog(request, code, operation, target.toString(), null);
+        }
+    }
+
     public void addLog(HttpServletRequest request, String code, String operation, String target, String extra) {
         Loginfo loginfo = new Loginfo();
         loginfo.setCode(code);

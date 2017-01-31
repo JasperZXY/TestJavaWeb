@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import zxy.common.JsonResult;
+import zxy.common.LogCode;
 import zxy.common.PermissionCode;
 import zxy.common.ResultCode;
 import zxy.constants.EntityStatus;
@@ -22,6 +23,8 @@ import zxy.permission.entity.UserRoleRelation;
 import zxy.permission.entity.UserRoleRelationExample;
 import zxy.permission.support.PermissionAnnotation;
 import zxy.permission.PermissionService;
+import zxy.service.LoginfoService;
+import zxy.utils.JsonUtils;
 import zxy.utils.Utils;
 import zxy.web.SessionManager;
 
@@ -46,6 +49,8 @@ public class PermissionController extends BaseApiController {
     private RoleResourceRelationMapper roleResourceRelationMapper;
     @Autowired
     private PermissionService permissionService;
+    @Autowired
+    private LoginfoService loginfoService;
 
 //    public JsonResult check(Resource resource) {
 //        if (resource == null) {
@@ -131,7 +136,7 @@ public class PermissionController extends BaseApiController {
     @PermissionAnnotation(code = PermissionCode.ROLE_ADD)
     @RequestMapping(path="/role/add")
     @ResponseBody
-    public Object addRole(Role role) {
+    public Object addRole(HttpServletRequest request, Role role) {
         JsonResult jsonResult = check(role);
         if (jsonResult != null) {
             return jsonResult;
@@ -139,6 +144,8 @@ public class PermissionController extends BaseApiController {
 
         role.setStatus(EntityStatus.VALID);
         roleMapper.insert(role);
+        loginfoService.addLog(request, LogCode.ROLE_ADD, "添加角色",
+                role.getId().toString(), JsonUtils.toString(role));
 
         return JsonResult.buildSuccess(role.getId());
     }
@@ -146,7 +153,7 @@ public class PermissionController extends BaseApiController {
     @PermissionAnnotation(code = PermissionCode.ROLE_UPDATE)
     @RequestMapping(path="/role/update")
     @ResponseBody
-    public Object updateRole(Role role) {
+    public Object updateRole(HttpServletRequest request, Role role) {
         JsonResult jsonResult = check(role);
         if (jsonResult != null) {
             return jsonResult;
@@ -156,6 +163,7 @@ public class PermissionController extends BaseApiController {
         }
 
         roleMapper.updateByPrimaryKeySelective(role);
+        loginfoService.addLog(request, LogCode.ROLE_UPDATE, "修改角色", role.getId());
         return JsonResult.buildSuccess(null);
     }
 
@@ -169,16 +177,18 @@ public class PermissionController extends BaseApiController {
     @PermissionAnnotation(code = PermissionCode.ROLE_LOCK_UNLOCK)
     @RequestMapping(path="/role/lock/{id}")
     @ResponseBody
-    public Object lockRole(@PathVariable int id) {
+    public Object lockRole(HttpServletRequest request, @PathVariable int id) {
         updateRoleStatus(id, EntityStatus.FORBIDDEN);
+        loginfoService.addLog(request, LogCode.ROLE_LOCK, "锁定角色", id);
         return JsonResult.buildSuccess(null);
     }
 
     @PermissionAnnotation(code = PermissionCode.ROLE_LOCK_UNLOCK)
     @RequestMapping(path="/role/unlock/{id}")
     @ResponseBody
-    public Object unlockRole(@PathVariable int id) {
+    public Object unlockRole(HttpServletRequest request, @PathVariable int id) {
         updateRoleStatus(id, EntityStatus.VALID);
+        loginfoService.addLog(request, LogCode.ROLE_UNLOCK, "解锁角色", id);
         return JsonResult.buildSuccess(null);
     }
 
@@ -191,6 +201,8 @@ public class PermissionController extends BaseApiController {
         roleResourceRelation.setRoleId(id);
         roleResourceRelation.setResourceIds(resourceIds);
         permissionService.addRoleResourceRelation(roleResourceRelation);
+        loginfoService.addLog(request, LogCode.ROLE_ALLOCATE_RESOURCE,
+                "给角色分配资源", Integer.toString(id), "分配的资源：" + resourceIds);
         return JsonResult.buildSuccess(null);
     }
 
@@ -210,6 +222,9 @@ public class PermissionController extends BaseApiController {
             relation.setUserId(uid);
             userRoleRelationMapper.insert(relation);
         }
+
+        loginfoService.addLog(request, LogCode.ROLE_ASSIGN_USER_ROLE,
+                "给用户分配角色", Integer.toString(uid), "指定的角色：" + roleIds);
 
         return JsonResult.buildSuccess(null);
     }
