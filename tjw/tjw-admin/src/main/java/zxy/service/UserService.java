@@ -35,9 +35,10 @@ public class UserService {
      *
      * @param user
      * @param password
+     * @param email
      * @return 如果失败，这里返回失败的原因
      */
-    public String add(User user, String password) {
+    public String add(User user, String password, String email) {
         if (user == null) {
             return "user不能为空";
         }
@@ -51,6 +52,9 @@ public class UserService {
         Account account = new Account();
         account.setId(user.getAccountId());
         account.setPassword(password);
+        if (StringUtils.isNotBlank(email)) {
+            account.setEmail(email.trim());
+        }
         accountService.add(account);
 
         user.setStatus(EntityStatus.VALID);

@@ -35,6 +35,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label for="eamil" class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-6">
+                                <input id="eamil" name="eamil" type="email" class="form-control">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label for="password" class="col-sm-2 control-label">密码</label>
                             <div class="col-sm-6">
                                 <input id="password" name="password" type="password" class="form-control">

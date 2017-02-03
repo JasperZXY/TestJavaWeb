@@ -33,7 +33,7 @@ public class UserServiceTest {
         user.setName("root用户");
         String password = "zxy@123";
 
-        String result = userService.add(user, password);
+        String result = userService.add(user, password, null);
         System.out.println("result :" + result);
     }
 
@@ -45,7 +45,7 @@ public class UserServiceTest {
         String password = "zxy@123";
 
         try {
-            String result = userService.add(user, password);
+            String result = userService.add(user, password, null);
             System.out.println("result:" + result);
             JunitUtils.shouldNotHappen();
         } catch (ServiceException e) {
@@ -72,7 +72,7 @@ public class UserServiceTest {
             user.setBirthday(new Date(baseTime + random.nextInt() * 100L));
             user.setCreatetime(new Date());
             try {
-                userService.add(user, password);
+                userService.add(user, password, user.getAccountId() + "@zxy.com");
             } catch (Exception e) {
                 e.getMessage();
             }

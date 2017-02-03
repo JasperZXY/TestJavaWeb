@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import zxy.common.LogCode;
 import zxy.common.PermissionCode;
+import zxy.common.ResultCode;
 import zxy.constants.EntityStatus;
+import zxy.entity.Account;
 import zxy.entity.User;
 import zxy.permission.support.PermissionAnnotation;
 import zxy.service.AccountService;
@@ -31,8 +33,8 @@ public class UserController {
     @PermissionAnnotation(code = PermissionCode.USER_ADD)
     @RequestMapping(path="/add")
     @ResponseBody
-    public Object add(HttpServletRequest request, User user, String password) {
-        String result = userService.add(user, password);
+    public Object add(HttpServletRequest request, User user, String password, String email) {
+        String result = userService.add(user, password, email);
         if (StringUtils.isBlank(result)) {
             loginfoService.addLog(request, LogCode.USER_ADD, "添加用户", user.getId());
             return JsonResult.buildSuccess(null);
@@ -79,7 +81,7 @@ public class UserController {
         return JsonResult.buildSuccess(null);
     }
 
-    @PermissionAnnotation(code = PermissionCode.USER_LOCK_UNLOCK)
+    @PermissionAnnotation(code = PermissionCode.USER_HELP_CHANGE_PASSWORD)
     @RequestMapping(path="/help/change/password")
     @ResponseBody
     public Object helpChangePassowd(HttpServletRequest request, String accountId, String password) {
@@ -87,6 +89,24 @@ public class UserController {
         loginfoService.addLog(request, LogCode.ACCOUNT_HELP_CHANGE_PASSWORD, "协助修改用户密码",
                 userService.getUserByAccount(accountId).getId());
         return JsonResult.buildSuccess(null);
+    }
+
+    @PermissionAnnotation(code = PermissionCode.USER_HELP_CHANGE_EMAIL)
+    @RequestMapping(path="/help/change/email")
+    @ResponseBody
+    public Object helpChangeEmail(HttpServletRequest request, String accountId, String email) {
+        Account account = accountService.getAccount(accountId);
+        User user = userService.getUserByAccount(accountId);
+
+        ResultCode resultCode = accountService.changeEmail(accountId, email);
+
+        loginfoService.addLog(request, LogCode.ACCOUNT_HELP_CHANGE_EMAIL, "协助修改用户邮箱",
+                user.getId().toString(),
+                String.format("旧：%s；新：%s；结果：%s", account.getEmail(), email, resultCode.getCndesc()));
+        if (ResultCode.SUCCESS == resultCode) {
+            return JsonResult.buildSuccess(null);
+        }
+        return JsonResult.buildFail(resultCode);
     }
 
 }

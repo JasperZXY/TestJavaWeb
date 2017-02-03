@@ -74,7 +74,7 @@ public class InitService {
             User user = new User();
             user.setAccountId(ROOT_ACCOUNT);
             user.setName(ROOT_ACCOUNT);
-            userService.add(user, ROOT_PASSWORD);
+            userService.add(user, ROOT_PASSWORD, null);
         }
     }
 
@@ -100,6 +100,7 @@ public class InitService {
         allResources.add(newResource(PermissionCode.USER_DELETE, "用户删除", ResourceType.button, PermissionCode.USER_ACCESS));
         allResources.add(newResource(PermissionCode.USER_LOCK_UNLOCK, "用户冻结/解冻", ResourceType.button, PermissionCode.USER_ACCESS));
         allResources.add(newResource(PermissionCode.USER_HELP_CHANGE_PASSWORD, "协助修改用户密码", ResourceType.button, PermissionCode.USER_ACCESS));
+        allResources.add(newResource(PermissionCode.USER_HELP_CHANGE_EMAIL, "协助修改用户邮箱", ResourceType.button, PermissionCode.USER_ACCESS));
         allResources.add(newResource(PermissionCode.LOGINFO_ACCESS, "操作日志", ResourceType.menu, root));
 
         for (Resource resource : allResources) {

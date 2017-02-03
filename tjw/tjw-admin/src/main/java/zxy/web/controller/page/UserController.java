@@ -3,6 +3,7 @@ package zxy.web.controller.page;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,11 +15,13 @@ import zxy.dao.UserMapper;
 import zxy.entity.User;
 import zxy.entity.UserExample;
 import zxy.permission.support.PermissionAnnotation;
+import zxy.service.AccountService;
 import zxy.service.UserService;
 import zxy.common.PagingCriteria;
 import zxy.common.PagingResult;
+import zxy.web.controller.vo.UserVo;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * 用户管理
@@ -32,6 +35,8 @@ public class UserController extends BasePageController {
     private UserService userService;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private AccountService accountService;
 
     @PermissionAnnotation(code = PermissionCode.USER_ACCESS)
     @RequestMapping(path="/list")
@@ -46,9 +51,23 @@ public class UserController extends BasePageController {
             exampleCriteria.andStatusEqualTo(status);
         }
         int count = userMapper.countByExample(example);
-        List<User> retList = userMapper.selectByExampleWithRowbounds(example, pagingCriteria.createRowBounds());
+        List<User> users = userMapper.selectByExampleWithRowbounds(example, pagingCriteria.createRowBounds());
 
-        PagingResult<User> page = new PagingResult(pagingCriteria.getStart(), count, pagingCriteria.getPageSize(), retList);
+        Set<String> accountIds = new HashSet<>();
+        for (User user : users) {
+            accountIds.add(user.getAccountId());
+        }
+        Map<String, String> emailMap = accountService.getAccountEmail(accountIds);
+
+        List<UserVo> retList = new ArrayList<>();
+        for (User user : users) {
+            UserVo userVo = new UserVo();
+            BeanUtils.copyProperties(user, userVo);
+            userVo.setEmail(emailMap.get(user.getAccountId()));
+            retList.add(userVo);
+        }
+
+        PagingResult<UserVo> page = new PagingResult(pagingCriteria.getStart(), count, pagingCriteria.getPageSize(), retList);
         view.setViewName("user/list");
         view.addObject("page", page);
         view.addObject("name", name);

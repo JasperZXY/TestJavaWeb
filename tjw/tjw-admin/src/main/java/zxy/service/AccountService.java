@@ -1,5 +1,8 @@
 package zxy.service;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +13,14 @@ import zxy.common.ServiceException;
 import zxy.constants.EntityStatus;
 import zxy.dao.AccountMapper;
 import zxy.entity.Account;
+import zxy.entity.AccountExample;
 import zxy.utils.DigestUtils;
 import zxy.utils.HexUtils;
 import zxy.utils.Utils;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.util.*;
 
 @Service
 public class AccountService {
@@ -95,5 +100,46 @@ public class AccountService {
         String md5Password = DigestUtils.md5(oriPassword);
         String shaPassword = DigestUtils.sha256Secure(md5Password, salt);
         return shaPassword;
+    }
+
+    public Account getAccount(String accountId) {
+        return accountMapper.selectByPrimaryKey(accountId);
+    }
+
+    public Map<String, String> getAccountEmail(Set<String> accountIds) {
+        if (CollectionUtils.isEmpty(accountIds)) {
+            return Collections.emptyMap();
+        }
+
+        AccountExample example = new AccountExample();
+        example.createCriteria().andIdIn(new ArrayList<>(accountIds));
+        List<Account> list = accountMapper.selectByExample(example);
+
+        Map<String, String> accountEmailMap = new HashedMap();
+        for (Account account : list) {
+            accountEmailMap.put(account.getId(), account.getEmail());
+        }
+        return accountEmailMap;
+    }
+
+    public ResultCode changeEmail(String accountId, String email) {
+        if (StringUtils.isBlank(email)) {
+            email = null;
+        }
+
+        Account account = getAccount(accountId);
+        if (account == null) {
+            return ResultCode.DATA_NO_FOUND;
+        }
+
+        account.setEmail(email);
+        try {
+            accountMapper.updateByPrimaryKey(account);
+        }
+        catch (DuplicateKeyException e) {
+            logger.error("changeEmail error.", e);
+            return ResultCode.EMAIL_EXIST;
+        }
+        return ResultCode.SUCCESS;
     }
 }

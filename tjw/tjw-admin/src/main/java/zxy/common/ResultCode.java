@@ -10,6 +10,7 @@ public enum ResultCode {
     NO_PERMISSION(10003, "no permission", "没有操作权限"),
     DATA_NO_FOUND(10004, "data no found", "没找到相应的数据"),
     ACCOUNT_EXIST(20001, "account exist", "账号已存在"),
+    EMAIL_EXIST(20002, "email exist", "邮箱已存在"),
     ;
 
     private int code;
