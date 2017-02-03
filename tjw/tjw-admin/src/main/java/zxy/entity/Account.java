@@ -10,6 +10,11 @@ public class Account {
     private String id;
 
     /**
+     * 邮箱
+     */
+    private String email;
+
+    /**
      * 密码
      */
     private String password;
@@ -30,6 +35,14 @@ public class Account {
 
     public void setId(String id) {
         this.id = id == null ? null : id.trim();
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email == null ? null : email.trim();
     }
 
     public String getPassword() {
