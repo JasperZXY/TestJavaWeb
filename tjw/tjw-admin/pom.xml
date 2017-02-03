@@ -27,6 +27,7 @@
         <mybatis.version>3.3.1</mybatis.version>
         <mybatis-spring.version>1.2.3</mybatis-spring.version>
         <jpinyin_ver>1.1.8</jpinyin_ver>
+        <java_mail_version>1.5.6</java_mail_version>
     </properties>
 
     <dependencies>
@@ -170,6 +171,14 @@
             <artifactId>jpinyin</artifactId>
             <version>${jpinyin_ver}</version>
         </dependency>
+
+        <!-- JavaMail -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>${java_mail_version}</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -227,5 +236,27 @@
             </properties>
         </profile>
     </profiles>
+
+    <repositories>
+        <repository>
+            <id>alimaven</id>
+            <name>aliyun maven</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>com.springsource.repository.bundles.release</id>
+            <name>Spring Maven Repository Repository</name>
+            <url>http://repository.springsource.com/maven/bundles/release</url>
+        </repository>
+        <repository>
+            <id>jboss</id>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>sonatype</id>
+            <name>Sonatype Repository</name>
+            <url>http://repository.sonatype.org/content/groups/public/</url>
+        </repository>
+    </repositories>
 
 </project>
