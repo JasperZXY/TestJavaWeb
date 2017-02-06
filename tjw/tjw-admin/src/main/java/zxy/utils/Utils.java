@@ -1,5 +1,6 @@
 package zxy.utils;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.slf4j.Logger;
@@ -114,6 +115,19 @@ public abstract class Utils {
         }
 
         return list;
+    }
+
+    /**
+     * 获取最后一条数据，若list为空，返回null
+     * @param list
+     * @param <T>
+     * @return
+     */
+    public static <T> T getLast(List<T> list) {
+        if (CollectionUtils.isEmpty(list)) {
+            return null;
+        }
+        return list.get(list.size() - 1);
     }
 
 }

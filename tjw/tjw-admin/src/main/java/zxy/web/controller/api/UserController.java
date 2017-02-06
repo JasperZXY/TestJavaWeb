@@ -100,10 +100,10 @@ public class UserController {
 
         ResultCode resultCode = accountService.changeEmail(accountId, email);
 
-        loginfoService.addLog(request, LogCode.ACCOUNT_HELP_CHANGE_EMAIL, "协助修改用户邮箱",
-                user.getId().toString(),
-                String.format("旧：%s；新：%s；结果：%s", account.getEmail(), email, resultCode.getCndesc()));
         if (ResultCode.SUCCESS == resultCode) {
+            loginfoService.addLog(request, LogCode.ACCOUNT_HELP_CHANGE_EMAIL, "协助修改用户邮箱",
+                    user.getId().toString(),
+                    String.format("旧：%s；新：%s；结果：%s", account.getEmail(), email, resultCode.getCndesc()));
             return JsonResult.buildSuccess(null);
         }
         return JsonResult.buildFail(resultCode);

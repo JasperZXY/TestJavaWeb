@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import zxy.common.PermissionCode;
 import zxy.constants.JspConfig;
 import zxy.dao.UserMapper;
+import zxy.entity.Account;
 import zxy.entity.User;
 import zxy.entity.UserExample;
 import zxy.permission.support.PermissionAnnotation;
@@ -39,32 +40,48 @@ public class UserController extends BasePageController {
     private AccountService accountService;
 
     @PermissionAnnotation(code = PermissionCode.USER_ACCESS)
-    @RequestMapping(path="/list")
-    public ModelAndView list(PagingCriteria pagingCriteria, String name, Integer status) {
+    @RequestMapping(path = "/list")
+    public ModelAndView list(PagingCriteria pagingCriteria, String name, String email, Integer status) {
         ModelAndView view = new ModelAndView();
-        UserExample example = new UserExample();
-        UserExample.Criteria exampleCriteria = example.createCriteria();
-        if (StringUtils.isNoneBlank(name)) {
-            exampleCriteria.andNameLike("%" + name + "%");
-        }
-        if (status != null) {
-            exampleCriteria.andStatusEqualTo(status);
-        }
-        int count = userMapper.countByExample(example);
-        List<User> users = userMapper.selectByExampleWithRowbounds(example, pagingCriteria.createRowBounds());
-
-        Set<String> accountIds = new HashSet<>();
-        for (User user : users) {
-            accountIds.add(user.getAccountId());
-        }
-        Map<String, String> emailMap = accountService.getAccountEmail(accountIds);
 
         List<UserVo> retList = new ArrayList<>();
-        for (User user : users) {
-            UserVo userVo = new UserVo();
-            BeanUtils.copyProperties(user, userVo);
-            userVo.setEmail(emailMap.get(user.getAccountId()));
-            retList.add(userVo);
+        int count = 0;
+
+        if (StringUtils.isNotBlank(email)) {
+            Account account = accountService.getAccountbyEmail(email);
+            if (account != null) {
+                User user = userService.getUserByAccount(account.getId());
+                UserVo userVo = new UserVo();
+                BeanUtils.copyProperties(user, userVo);
+                userVo.setEmail(email);
+                retList.add(userVo);
+                count = 1;
+            }
+        }
+        else {
+            UserExample example = new UserExample();
+            UserExample.Criteria exampleCriteria = example.createCriteria();
+            if (StringUtils.isNoneBlank(name)) {
+                exampleCriteria.andNameLike("%" + name + "%");
+            }
+            if (status != null) {
+                exampleCriteria.andStatusEqualTo(status);
+            }
+            count = userMapper.countByExample(example);
+            List<User> users = userMapper.selectByExampleWithRowbounds(example, pagingCriteria.createRowBounds());
+
+            Set<String> accountIds = new HashSet<>();
+            for (User user : users) {
+                accountIds.add(user.getAccountId());
+            }
+            Map<String, String> emailMap = accountService.getAccountEmail(accountIds);
+
+            for (User user : users) {
+                UserVo userVo = new UserVo();
+                BeanUtils.copyProperties(user, userVo);
+                userVo.setEmail(emailMap.get(user.getAccountId()));
+                retList.add(userVo);
+            }
         }
 
         PagingResult<UserVo> page = new PagingResult(pagingCriteria.getStart(), count, pagingCriteria.getPageSize(), retList);
@@ -72,12 +89,13 @@ public class UserController extends BasePageController {
         view.addObject("page", page);
         view.addObject("name", name);
         view.addObject("status", status);
+        view.addObject("email", email);
         view.addObject(JspConfig.WINDOW_TITLE, "用户管理");
         return view;
     }
 
     @PermissionAnnotation(code = PermissionCode.USER_UPDATE)
-    @RequestMapping(path="/to_update/{id}")
+    @RequestMapping(path = "/to_update/{id}")
     public ModelAndView toUpdate(@PathVariable int id) {
         User user = userService.getValidUser(id);
         if (user == null) {
@@ -91,7 +109,7 @@ public class UserController extends BasePageController {
     }
 
     @PermissionAnnotation(code = PermissionCode.USER_ADD)
-    @RequestMapping(path="/to_add")
+    @RequestMapping(path = "/to_add")
     public String toAdd() {
         return "user/add";
     }

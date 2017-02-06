@@ -25,6 +25,10 @@
                     <h3 class="box-title">搜索</h3>
                     <div class="box-tools col-sm-1 col-md-11">
                         <div class="col-md-2">
+                            <input id="search_email" class="form-control" type="text" name="table_search"
+                                   placeholder="Email" value="${email}">
+                        </div>
+                        <div class="col-md-2">
                             <input id="search_name" class="form-control" type="text" name="table_search"
                                    placeholder="昵称" value="${name}">
                         </div>
@@ -102,33 +106,30 @@
                                         </c:if>
                                     </c:if>
                                 </td>
-
-                                <c:if test="${user.status != 1}">
-                                    <permisssion:pass code="3006">
+                                <permisssion:pass code="3006">
                                     <td>
-                                        <div id="change_password_${user.id}" class="input-group">
+                                        <c:if test="${user.status != 1}">
+                                            <div id="change_password_${user.id}" class="input-group">
+                                                <input type="hidden" class="accountId" value="${user.accountId}" />
+                                                <input type="password" class="form-control password" placeholder="密码" value="">
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-danger" type="button" onclick="changePassword(${user.id})">提交</button>
+                                                </span>
+                                            </div>
+                                        </c:if>
+                                    </td>
+                                </permisssion:pass>
+                                <permisssion:pass code="3007">
+                                    <td>
+                                        <div id="change_email_${user.id}" class="input-group">
                                             <input type="hidden" class="accountId" value="${user.accountId}" />
-                                            <input type="password" class="form-control password" placeholder="密码" value="">
+                                            <input type="email" class="form-control email" placeholder="Email" value="${user.email}">
                                             <span class="input-group-btn">
-                                                <button class="btn btn-danger" type="button" onclick="changePassword(${user.id})">提交</button>
+                                                <button class="btn btn-danger" type="button" onclick="changeEmail(${user.id})">提交</button>
                                             </span>
                                         </div>
                                     </td>
-                                    </permisssion:pass>
-                                </c:if>
-                                <c:if test="${user.status != 1}">
-                                    <permisssion:pass code="3007">
-                                        <td>
-                                            <div id="change_email_${user.id}" class="input-group">
-                                                <input type="hidden" class="accountId" value="${user.accountId}" />
-                                                <input type="email" class="form-control email" placeholder="Email" value="${user.email}">
-                                                <span class="input-group-btn">
-                                                    <button class="btn btn-danger" type="button" onclick="changeEmail(${user.id})">提交</button>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </permisssion:pass>
-                                </c:if>
+                                </permisssion:pass>
                             </tr>
                         </c:forEach>
                         </tbody>
@@ -165,6 +166,7 @@
     function topage(page) {
         window.open(toPageUrl('/user/list', page)
                 + '&name=' + encodeURIComponent($('#search_name').val())
+                + '&email=' + encodeURIComponent($('#search_email').val())
                 + '&status=' + $('#search_status option:selected').val()
                 , '_self');
     }

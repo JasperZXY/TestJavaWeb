@@ -106,6 +106,13 @@ public class AccountService {
         return accountMapper.selectByPrimaryKey(accountId);
     }
 
+    public Account getAccountbyEmail(String email) {
+        AccountExample example = new AccountExample();
+        example.createCriteria().andEmailEqualTo(email);
+        List<Account> list = accountMapper.selectByExample(example);
+        return Utils.getLast(list);
+    }
+
     public Map<String, String> getAccountEmail(Set<String> accountIds) {
         if (CollectionUtils.isEmpty(accountIds)) {
             return Collections.emptyMap();
