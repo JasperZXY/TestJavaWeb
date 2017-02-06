@@ -208,6 +208,14 @@ function ajax(obj) {
     if (isNull($data)) {
         $data = {};
     }
+    var url = createCompleteUrl($shortUrl);
+    if (url.indexOf("?") >= 0) {
+        url = url + "&";
+    }
+    else {
+        url = url + "?";
+    }
+    url = url + "returntype=json";
 
     $.ajax({
         url: createCompleteUrl($shortUrl),
@@ -306,6 +314,10 @@ function showTips(text, type, duration) {
         loader: false,  // Whether to show loader or not. True by default
         loaderBg: '#000000',  // Background color of the toast loader
     });
+}
+
+function showSuccessTips() {
+    showTips("成功", "success");
 }
 
 // --------------------------

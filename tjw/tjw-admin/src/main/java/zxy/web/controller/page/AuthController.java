@@ -25,7 +25,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/auth")
-public class AuthController {
+public class AuthController extends BasePageController {
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
     @Autowired
@@ -92,8 +92,7 @@ public class AuthController {
         SessionManager.setCurrentUser(session, null);
         session.invalidate();
 
-        Utils.requestRedirect(response, JspConfig.LOGIN_URL);
-        return null;
+        return redirectToLogin(response);
     }
 
 }

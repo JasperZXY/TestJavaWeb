@@ -10,6 +10,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import zxy.common.JsonResult;
 import zxy.common.ResultCode;
 import zxy.common.ServiceException;
+import zxy.component.AjaxDecideDelegate;
 import zxy.constants.JspConfig;
 import zxy.permission.support.NoPermissionException;
 import zxy.utils.JsonUtils;
@@ -26,9 +27,6 @@ public class MyExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(MyExceptionHandler.class);
 
     // FIXME 判断是返回json数据还是view视图
-    private boolean isAjax(HttpServletRequest request) {
-        return request.getRequestURI().startsWith("/api");
-    }
 
     private void forward(HttpServletRequest request, HttpServletResponse response, String msg) {
         request.setAttribute(JspConfig.KEY_MSG, msg);
@@ -42,7 +40,7 @@ public class MyExceptionHandler {
     @ExceptionHandler(NoPermissionException.class)
     @ResponseBody
     public Object noPermissionException(NoPermissionException ex, HttpServletRequest request, HttpServletResponse response) {
-        if (!isAjax(request)) {
+        if (AjaxDecideDelegate.isNotAjax(request)) {
             forward(request, response, ResultCode.NO_PERMISSION.getCndesc());
             return null;
         }
@@ -57,7 +55,7 @@ public class MyExceptionHandler {
 
         // 对未登陆的做特殊处理
         if (ex.getCode() == ResultCode.NO_LOGIN) {
-            if (!isAjax(request)) {
+            if (AjaxDecideDelegate.isNotAjax(request)) {
                 // 把当前url带回去，在登录完后才可以跳转到原位置
                 Utils.requestRedirect(response,
                         JspConfig.LOGIN_URL + "?" + JspConfig.REDIRECT_URL_KEY + "=" + request.getRequestURI());
@@ -68,7 +66,7 @@ public class MyExceptionHandler {
             }
         }
 
-        if (!isAjax(request)) {
+        if (AjaxDecideDelegate.isNotAjax(request)) {
             forward(request, response, ex.getMessage());
             return null;
         }
@@ -80,7 +78,7 @@ public class MyExceptionHandler {
     @ResponseBody
     public Object exception(Exception ex, HttpServletRequest request, HttpServletResponse response) {
         printLog(ex, request);
-        if (!isAjax(request)) {
+        if (AjaxDecideDelegate.isNotAjax(request)) {
             forward(request, response, ResultCode.FAIL.getCndesc());
             return null;
         }

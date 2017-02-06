@@ -18,6 +18,7 @@ public class ViewTemplateInterceptor implements HandlerInterceptor {
     static {
         IGNORE_VIEWS.add("hello");
         IGNORE_VIEWS.add("admin/login");
+        IGNORE_VIEWS.add("account/resetpassword");
     }
 
     @Override

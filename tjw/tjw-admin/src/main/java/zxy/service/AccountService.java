@@ -11,9 +11,11 @@ import org.springframework.stereotype.Service;
 import zxy.common.ResultCode;
 import zxy.common.ServiceException;
 import zxy.constants.EntityStatus;
+import zxy.constants.RedisKey;
 import zxy.dao.AccountMapper;
 import zxy.entity.Account;
 import zxy.entity.AccountExample;
+import zxy.redis.JedisTemplate;
 import zxy.utils.DigestUtils;
 import zxy.utils.HexUtils;
 import zxy.utils.Utils;
@@ -26,9 +28,14 @@ import java.util.*;
 public class AccountService {
     private static final Logger logger = LoggerFactory.getLogger(AccountService.class);
     private static final int SALT_LENGTH = 16;
+    private static final String MAIL_TITLE_RESET_PASSWORD = "重置密码";
 
     @Autowired
     private AccountMapper accountMapper;
+    @Autowired
+    private JedisTemplate jedisTemplate;
+    @Autowired
+    private MailService mailService;
 
     public void add(Account account) {
         String oriPassword = account.getPassword();
@@ -149,4 +156,50 @@ public class AccountService {
         }
         return ResultCode.SUCCESS;
     }
+
+    private String codeKey(String account) {
+        return String.format(RedisKey.CODE_RESET_PASSWORD, account);
+    }
+
+    /**
+     * 发送验证码，实现重置密码用
+     * @param account
+     * @param email
+     */
+    public ResultCode createCodeForResetPassword(String account, String email) {
+        Account userAccount = getAccount(account);
+        if (userAccount == null) {
+            return ResultCode.DATA_NO_FOUND;
+        }
+        if (!email.equals(userAccount.getEmail())) {
+            return ResultCode.RESET_PASSWORD_ACCOUNT_EMAIL_NOT_MATCH;
+        }
+
+        String code = Utils.randomString(8);
+        mailService.send(MAIL_TITLE_RESET_PASSWORD, String.format("验证码：【%s】", code), email);
+        jedisTemplate.setex(codeKey(account), code, 30 * 60);   // 30分钟过期时间
+        return ResultCode.SUCCESS;
+    }
+
+    public ResultCode resetPassword(String account, String email, String code, String password) {
+        String oriCode = jedisTemplate.get(codeKey(account));
+        if (StringUtils.isBlank(oriCode) || !oriCode.equals(code)) {
+            return ResultCode.RESET_PASSWORD_CODE_ERROR;
+        }
+
+        Account userAccount = getAccount(account);
+        if (userAccount == null) {
+            return ResultCode.DATA_NO_FOUND;
+        }
+        if (!email.equals(userAccount.getEmail())) {
+            return ResultCode.RESET_PASSWORD_ACCOUNT_EMAIL_NOT_MATCH;
+        }
+
+        jedisTemplate.del(codeKey(account));
+
+        userAccount.setPassword(createPassword(password, userAccount.getSalt()));
+        accountMapper.updateByPrimaryKey(userAccount);
+        return ResultCode.SUCCESS;
+    }
+
 }

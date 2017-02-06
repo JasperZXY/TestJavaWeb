@@ -61,4 +61,11 @@ public class JsonResult<T> {
         return new JsonResult<>(ResultCode.FAIL.getCode(), resultCode.getCndesc(), null);
     }
 
+    public static <T> JsonResult<T> build(ResultCode resultCode) {
+        if (resultCode == null || ResultCode.SUCCESS == resultCode) {
+            return buildSuccess(null);
+        }
+        return buildFail(resultCode);
+    }
+
 }

@@ -25,5 +25,6 @@ public interface LogCode {
     String ACCOUNT_UNLOCK = ACCOUNT_PRE + "unlock";
     String ACCOUNT_HELP_CHANGE_PASSWORD = ACCOUNT_PRE + "help_change_password";
     String ACCOUNT_HELP_CHANGE_EMAIL = ACCOUNT_PRE + "help_change_email";
+    String ACCOUNT_RESET_PASSWORD = ACCOUNT_PRE + "reset_password";
 
 }
