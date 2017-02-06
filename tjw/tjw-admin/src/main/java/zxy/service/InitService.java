@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zxy.common.PermissionCode;
+import zxy.component.SingleTask;
 import zxy.constants.EntityStatus;
 import zxy.dao.AccountMapper;
 import zxy.entity.Account;
@@ -46,6 +47,8 @@ public class InitService {
     private RoleResourceRelationMapper roleResourceRelationMapper;
     @Autowired
     private JedisTemplate jedisTemplate;
+    @Autowired
+    private SingleTask singleTask;
 
     private List<Resource> allResources = new ArrayList<>();
     private Map<Integer, Resource> resourceMap = new HashMap<>();
@@ -60,19 +63,25 @@ public class InitService {
 
     @PostConstruct
     public void init() {
-        // 下面大部分初始化代码可以换成SQL脚本
-        initRootUser();
-        initResource();
-        initRootPermission();
+        initResourceCache();
         permissionService.setResourceCache(resourceMap);
 
-        // 检查Redis服务
-        try {
-            logger.info("redis ping:" + jedisTemplate.ping());
+        if (!singleTask.toRun()) {
+            // 下面大部分初始化代码可以换成SQL脚本
+            initRootUser();
+            initResourceInDB();
+            initRootPermission();
+
+            // 检查Redis服务
+            try {
+                logger.info("redis ping:" + jedisTemplate.ping());
+            }
+            catch (Exception e) {
+                logger.error("init jedisTemplate.ping.", e);
+            }
         }
-        catch (Exception e) {
-            logger.error("init jedisTemplate.ping.", e);
-        }
+
+
     }
 
     /**
@@ -89,10 +98,7 @@ public class InitService {
         }
     }
 
-    /**
-     * 初始化权限资源
-     */
-    private void initResource() {
+    private void initResourceCache() {
         int root = 0;
         allResources.add(newResource(PermissionCode.PERMISSIONS, "权限相关", ResourceType.nav, root));
         allResources.add(newResource(PermissionCode.RESOURCE_ACCESS, "资源访问", ResourceType.menu, PermissionCode.PERMISSIONS));
@@ -117,7 +123,12 @@ public class InitService {
         for (Resource resource : allResources) {
             resourceMap.put(resource.getId(), resource);
         }
+    }
 
+    /**
+     * 初始化权限资源
+     */
+    private void initResourceInDB() {
         List<Resource> resourcesInDB = resourceMapper.selectByExample(new ResourceExample());
         Map<Integer, Resource> tmpMap = new HashMap<>();
         for (Resource resource : resourcesInDB) {

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+">
+
+    <!-- zxy.component.SingleTask的多个实现 -->
+    <bean class="zxy.component.DefaultSingleTask"></bean>
+    <bean class="zxy.component.CommandSingleTask" init-method="init" primary="true"></bean>
+
+</beans>

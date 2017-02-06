@@ -14,7 +14,6 @@
 
 
 ## 说明
-- 目前是考虑了单机情况，只为实现功能。
 - AdminLTE对应的index2.html拆分为template.jsp、menu.jsp及具体的业务JSP页面。
 - 功能新增：在jsp目录下新增功能页面，可模仿demo文件夹，同时在menu.jsp中添加相关菜单，
 往数据库添加相关数据（可通过SQL或运行后在界面上操作或在InitService中进行配置）。
@@ -49,6 +48,7 @@ nav类用1~3位数字表示。
 `注意`：要先创建好数据库，redis（部分功能需要）
 
 - mvn jetty:run -Djetty.port=9696 -Pdev
+- mvn jetty:run -Djetty.port=9696 -Pdev -Dsingle.task=true
 - mvn jetty:run -Djetty.port=9696 -Ppro
 
 ## 更新日志
@@ -80,3 +80,4 @@ nav类用1~3位数字表示。
 
 ### 2017-02-06
 1. 整合Redis
+2. 单机任务简单实现
