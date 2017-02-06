@@ -28,6 +28,8 @@
         <mybatis-spring.version>1.2.3</mybatis-spring.version>
         <jpinyin_ver>1.1.8</jpinyin_ver>
         <java_mail_version>1.5.6</java_mail_version>
+        <guava_ver>21.0</guava_ver>
+        <jedis_ver>2.8.1</jedis_ver>
     </properties>
 
     <dependencies>
@@ -177,6 +179,20 @@
             <groupId>com.sun.mail</groupId>
             <artifactId>javax.mail</artifactId>
             <version>${java_mail_version}</version>
+        </dependency>
+
+        <!-- guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>${guava_ver}</version>
+        </dependency>
+
+        <!-- redis -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>${jedis_ver}</version>
         </dependency>
 
     </dependencies>

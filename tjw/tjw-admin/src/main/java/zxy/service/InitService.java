@@ -16,6 +16,7 @@ import zxy.permission.dao.UserRoleRelationMapper;
 import zxy.permission.entity.*;
 import zxy.permission.PermissionService;
 import zxy.permission.ResourceType;
+import zxy.redis.JedisTemplate;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
@@ -43,6 +44,8 @@ public class InitService {
     private RoleMapper roleMapper;
     @Autowired
     private RoleResourceRelationMapper roleResourceRelationMapper;
+    @Autowired
+    private JedisTemplate jedisTemplate;
 
     private List<Resource> allResources = new ArrayList<>();
     private Map<Integer, Resource> resourceMap = new HashMap<>();
@@ -62,6 +65,14 @@ public class InitService {
         initResource();
         initRootPermission();
         permissionService.setResourceCache(resourceMap);
+
+        // 检查Redis服务
+        try {
+            logger.info("redis ping:" + jedisTemplate.ping());
+        }
+        catch (Exception e) {
+            logger.error("init jedisTemplate.ping.", e);
+        }
     }
 
     /**

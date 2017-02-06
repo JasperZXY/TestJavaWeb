@@ -1,5 +1,7 @@
 ## 使用技术/框架/库
 ### 后端
+- MySQL
+- Redis
 - SpringMVC
 - MyBatis
 - Apache commons
@@ -12,12 +14,13 @@
 
 
 ## 说明
-1. AdminLTE对应的index2.html拆分为template.jsp、menu.jsp及具体的业务JSP页面。
-2. 功能新增：在jsp目录下新增功能页面，可模仿demo文件夹，同时在menu.jsp中添加相关菜单，
+- 目前是考虑了单机情况，只为实现功能。
+- AdminLTE对应的index2.html拆分为template.jsp、menu.jsp及具体的业务JSP页面。
+- 功能新增：在jsp目录下新增功能页面，可模仿demo文件夹，同时在menu.jsp中添加相关菜单，
 往数据库添加相关数据（可通过SQL或运行后在界面上操作或在InitService中进行配置）。
-3. 权限模块需要注意一下，虽然定义了resource表结构，但是没有跟前端的页面进行整合，
+- 权限模块需要注意一下，虽然定义了resource表结构，但是没有跟前端的页面进行整合，
 也即没有通过resource表中的数据来生成前端的菜单，只做了简单的控制。
-4. 目前权限对应的资源层级关系只实现了nav-->menu-->button，只要有对应的menu权限，nav即可展示。
+- 目前权限对应的资源层级关系只实现了nav-->menu-->button，只要有对应的menu权限，nav即可展示。
 button为按钮，如“删除”按钮对应的删除操作等；menu为左边菜单栏，如“用户管理”，用户列表展示；
 nav为导航菜单，如“权限相关”，把所有与权限有关的都放在这里，“资源管理”、“角色管理”等，
 只要其中一个有权限，则可以展示对应的nav。
@@ -43,7 +46,7 @@ nav类用1~3位数字表示。
 
 
 ## 运行
-`注意`：要先创建好数据库
+`注意`：要先创建好数据库，redis（部分功能需要）
 
 - mvn jetty:run -Djetty.port=9696 -Pdev
 - mvn jetty:run -Djetty.port=9696 -Ppro
@@ -74,3 +77,6 @@ nav类用1~3位数字表示。
 
 ### 2017-02-03
 1. 整合163邮件发送
+
+### 2017-02-06
+1. 整合Redis
