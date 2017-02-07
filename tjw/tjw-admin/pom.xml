@@ -33,6 +33,13 @@
     </properties>
 
     <dependencies>
+        <!-- 自己的包 -->
+        <dependency>
+            <groupId>com.jasper.demo</groupId>
+            <artifactId>tjw-common</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
+
         <!-- junit，测试 -->
         <dependency>
             <groupId>junit</groupId>

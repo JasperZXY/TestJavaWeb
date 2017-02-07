@@ -185,6 +185,19 @@ public class JedisTemplate {
 	// / Common Actions ///
 
 	/**
+	 * ping
+	 * @return
+	 */
+	public String ping() {
+		return execute(new JedisAction<String>() {
+			@Override
+			public String action(Jedis jedis) {
+				return jedis.ping();
+			}
+		});
+	}
+
+	/**
 	 * Remove the specified keys. If a given key does not exist no operation is
 	 * performed for this key.
 	 * 

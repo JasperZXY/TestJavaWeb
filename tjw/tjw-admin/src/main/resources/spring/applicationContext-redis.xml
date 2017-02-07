@@ -27,7 +27,7 @@
 		<constructor-arg value="#{redisPassword.trim().equals('') ? null : redisPassword }"/>
 	</bean>
 	
-	<bean id="jedisTemplate" class="zxy.redis.JedisTemplate">
+	<bean id="jedisTemplate" class="zxy.common.redis.JedisTemplate">
 		<constructor-arg index="0" ref="jedisPool"/>
 	</bean>
 

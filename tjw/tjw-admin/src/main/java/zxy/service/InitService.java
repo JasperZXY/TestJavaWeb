@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zxy.common.PermissionCode;
+import zxy.common.redis.JedisTemplate;
 import zxy.component.SingleTask;
 import zxy.constants.EntityStatus;
 import zxy.dao.AccountMapper;
@@ -17,7 +18,6 @@ import zxy.permission.dao.UserRoleRelationMapper;
 import zxy.permission.entity.*;
 import zxy.permission.PermissionService;
 import zxy.permission.ResourceType;
-import zxy.redis.JedisTemplate;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
@@ -66,7 +66,7 @@ public class InitService {
         initResourceCache();
         permissionService.setResourceCache(resourceMap);
 
-        if (!singleTask.toRun()) {
+        if (singleTask.toRun()) {
             // 下面大部分初始化代码可以换成SQL脚本
             initRootUser();
             initResourceInDB();
