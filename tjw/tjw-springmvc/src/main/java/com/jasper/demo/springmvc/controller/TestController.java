@@ -1,6 +1,8 @@
 package com.jasper.demo.springmvc.controller;
 
 import com.jasper.demo.springmvc.bean.DateObject;
+import com.jasper.demo.springmvc.exception.MyException;
+import com.jasper.demo.springmvc.exception.MyRuntimeException;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,6 +21,24 @@ import java.util.Map;
 @Controller
 @RequestMapping("/test")
 public class TestController {
+    @RequestMapping("exception/{code}")
+    @ResponseBody
+    public Object exception(@PathVariable int code) throws Exception {
+        switch (code) {
+            case 1:
+                throw new RuntimeException("RuntimeException");
+            case 2:
+                throw new Exception("Exception");
+            case 3:
+                throw new MyRuntimeException("MyRuntimeException");
+            case 4:
+                throw new MyException("MyException");
+            case 5:
+                throw new NullPointerException("NullPointerException");
+        }
+        return "exception";
+    }
+
     @RequestMapping("")
     public String error() {
         int[] a = {1};

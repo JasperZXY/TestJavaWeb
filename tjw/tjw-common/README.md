@@ -5,3 +5,5 @@
 ## 工具类
 1. Redis使用
 2. 时间工具类
+3. excel读写
+4. 整合apache的Httpclient

@@ -20,7 +20,27 @@ xmlns:mvc="http://www.springframework.org/schema/mvc" xsi:schemaLocation="
 		<!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>-->
 	</context:component-scan>
-	
+
+	<!-- 全局异常配置 start -->
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+			<props>
+				<prop key="java.lang.Throwable">forward:/error?msg=Throwable</prop>
+				<prop key="java.lang.Exception">forward:/error?msg=Exception</prop>
+				<prop key="java.lang.RuntimeException">forward:/error?msg=RuntimeException</prop>
+				<prop key="com.jasper.demo.springmvc.exception.MyException">forward:/error?msg=MyException</prop>
+				<prop key="com.jasper.demo.springmvc.exception.MyRuntimeException">forward:/error?msg=MyRuntimeException</prop>
+			</props>
+		</property>
+		<!-- 设置日志输出级别，不定义则默认不输出警告等错误日志信息 -->
+		<property name="warnLogCategory" value="WARN"></property>
+		<!-- 默认错误页面，当找不到上面mappings中指定的异常对应视图时，使用本默认配置 -->
+		<property name="defaultErrorView" value="error"></property>
+		<!-- 默认HTTP状态码 -->
+		<property name="defaultStatusCode" value="500"></property>
+	</bean>
+	<!-- 全局异常配置 end -->
+
 	<!-- 属性配置文件 -->
 	<import resource="classpath*:spring/appContext-*.xml" />
 	<import resource="classpath*:spring/springmvc-servlet.xml" />
