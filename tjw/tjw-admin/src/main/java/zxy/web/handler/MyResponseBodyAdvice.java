@@ -10,6 +10,7 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
+import zxy.common.utils.HttpUtils;
 import zxy.utils.JsonUtils;
 import zxy.utils.Utils;
 
@@ -39,7 +40,7 @@ public class MyResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             }
             Object loginUser = null;
             logger.debug("beforeBodyWrite IP:{}\n \tloginuser:{}\n \tuser-agent:{}\n \turl:{}\n \tresult:{}",
-                    Utils.getRemoteIP(httpServletRequest), JsonUtils.toString(loginUser),
+                    HttpUtils.getRemoteIP(httpServletRequest), JsonUtils.toString(loginUser),
                     httpServletRequest.getHeader("user-agent"), urlBuilder.toString(), JsonUtils.toString(result));
         }
         return result;

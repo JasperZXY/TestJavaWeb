@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import zxy.common.utils.HttpUtils;
 import zxy.dao.LoginfoMapper;
 import zxy.entity.Loginfo;
 import zxy.utils.JsonUtils;
@@ -46,7 +47,7 @@ public class LoginfoService {
         if (loginfo.getUid() == null) {
             loginfo.setUid(0);
         }
-        loginfo.setIp(Utils.getRemoteIP(request));
+        loginfo.setIp(HttpUtils.getRemoteIP(request));
         loginfo.setCreatetime(new Date());
         logger.debug("addLog:" + JsonUtils.toString(loginfo));
         loginfoMapper.insert(loginfo);

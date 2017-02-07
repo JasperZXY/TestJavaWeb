@@ -10,6 +10,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import zxy.common.JsonResult;
 import zxy.common.ResultCode;
 import zxy.common.ServiceException;
+import zxy.common.utils.HttpUtils;
 import zxy.component.AjaxDecideDelegate;
 import zxy.constants.JspConfig;
 import zxy.permission.support.NoPermissionException;
@@ -105,7 +106,7 @@ public class MyExceptionHandler {
             urlBuilder.append("?").append(queryString);
         }
         logger.error("Exception IP:{}\n \tuser:{}\n \turl:{}",
-                Utils.getRemoteIP(request), JsonUtils.toString(loginUser), urlBuilder.toString(), ex);
+                HttpUtils.getRemoteIP(request), JsonUtils.toString(loginUser), urlBuilder.toString(), ex);
     }
 
 }
