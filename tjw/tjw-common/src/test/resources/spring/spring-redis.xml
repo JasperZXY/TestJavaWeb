@@ -36,7 +36,7 @@
 		<constructor-arg name="timeout" value="3000" />
 	</bean>
 
-	<bean id="jedisTemplate" class="com.jasper.demo.redis.JedisTemplate">
+	<bean id="jedisTemplate" class="zxy.common.redis.JedisTemplate">
 		<constructor-arg ref="jedisPool" />
 	</bean>
 

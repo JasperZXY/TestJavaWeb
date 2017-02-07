@@ -3,7 +3,7 @@
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  *******************************************************************************/
-package com.jasper.demo.redis;
+package zxy.common.redis;
 
 import redis.clients.jedis.Jedis;
 

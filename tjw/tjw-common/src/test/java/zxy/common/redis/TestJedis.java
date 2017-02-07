@@ -1,4 +1,4 @@
-package com.jasper.demo.redis;
+package zxy.common.redis;
 
 import redis.clients.jedis.Jedis;
 
