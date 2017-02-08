@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import zxy.common.utils.JsonUtils;
 import zxy.commons.JsonResult;
 import zxy.commons.ResultCode;
 import zxy.commons.ServiceException;
@@ -14,7 +15,6 @@ import zxy.common.utils.HttpUtils;
 import zxy.component.AjaxDecideDelegate;
 import zxy.commons.JspConfig;
 import zxy.permission.support.NoPermissionException;
-import zxy.utils.JsonUtils;
 import zxy.utils.Utils;
 
 import javax.servlet.http.HttpServletRequest;

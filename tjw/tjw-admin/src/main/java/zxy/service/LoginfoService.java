@@ -5,10 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zxy.common.utils.HttpUtils;
+import zxy.common.utils.JsonUtils;
 import zxy.dao.LoginfoMapper;
 import zxy.entity.Loginfo;
-import zxy.utils.JsonUtils;
-import zxy.utils.Utils;
 import zxy.web.SessionManager;
 
 import javax.servlet.http.HttpServletRequest;

@@ -11,8 +11,7 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 import zxy.common.utils.HttpUtils;
-import zxy.utils.JsonUtils;
-import zxy.utils.Utils;
+import zxy.common.utils.JsonUtils;
 
 import javax.servlet.http.HttpServletRequest;
 

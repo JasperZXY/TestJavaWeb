@@ -102,6 +102,28 @@ public class ApiBaseDelegate {
         return retcode == null || WeixinReturnCode.SUCCESS.equals(retcode);
     }
 
+    public final boolean isSuccess(Map<String, Object> retMap) {
+        return isSuccess((Integer) retMap.get(ERRCODE));
+    }
+
+    /**
+     * 给url加上access_token参数
+     * @param myappid
+     * @param url
+     * @return
+     */
+    public final String urlAddAccessToken(String myappid, String url) {
+        StringBuilder urlBuilder = new StringBuilder(url);
+        if (url.indexOf("?") <= -1) {
+            urlBuilder.append("?");
+        }
+        else {
+            urlBuilder.append("&");
+        }
+        urlBuilder.append(KEY_ACCESS_TOKEN).append("=").append(accessTokenMap.get(myappid));
+        return urlBuilder.toString();
+    }
+
     /**
      * access_token是否合法，若不合法，将重新从微信那里请求获取
      * @param myappid
@@ -140,12 +162,19 @@ public class ApiBaseDelegate {
         return false;
     }
 
-    private String httpGet(String myappid, String url) throws WeixinException {
+    /**
+     * 想微信发送Http GET请求
+     * @param myappid
+     * @param url       url中不需要带access_token字段
+     * @return
+     * @throws WeixinException
+     */
+    public String httpGet(String myappid, String url) throws WeixinException {
         String retData;
         // 只在Http GET 返回结果不为空，且AccessToken过期了才会调第二次
         for (int i = 0; i < 2; i++) {
             try {
-                retData = HttpUtils.httpGet(url);
+                retData = HttpUtils.httpGet(urlAddAccessToken(myappid, url));
             } catch (Exception e) {
                 logger.error("[httpGet] Http GET error. i:{} url:{}", i, url, e);
                 throw new WeixinException("Http GET error.", e);
@@ -161,16 +190,18 @@ public class ApiBaseDelegate {
             if (accessTokenCheckAndReset(myappid, (Integer) map.get(ERRCODE))) {
                 return retData;
             }
-
-            url = rebuildUrlForInvalidAccesstoken(myappid, url);
-            if (StringUtils.isBlank(url)) {
-                break;
-            }
         }
         logger.error("[httpGet] error. url:" + url);
         throw new WeixinException("httpGet error");
     }
 
+    /**
+     * 想微信发送Http POST请求
+     * @param myappid
+     * @param url       url中不需要带access_token字段
+     * @param param
+     * @return
+     */
     public String httpPost(String myappid, String url, Map<String, Object> param) {
         return httpPost(myappid, url, param, Collections.<String, String>emptyMap());
     }
@@ -180,7 +211,7 @@ public class ApiBaseDelegate {
         // 只在Http POST 返回结果不为空，且AccessToken过期了才会调第二次
         for (int i = 0; i < 2; i++) {
             try {
-                retData = HttpUtils.httpPost(url, JsonUtils.toString(param), postHeader);
+                retData = HttpUtils.httpPost(urlAddAccessToken(myappid, url), JsonUtils.toString(param), postHeader);
             } catch (Exception e) {
                 logger.error("[httpPost] Http POST error. i:{} url:{}", i, url, e);
                 return null;
@@ -195,11 +226,6 @@ public class ApiBaseDelegate {
             Map<String, Object> map = JsonUtils.toObject(retData, Map.class);
             if (accessTokenCheckAndReset(myappid, (Integer) map.get(ERRCODE))) {
                 return retData;
-            }
-
-            url = rebuildUrlForInvalidAccesstoken(myappid, url);
-            if (StringUtils.isBlank(url)) {
-                break;
             }
         }
 

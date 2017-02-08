@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import zxy.utils.JsonUtils;
+import zxy.common.utils.JsonUtils;
 import zxy.utils.Utils;
 
 import java.util.Collections;
@@ -21,16 +21,16 @@ public class ApiSendMessageDelegate {
     private static final Logger logger = LoggerFactory.getLogger(ApiSendMessageDelegate.class);
 
     private static final String ERRCODE = ApiBaseDelegate.ERRCODE;
-    private static final String urlSendMessageFormat = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=%s";
+    private static final String urlSendMessageFormat = "https://qyapi.weixin.qq.com/cgi-bin/message/send";
 
     @Autowired
     private ApiBaseDelegate apiBaseDelegate;
 
     private boolean sendMessage(String myappid, Map<String, Object> param) {
-        String url = String.format(urlSendMessageFormat, apiBaseDelegate.getAccessToken(myappid));
+        String url = urlSendMessageFormat;
         try {
 
-            String data = apiBaseDelegate.httpPost(myappid, url, param);
+            String data = apiBaseDelegate.httpPost(myappid, urlSendMessageFormat, param);
             if (StringUtils.isBlank(data)) {
                 return false;
             }
