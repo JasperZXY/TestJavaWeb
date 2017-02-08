@@ -72,4 +72,19 @@
         </ul>
     </li>
     </permisssion:pass>
+
+    <permisssion:pass code="5005">
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-wechat text-green"></i>
+                <span>微信</span>
+                <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="${ctxPath}/weixin/qyh/manager/list"><i class="fa fa-circle-o"></i> 企业号</a></li>
+            </ul>
+        </li>
+    </permisssion:pass>
 </ul>

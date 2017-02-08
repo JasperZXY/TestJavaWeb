@@ -8,21 +8,21 @@ import org.springframework.stereotype.Component;
 import zxy.common.utils.JsonUtils;
 import zxy.weixin.WeixinException;
 import zxy.weixin.qyh.domain.WeixinDepartment;
+import zxy.weixin.qyh.domain.WeixinResult;
 import zxy.weixin.qyh.domain.WeixinUser;
 import zxy.weixin.qyh.utils.WeixinReturnCode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class ApiContactDelegate {
     private static final Logger logger = LoggerFactory.getLogger(ApiSendMessageDelegate.class);
 
+    private static final Integer SUPER_DEPARTMENT_ID = 1;
     private static final String urlGetUserDetailFormat = "https://qyapi.weixin.qq.com/cgi-bin/user/get?userid=%s";
     private static final String urlGetDepartmentMember = "https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?department_id=%s&fetch_child=%s&status=%s";
     private static final String urlListDepartment = "https://qyapi.weixin.qq.com/cgi-bin/department/list";
+    private static final String urlAddUser = "https://qyapi.weixin.qq.com/cgi-bin/user/create";
 
     @Autowired
     private ApiBaseDelegate apiBaseDelegate;
@@ -105,4 +105,35 @@ public class ApiContactDelegate {
 
         return Collections.emptyList();
     }
+
+    /**
+     *
+     * @param myappid
+     * @param userid
+     * @param name
+     * @param department
+     * @param mobile
+     * @return
+     */
+    public String addUser(String myappid, String userid, String name, Integer department, String mobile) {
+        if (department == null) {
+            department = SUPER_DEPARTMENT_ID;
+        }
+        Map<String, Object> param = new HashMap<>();
+        param.put("userid", userid);
+        param.put("name", name);
+        param.put("department", department);
+        param.put("mobile", mobile);
+
+        String data = apiBaseDelegate.httpPost(myappid, urlAddUser, param);
+        WeixinResult result = JsonUtils.toObject(data, WeixinResult.class);
+        if (result == null) {
+            return "未知错误";
+        }
+        if (apiBaseDelegate.isSuccess(result)) {
+            return null;
+        }
+        return result.getErrmsg();
+    }
+
 }

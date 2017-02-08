@@ -10,6 +10,7 @@ import zxy.common.utils.JsonUtils;
 import zxy.common.utils.MyThreadFactory;
 import zxy.commons.LockDelegate;
 import zxy.weixin.WeixinException;
+import zxy.weixin.qyh.domain.WeixinResult;
 import zxy.weixin.qyh.utils.WeixinReturnCode;
 
 import javax.annotation.PostConstruct;
@@ -100,6 +101,10 @@ public class ApiBaseDelegate {
 
     public final boolean isSuccess(Integer retcode) {
         return retcode == null || WeixinReturnCode.SUCCESS.equals(retcode);
+    }
+
+    public final boolean isSuccess(WeixinResult weixinResult) {
+        return weixinResult != null && isSuccess(weixinResult.getErrcode());
     }
 
     public final boolean isSuccess(Map<String, Object> retMap) {

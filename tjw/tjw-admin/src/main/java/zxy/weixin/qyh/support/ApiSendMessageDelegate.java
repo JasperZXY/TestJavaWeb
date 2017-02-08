@@ -8,10 +8,7 @@ import org.springframework.stereotype.Component;
 import zxy.common.utils.JsonUtils;
 import zxy.utils.Utils;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 发送消息
@@ -25,6 +22,10 @@ public class ApiSendMessageDelegate {
 
     @Autowired
     private ApiBaseDelegate apiBaseDelegate;
+
+    public List<String> toAllUserForSendMessage() {
+        return Arrays.asList("@all");
+    }
 
     private boolean sendMessage(String myappid, Map<String, Object> param) {
         String url = urlSendMessageFormat;

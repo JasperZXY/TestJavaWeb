@@ -119,6 +119,8 @@ public class InitService {
         allResources.add(newResource(PermissionCode.USER_HELP_CHANGE_PASSWORD, "协助修改用户密码", ResourceType.button, PermissionCode.USER_ACCESS));
         allResources.add(newResource(PermissionCode.USER_HELP_CHANGE_EMAIL, "协助修改用户邮箱", ResourceType.button, PermissionCode.USER_ACCESS));
         allResources.add(newResource(PermissionCode.LOGINFO_ACCESS, "操作日志", ResourceType.menu, root));
+        allResources.add(newResource(PermissionCode.WEIXIN, "微信相关", ResourceType.nav, root));
+        allResources.add(newResource(PermissionCode.WEIXIN_QYH_MANAGER, "微信企业号管理", ResourceType.menu, PermissionCode.WEIXIN));
 
         for (Resource resource : allResources) {
             resourceMap.put(resource.getId(), resource);

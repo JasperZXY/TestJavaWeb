@@ -34,4 +34,8 @@ public interface PermissionCode {
     // 日志相关
     int LOGINFO_ACCESS = 4001;
 
+    // 微信相关
+    int WEIXIN = 2;
+    int WEIXIN_QYH_MANAGER = 5005;
+
 }
