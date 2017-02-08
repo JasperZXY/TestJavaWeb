@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+">
+
+    <bean id="propertyQYHConfig" class="zxy.weixin.qyh.support.PropertyQYHConfig" >
+        <property name="cropid" value="${weixinqyh.corpID}"></property>
+        <property name="qrcodeUrl" value="${weixinqyh.rqcode}"></property>
+        <property name="callbackToken" value="${weixinqyh.callback.token}"></property>
+        <property name="callbackEncodingAESKey" value="${weixinqyh.callback.encodingaeskey}"></property>
+        <property name="agentidJava" value="${weixinqyh.agentid.java}"></property>
+        <property name="agentidAndroid" value="${weixinqyh.agentid.android}"></property>
+    </bean>
+
+</beans>

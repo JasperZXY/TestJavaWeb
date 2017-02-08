@@ -14,6 +14,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/weixin/**" />
             <mvc:exclude-mapping path="/auth/**" />
             <mvc:exclude-mapping path="/account/password/**" />
             <bean class="zxy.web.handler.LoginInterceptor" />
