@@ -12,7 +12,7 @@ import zxy.JsonPrettyUtils;
 import zxy.common.utils.DateUtils;
 import zxy.commons.ImageDelegate;
 import zxy.weixin.qyh.domain.WeixinDepartment;
-import zxy.weixin.qyh.support.ApiUserDelegate;
+import zxy.weixin.qyh.support.ApiContactDelegate;
 import zxy.weixin.qyh.support.IAgentIdConfig;
 import zxy.weixin.qyh.support.IAppConfig;
 import zxy.weixin.qyh.support.ApiSendMessageDelegate;
@@ -20,7 +20,6 @@ import zxy.weixin.qyh.support.ApiSendMessageDelegate;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring/applicationContext.xml" })
@@ -35,7 +34,7 @@ public class ApiDelegateTest {
     @Autowired
     private ApiSendMessageDelegate apiSendMessageDelegate;
     @Autowired
-    private ApiUserDelegate apiUserDelegate;
+    private ApiContactDelegate apiContactDelegate;
 
     private String myappid;
     private String userid;
@@ -61,17 +60,17 @@ public class ApiDelegateTest {
 
     @Test
     public void getUserDetail() {
-        logger.info("getUserDetail " + JsonPrettyUtils.toString(apiUserDelegate.getUserDetail(myappid, userid)));
+        logger.info("getUserDetail " + JsonPrettyUtils.toString(apiContactDelegate.getUserDetail(myappid, userid)));
     }
 
     @Test
     public void getDepartmentMember() {
-        List<WeixinDepartment> dempartments = apiUserDelegate.listDepartment(myappid);
+        List<WeixinDepartment> dempartments = apiContactDelegate.listDepartment(myappid);
         logger.info("dempartments " + JsonPrettyUtils.toString(dempartments));
         for (WeixinDepartment department : dempartments) {
             logger.info("department[{}] usrs:{}",
                     department.getName(),
-                    JsonPrettyUtils.toString(apiUserDelegate.getDepartmentMember(myappid, department.getId())));
+                    JsonPrettyUtils.toString(apiContactDelegate.getDepartmentMember(myappid, department.getId())));
         }
 
     }

@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class ApiUserDelegate {
+public class ApiContactDelegate {
     private static final Logger logger = LoggerFactory.getLogger(ApiSendMessageDelegate.class);
 
     private static final String urlGetUserDetailFormat = "https://qyapi.weixin.qq.com/cgi-bin/user/get?userid=%s";
