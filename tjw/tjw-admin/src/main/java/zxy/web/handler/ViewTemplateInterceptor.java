@@ -13,11 +13,10 @@ import java.util.Set;
  * 模板视图的返回
  */
 public class ViewTemplateInterceptor implements HandlerInterceptor {
-    private static final Set<String> IGNORE_VIEWS = new HashSet<>();
-    static {
-        IGNORE_VIEWS.add("hello");
-        IGNORE_VIEWS.add("admin/login");
-        IGNORE_VIEWS.add("account/resetpassword");
+    private Set<String> ignoreViews;
+
+    public void setIgnoreViews(Set<String> ignoreViews) {
+        this.ignoreViews = ignoreViews;
     }
 
     @Override
@@ -30,7 +29,7 @@ public class ViewTemplateInterceptor implements HandlerInterceptor {
         // 判断返回的页面是否需要重新定位，返回真正的页面
         if (mv != null) {
             String orgViewName = mv.getViewName();
-            if (IGNORE_VIEWS.contains(orgViewName)) {
+            if (ignoreViews != null && ignoreViews.contains(orgViewName)) {
                 return;
             }
             mv.setViewName("template");

@@ -14,17 +14,25 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <mvc:exclude-mapping path="/weixin/**" />
-            <mvc:exclude-mapping path="/auth/**" />
-            <mvc:exclude-mapping path="/account/password/**" />
-            <bean class="zxy.web.handler.LoginInterceptor" />
+            <mvc:exclude-mapping path="/weixin/**"/>
+            <mvc:exclude-mapping path="/auth/**"/>
+            <mvc:exclude-mapping path="/account/password/**"/>
+            <bean class="zxy.web.handler.LoginInterceptor"/>
         </mvc:interceptor>
-        <bean class="zxy.web.handler.ViewTemplateInterceptor"/>
         <!-- 权限拦截配置 -->
         <bean class="zxy.permission.support.PermissionInterceptor">
         </bean>
+        <!-- 视图模板 -->
+        <bean class="zxy.web.handler.ViewTemplateInterceptor">
+            <property name="ignoreViews">
+                <set>
+                    <value>admin/login</value>
+                    <value>account/resetpassword</value>
+                </set>
+            </property>
+        </bean>
     </mvc:interceptors>
-    
+
     <!-- 等价于上面两个bean的默认定义 -->
     <mvc:annotation-driven/>
 

@@ -18,14 +18,6 @@ public class AdminController {
         return mv;
     }
 
-    @RequestMapping(path="/hello")
-    public ModelAndView hello() {
-        ModelAndView mv = new ModelAndView();
-        mv.setViewName("admin/hello");
-        mv.addObject("date", new Date());
-        return mv;
-    }
-
     @RequestMapping(path="/404")
     public String _404() {
         return "admin/404";
