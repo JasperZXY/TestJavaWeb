@@ -1,6 +1,5 @@
 package zxy.weixin.qyh.support;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,20 +17,20 @@ import java.util.Map;
  * 发送消息
  */
 @Component
-public class SendMessageDelegate {
-    private static final Logger logger = LoggerFactory.getLogger(SendMessageDelegate.class);
+public class ApiSendMessageDelegate {
+    private static final Logger logger = LoggerFactory.getLogger(ApiSendMessageDelegate.class);
 
-    private static final String ERRCODE = BaseWeixinDelegate.ERRCODE;
+    private static final String ERRCODE = ApiBaseDelegate.ERRCODE;
     private static final String urlSendMessageFormat = "https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=%s";
 
     @Autowired
-    private BaseWeixinDelegate baseWeixinDelegate;
+    private ApiBaseDelegate apiBaseDelegate;
 
     private boolean sendMessage(String myappid, Map<String, Object> param) {
-        String url = String.format(urlSendMessageFormat, baseWeixinDelegate.getAccessToken(myappid));
+        String url = String.format(urlSendMessageFormat, apiBaseDelegate.getAccessToken(myappid));
         try {
 
-            String data = baseWeixinDelegate.httpPost(myappid, url, param);
+            String data = apiBaseDelegate.httpPost(myappid, url, param);
             if (StringUtils.isBlank(data)) {
                 return false;
             }
@@ -39,7 +38,7 @@ public class SendMessageDelegate {
             @SuppressWarnings("unchecked")
             Map<String, Object> map = JsonUtils.toObject(data, Map.class);
             Integer retcode = (Integer) map.get(ERRCODE);
-            if (baseWeixinDelegate.isSuccess(retcode)) {
+            if (apiBaseDelegate.isSuccess(retcode)) {
                 return true;
             }
             logger.error("[sendMessage] error url:{} param:{} retcode:{} return:{}", url, param, retcode, data);

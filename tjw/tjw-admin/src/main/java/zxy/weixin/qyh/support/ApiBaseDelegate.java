@@ -22,8 +22,8 @@ import java.util.concurrent.*;
  * 基本的微信调用方法，获取access_token、发送请求
  */
 @Component
-public class BaseWeixinDelegate {
-    private static final Logger logger = LoggerFactory.getLogger(BaseWeixinDelegate.class);
+public class ApiBaseDelegate {
+    private static final Logger logger = LoggerFactory.getLogger(ApiBaseDelegate.class);
 
     // TODO 这个参数后续改为可配置，在有多个微信应用的情况，启动会比较慢，启动一个线程来初始化，让程序能快速启动完成
     public boolean initOnNewThread = true;
