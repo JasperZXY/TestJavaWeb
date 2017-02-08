@@ -70,8 +70,11 @@ public class CallbackController {
         return echoStr;
     }
 
-    // TODO 加上回调模式后，在微信后台添加的菜单点击无响应，后续解决。
-    // 真正的事件回调，POST请求
+    /**
+     * 真正的事件回调，POST请求
+     * <br/>
+     * 注意：加上了回调模式后，原有的菜单点击自动回复消息将失效，要自己实现
+     */
     @RequestMapping(value = "/{myappid}", method = RequestMethod.POST)
     @ResponseBody
     public Object post(HttpServletRequest request, HttpServletResponse response,

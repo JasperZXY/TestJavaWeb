@@ -95,6 +95,10 @@ public class HttpUtils {
     }
 
     private static String httpGetOrPost(HttpRequestBase request) {
+        return httpGetOrPost(request, null);
+    }
+
+    private static String httpGetOrPost(HttpRequestBase request, Map<String, String> headerMap) {
         CloseableHttpClient httpClient = null;
         CloseableHttpResponse response = null;
 
@@ -104,10 +108,17 @@ public class HttpUtils {
             httpClient = HttpClients.createDefault();
 
             request.setConfig(createRequestConfig());
+
             // 设置各种头信息
             for (Map.Entry<String, String> entry : headers.entrySet()) {
                 request.setHeader(entry.getKey(), entry.getValue());
             }
+            if (headerMap != null && !headerMap.isEmpty()) {
+                for (Map.Entry<String, String> entry : headerMap.entrySet()) {
+                    request.setHeader(entry.getKey(), entry.getValue());
+                }
+            }
+
             response = httpClient.execute(request);
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode != HttpStatus.SC_OK) {
@@ -192,7 +203,7 @@ public class HttpUtils {
     /**
      * 发送post请求
      */
-    public static String httpPost(String url, String params) {
+    public static String httpPost(String url, String params, Map<String, String> postHeader) {
         HttpPost post = new HttpPost(url);
         post.setConfig(createRequestConfig());
         if (StringUtils.isNotBlank(params)) {
@@ -202,7 +213,11 @@ public class HttpUtils {
             post.setEntity(entity);
         }
 
-        return httpGetOrPost(post);
+        return httpGetOrPost(post, postHeader);
+    }
+
+    public static String httpPost(String url, String params) {
+        return httpPost(url, params, null);
     }
 
     public static String postFile(String url, byte[] file, String mimeType, String filename) {

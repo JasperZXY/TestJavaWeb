@@ -6,7 +6,9 @@
 ">
 
     <bean id="propertyQYHConfig" class="zxy.weixin.qyh.support.PropertyQYHConfig" >
+        <property name="myappid" value="${weixinqyh.myappid}"></property>
         <property name="cropid" value="${weixinqyh.corpID}"></property>
+        <property name="secret" value="${weixinqyh.secret}"></property>
         <property name="qrcodeUrl" value="${weixinqyh.rqcode}"></property>
         <property name="callbackToken" value="${weixinqyh.callback.token}"></property>
         <property name="callbackEncodingAESKey" value="${weixinqyh.callback.encodingaeskey}"></property>

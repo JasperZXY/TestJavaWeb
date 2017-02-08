@@ -1,15 +1,28 @@
 package zxy.weixin.qyh.support;
 
+import java.util.Collections;
+import java.util.Set;
+
 public class PropertyQYHConfig implements IAppConfig, IAgentIdConfig, ICallbackConfig {
+    private String myappid;
     private String cropid;
+    private String secret;
     private String qrcodeUrl;
     private Integer agentidJava;
     private Integer agentidAndroid;
     private String callbackToken;
     private String callbackEncodingAESKey;
 
+    public void setMyappid(String myappid) {
+        this.myappid = myappid;
+    }
+
     public void setCropid(String cropid) {
         this.cropid = cropid;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 
     public void setQrcodeUrl(String qrcodeUrl) {
@@ -33,8 +46,23 @@ public class PropertyQYHConfig implements IAppConfig, IAgentIdConfig, ICallbackC
     }
 
     @Override
+    public Set<String> listAllMyappid() {
+        return Collections.singleton(myappid);
+    }
+
+    @Override
+    public boolean checkMyappid(String myappid) {
+        return this.myappid.equals(myappid);
+    }
+
+    @Override
     public String getCropId(String myappid) {
         return cropid;
+    }
+
+    @Override
+    public String getSecret(String myappid) {
+        return secret;
     }
 
     @Override

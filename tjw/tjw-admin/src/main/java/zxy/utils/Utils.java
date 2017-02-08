@@ -62,14 +62,18 @@ public abstract class Utils {
     }
 
     public static <T> String toString(Collection<T> collection) {
+        return toString(collection, SPLIT);
+    }
+
+    public static <T> String toString(Collection<T> collection, String split) {
         if (collection == null || collection.isEmpty()) {
             return EMPTY_STRING;
         }
         StringBuilder stringBuilder = new StringBuilder();
         for (T t : collection) {
-            stringBuilder.append(t).append(SPLIT);
+            stringBuilder.append(t).append(split);
         }
-        stringBuilder.replace(stringBuilder.length() - SPLIT.length(), stringBuilder.length(), EMPTY_STRING);
+        stringBuilder.replace(stringBuilder.length() - split.length(), stringBuilder.length(), EMPTY_STRING);
         return stringBuilder.toString();
     }
 

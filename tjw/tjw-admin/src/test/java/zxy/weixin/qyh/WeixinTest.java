@@ -10,9 +10,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.StringReader;
 
-/**
- * @author Jasper.Zhong
- */
 public class WeixinTest {
     public static void main(String[] args) throws Exception {
         String sToken = "QDG6eK";
@@ -134,6 +131,5 @@ public class WeixinTest {
             e.printStackTrace();
             // 加密失败
         }
-
     }
 }
