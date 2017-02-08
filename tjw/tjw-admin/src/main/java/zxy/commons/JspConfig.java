@@ -1,4 +1,4 @@
-package zxy.constants;
+package zxy.commons;
 
 public interface JspConfig {
     String SYSTEM_NAME = "管理后台-demo";

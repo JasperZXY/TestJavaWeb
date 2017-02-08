@@ -1,4 +1,4 @@
-package zxy.common;
+package zxy.commons;
 
 /**
  * JSON结果

@@ -1,4 +1,4 @@
-package zxy.constants;
+package zxy.commons;
 
 /**
  * Redis key 常量

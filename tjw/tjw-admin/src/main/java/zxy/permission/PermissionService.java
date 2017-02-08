@@ -6,7 +6,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import zxy.constants.EntityStatus;
+import zxy.commons.EntityStatus;
 import zxy.permission.dao.ResourceMapper;
 import zxy.permission.dao.RoleMapper;
 import zxy.permission.dao.RoleResourceRelationMapper;

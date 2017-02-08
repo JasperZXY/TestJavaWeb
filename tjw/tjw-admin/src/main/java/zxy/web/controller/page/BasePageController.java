@@ -1,12 +1,10 @@
 package zxy.web.controller.page;
 
 import org.springframework.web.servlet.ModelAndView;
-import zxy.common.JsonResult;
-import zxy.common.ResultCode;
-import zxy.constants.JspConfig;
+import zxy.commons.ResultCode;
+import zxy.commons.JspConfig;
 import zxy.utils.Utils;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class BasePageController {

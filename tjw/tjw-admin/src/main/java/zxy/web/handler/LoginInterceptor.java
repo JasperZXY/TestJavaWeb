@@ -2,8 +2,8 @@ package zxy.web.handler;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import zxy.common.ResultCode;
-import zxy.common.ServiceException;
+import zxy.commons.ResultCode;
+import zxy.commons.ServiceException;
 import zxy.web.SessionManager;
 
 import javax.servlet.http.HttpServletRequest;

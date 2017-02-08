@@ -1,4 +1,4 @@
-package zxy.common;
+package zxy.commons;
 
 /**
  * 操作日志的编码

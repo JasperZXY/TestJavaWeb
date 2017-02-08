@@ -1,4 +1,4 @@
-package zxy.common;
+package zxy.commons;
 
 /**
  * 结果状态码

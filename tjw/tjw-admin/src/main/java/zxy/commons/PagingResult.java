@@ -1,4 +1,4 @@
-package zxy.common;
+package zxy.commons;
 
 import java.util.ArrayList;
 import java.util.List;

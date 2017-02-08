@@ -1,9 +1,8 @@
 package zxy.web.handler;
 
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
-import zxy.constants.JspConfig;
+import zxy.commons.JspConfig;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

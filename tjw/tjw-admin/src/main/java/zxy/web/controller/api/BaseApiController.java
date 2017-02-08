@@ -1,7 +1,7 @@
 package zxy.web.controller.api;
 
 import org.apache.commons.lang3.StringUtils;
-import zxy.constants.EntityStatus;
+import zxy.commons.EntityStatus;
 
 public class BaseApiController {
     public Integer optionToStatus(String option) {

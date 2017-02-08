@@ -1,4 +1,4 @@
-package zxy.constants;
+package zxy.commons;
 
 /**
  * 实体状态

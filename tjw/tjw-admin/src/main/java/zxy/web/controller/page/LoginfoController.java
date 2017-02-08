@@ -1,20 +1,18 @@
 package zxy.web.controller.page;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
-import zxy.common.PagingCriteria;
-import zxy.common.PagingResult;
-import zxy.common.PermissionCode;
+import zxy.commons.PagingCriteria;
+import zxy.commons.PagingResult;
+import zxy.commons.PermissionCode;
 import zxy.dao.LoginfoMapper;
 import zxy.entity.Loginfo;
 import zxy.entity.LoginfoExample;
 import zxy.permission.support.PermissionAnnotation;
 import zxy.service.UserService;
-import zxy.utils.JsonUtils;
 import zxy.web.controller.vo.LogInfoVo;
 
 import java.util.*;

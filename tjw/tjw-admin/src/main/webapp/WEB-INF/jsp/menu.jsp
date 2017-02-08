@@ -1,4 +1,4 @@
-<%@ page import="zxy.common.PermissionCode" %>
+<%@ page import="zxy.commons.PermissionCode" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <ul id="sidebar-menus" class="sidebar-menu">

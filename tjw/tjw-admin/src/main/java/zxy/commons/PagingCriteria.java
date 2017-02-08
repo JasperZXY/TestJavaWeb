@@ -1,7 +1,6 @@
-package zxy.common;
+package zxy.commons;
 
 import org.apache.ibatis.session.RowBounds;
-import zxy.constants.JspConfig;
 
 /**
  * 分页条件

@@ -6,17 +6,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import zxy.common.LogCode;
-import zxy.common.PermissionCode;
-import zxy.common.ResultCode;
-import zxy.constants.EntityStatus;
+import zxy.commons.LogCode;
+import zxy.commons.PermissionCode;
+import zxy.commons.ResultCode;
+import zxy.commons.EntityStatus;
 import zxy.entity.Account;
 import zxy.entity.User;
 import zxy.permission.support.PermissionAnnotation;
 import zxy.service.AccountService;
 import zxy.service.LoginfoService;
 import zxy.service.UserService;
-import zxy.common.JsonResult;
+import zxy.commons.JsonResult;
 
 import javax.servlet.http.HttpServletRequest;
 

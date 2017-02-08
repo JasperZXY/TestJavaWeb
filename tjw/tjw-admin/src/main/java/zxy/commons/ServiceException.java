@@ -1,4 +1,4 @@
-package zxy.common;
+package zxy.commons;
 
 public class ServiceException extends RuntimeException {
     private ResultCode resultCode;

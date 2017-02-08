@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import zxy.JunitUtils;
-import zxy.common.ResultCode;
-import zxy.common.ServiceException;
+import zxy.commons.ResultCode;
+import zxy.commons.ServiceException;
 import zxy.entity.User;
 import zxy.utils.Utils;
 
