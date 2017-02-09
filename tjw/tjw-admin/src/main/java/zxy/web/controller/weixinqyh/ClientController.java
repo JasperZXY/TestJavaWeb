@@ -17,9 +17,6 @@ import zxy.weixin.qyh.support.ICallbackConfig;
 
 import javax.servlet.http.HttpServletRequest;
 
-/**
- * 如果客户端提示“redirect_uri错误”填写一下可信域名即可。
- */
 @Controller("weixinqyhClientController")
 @RequestMapping("/weixin/qyh/client")
 public class ClientController {
