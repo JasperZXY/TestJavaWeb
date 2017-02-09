@@ -190,7 +190,7 @@ function ajaxForm(obj) {
 
 /**
  * 异步Http请求
- * @param {Object} obj 包含字段：data、type、shortUrl，success、error
+ * @param {Object} obj 包含字段：data(Object)、type(GET、POST)、shortUrl，success(function，为空则提示默认)、error(function，为空则提示默认)
  * @constructor
  */
 function ajax(obj) {
@@ -258,6 +258,9 @@ function callbackForSuccess(obj, data) {
     if (obj.success instanceof Function) {
         obj.success(data);
     }
+    else {
+        showSuccessTips();
+    }
 }
 
 /**
@@ -268,6 +271,9 @@ function callbackForSuccess(obj, data) {
 function callbackForError(obj, msg) {
     if (obj.error instanceof Function) {
         obj.error(msg);
+    }
+    else {
+        showErrorTips(msg);
     }
 }
 
@@ -318,6 +324,9 @@ function showTips(text, type, duration) {
 
 function showSuccessTips() {
     showTips("成功", "success");
+}
+function showErrorTips(msg) {
+    showTips(msg, "error");
 }
 
 // --------------------------

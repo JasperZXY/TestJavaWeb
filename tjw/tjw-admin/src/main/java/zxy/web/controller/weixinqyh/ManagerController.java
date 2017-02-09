@@ -104,13 +104,13 @@ public class ManagerController {
     @ResponseBody
     public Object sendText(@PathVariable String msgType, String myappid, int agentId, String msg) {
         boolean status = false;
-        String picUrl = ImageDelegate.randomImgage();
         switch (msgType) {
             case "text":
                 status = apiSendMessageDelegate.sendText(myappid, apiSendMessageDelegate.toAllUserForSendMessage(), null, agentId, msg);
                 break;
             case "news":
-                status = apiSendMessageDelegate.sendNews(myappid, apiSendMessageDelegate.toAllUserForSendMessage(), null, agentId, msg, msg, picUrl, picUrl);
+                status = apiSendMessageDelegate.sendNews(myappid, apiSendMessageDelegate.toAllUserForSendMessage(), null, agentId, msg,
+                        msg + "\n微信企业号接口调试工具", "http://qydev.weixin.qq.com/debug", ImageDelegate.randomImgage());
                 break;
             default:
                 return JsonResult.buildFail("不识别的消息类型");

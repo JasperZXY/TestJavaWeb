@@ -43,6 +43,11 @@ public class ImageDelegate {
             "http://www.freeimageslive.com/galleries/nature/animals/preview/hens4947.jpg",
             "http://www.freeimageslive.com/galleries/nature/animals/preview/highlandcows3795.jpg",
             "http://www.freeimageslive.com/galleries/nature/animals/preview/horses.jpg",
+//            "http://qzonestyle.gtimg.cn/open_proj/proj_open_shuangbai/images/resource1.jpg",
+//            "http://qzonestyle.gtimg.cn/open_proj/proj_open_shuangbai/images/resource2.jpg",
+//            "http://qzonestyle.gtimg.cn/open_proj/proj_open_shuangbai/images/resource3.jpg",
+//            "http://qzonestyle.gtimg.cn/open_proj/proj_open_shuangbai/images/resource4.jpg",
+//            "http://qzonestyle.gtimg.cn/open_proj/proj_open_shuangbai/images/resource5.jpg",
     };
 
     public static final List<String> IMAGE_LIST = Arrays.asList(IMAGES);

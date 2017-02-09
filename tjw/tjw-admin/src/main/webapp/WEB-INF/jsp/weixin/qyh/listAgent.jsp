@@ -80,12 +80,6 @@
                 myappid : $("#myappid").val(),
                 agentId : agentId,
                 msg : $("#msg_" + agentId).val()
-            },
-            success: function () {
-                showSuccessTips();
-            },
-            error: function (msg) {
-                showTips("失败：" + msg, "error");
             }
         })
     }
