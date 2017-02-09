@@ -18,8 +18,8 @@ import java.io.StringReader;
 /**
  * 微信接收的数据转换器
  */
-public class WeixinXmlUtil {
-    private static final Logger logger = LoggerFactory.getLogger(WeixinXmlUtil.class);
+public class XmlUtils {
+    private static final Logger logger = LoggerFactory.getLogger(XmlUtils.class);
 
     public static BaseReceiveObject xmlToObject(String xml) {
         if (StringUtils.isBlank(xml)) {

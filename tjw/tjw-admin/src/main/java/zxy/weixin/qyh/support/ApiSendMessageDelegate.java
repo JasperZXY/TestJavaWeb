@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import zxy.common.utils.JsonUtils;
 import zxy.utils.Utils;
-import zxy.weixin.qyh.utils.Constants;
+import zxy.weixin.base.Constants;
 
 import java.util.*;
 

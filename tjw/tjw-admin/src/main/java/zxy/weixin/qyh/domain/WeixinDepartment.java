@@ -1,5 +1,7 @@
 package zxy.weixin.qyh.domain;
 
+import zxy.weixin.base.WeixinResult;
+
 public class WeixinDepartment extends WeixinResult {
     private int id;
     private String name;

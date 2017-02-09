@@ -1,5 +1,7 @@
 package zxy.weixin.qyh.domain;
 
+import zxy.weixin.base.WeixinResult;
+
 /**
  * 微信用户信息
  */

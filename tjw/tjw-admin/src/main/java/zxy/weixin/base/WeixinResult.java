@@ -1,6 +1,4 @@
-package zxy.weixin.qyh.domain;
-
-import zxy.weixin.qyh.utils.WeixinReturnCode;
+package zxy.weixin.base;
 
 /**
  * 微信返回数据的结果

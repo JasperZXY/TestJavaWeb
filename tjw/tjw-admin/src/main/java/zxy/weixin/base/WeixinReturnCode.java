@@ -1,14 +1,12 @@
-package zxy.weixin.qyh.utils;
+package zxy.weixin.base;
 
 /**
- * 微信返回码 http://qydev.weixin.qq.com/wiki/index.php?title=全局返回码说明
+ * 企业号、服务号、订阅号，绝大部分的返回码都是一致的。<br/>
+ * <a href="http://qydev.weixin.qq.com/wiki/index.php?title=全局返回码说明">http://qydev.weixin.qq.com/wiki/index.php?title=全局返回码说明</a><br/>
+ * <a href="http://mp.weixin.qq.com/wiki/17/fa4e1434e57290788bde25603fa2fcbd.html">http://mp.weixin.qq.com/wiki/17/fa4e1434e57290788bde25603fa2fcbd.html</a>
  *
  */
 public class WeixinReturnCode {
-	/**
-	 * 微信发送请求失败但没有返回“返回码”
-	 */
-	public static final int NO_CODE = -10000;
 	
 	public static final Integer SUCCESS = 0;
 	/** 系统繁忙 */

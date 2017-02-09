@@ -1,4 +1,4 @@
-package zxy.weixin.qyh.utils;
+package zxy.weixin.base;
 
 public interface Constants {
     String ERRCODE = "errcode";

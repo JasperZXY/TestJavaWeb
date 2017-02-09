@@ -15,7 +15,7 @@ import zxy.common.utils.JsonUtils;
 import zxy.weixin.qyh.domain.receive.BaseReceiveObject;
 import zxy.weixin.qyh.support.IAppConfig;
 import zxy.weixin.qyh.support.ICallbackConfig;
-import zxy.weixin.qyh.utils.WeixinXmlUtil;
+import zxy.weixin.qyh.utils.XmlUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -91,7 +91,7 @@ public class CallbackController {
             logger.debug("post myappid:{}, corpId:{}, msg_signature:{}, timestamp:{}, nonce:{}, requestData:{}, sMsg:{}",
                     myappid,cropId, msg_signature, timestamp, nonce, requestData, sourceMsg);
 
-            BaseReceiveObject baseReceiveObject = WeixinXmlUtil.xmlToObject(sourceMsg);
+            BaseReceiveObject baseReceiveObject = XmlUtils.xmlToObject(sourceMsg);
             logger.debug("post " + JsonUtils.toString(baseReceiveObject));
         } catch (Exception e) {
             logger.error("post error:", e);

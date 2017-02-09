@@ -10,7 +10,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import zxy.commons.LockDelegate;
 import zxy.web.controller.weixinqyh.SessionManager;
-import zxy.weixin.WeixinException;
+import zxy.weixin.base.WeixinException;
 import zxy.weixin.qyh.support.ApiContactDelegate;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,10 +47,10 @@ public class WeixinQYHLoginInterceptor implements HandlerInterceptor {
         String code = request.getParameter(CODE);
         String myapid = request.getParameter(MYAPPID);
         if (StringUtils.isBlank(code)) {
-            throw new WeixinException("参数【code】不能为空");
+            throw new WeixinException(WeixinException.PARAM_ERROR, "参数【code】不能为空");
         }
         if (StringUtils.isBlank(myapid)) {
-            throw new WeixinException("参数【myapid】不能为空");
+            throw new WeixinException(WeixinException.PARAM_ERROR, "参数【myapid】不能为空");
         }
 
         logger.debug("go to get from cache. request:" + request);

@@ -16,8 +16,8 @@ import zxy.component.AjaxDecideDelegate;
 import zxy.commons.JspConfig;
 import zxy.permission.support.NoPermissionException;
 import zxy.utils.Utils;
-import zxy.weixin.WeixinException;
-import zxy.weixin.qyh.utils.WeixinReturnCode;
+import zxy.weixin.base.WeixinException;
+import zxy.weixin.base.WeixinReturnCode;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -9,10 +9,10 @@ import zxy.common.utils.HttpUtils;
 import zxy.common.utils.JsonUtils;
 import zxy.common.utils.MyThreadFactory;
 import zxy.commons.LockDelegate;
-import zxy.weixin.WeixinException;
-import zxy.weixin.qyh.domain.WeixinResult;
-import zxy.weixin.qyh.utils.Constants;
-import zxy.weixin.qyh.utils.WeixinReturnCode;
+import zxy.weixin.base.WeixinException;
+import zxy.weixin.base.WeixinResult;
+import zxy.weixin.base.Constants;
+import zxy.weixin.base.WeixinReturnCode;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -78,12 +78,12 @@ public class ApiBaseDelegate {
     public void initAccessToken(String myappid) {
         String corpId = appConfig.getCropId(myappid);
         if (StringUtils.isBlank(corpId)) {
-            throw new WeixinException("[initAccessToken] corpId is blank. myappid:" + myappid);
+            throw new WeixinException(WeixinException.NO_INIT_CONFIG, "[initAccessToken] corpId is blank. myappid:" + myappid);
         }
 
         String secret = appConfig.getSecret(myappid);
         if (StringUtils.isBlank(secret)) {
-            throw new WeixinException("[initAccessToken] secret is blank. myappid:" + myappid);
+            throw new WeixinException(WeixinException.NO_INIT_CONFIG, "[initAccessToken] secret is blank. myappid:" + myappid);
         }
 
         String data = httpGet(myappid, String.format(urlGettokenFormat, corpId, secret));
@@ -92,7 +92,7 @@ public class ApiBaseDelegate {
         String token = map.get(KEY_ACCESS_TOKEN);
         if (StringUtils.isBlank(token)) {
             logger.error("[initAccessToken] error. return access_token is null. return data:" + data);
-            throw new WeixinException("[initAccessToken] error. return access_token is null. return data:" + data);
+            throw new WeixinException(WeixinException.WEIXIN_ERROR, "[initAccessToken] error. return access_token is null. return data:" + data);
         } else {
             accessTokenMap.put(myappid, token);
             logger.info("[getAccessTokenTask] success, accessToken:" + token);
@@ -182,13 +182,13 @@ public class ApiBaseDelegate {
                 retData = HttpUtils.httpGet(urlAddAccessToken(myappid, url));
             } catch (Exception e) {
                 logger.error("[httpGet] Http GET error. i:{} url:{}", i, url, e);
-                throw new WeixinException("Http GET error.", e);
+                throw new WeixinException(WeixinException.HTTP_ERROR, "Http GET error.", e);
             }
             logger.debug("[httpGet] url:{} return:{}", url, retData);
 
             if (StringUtils.isBlank(retData)) {
                 logger.error("[httpGet] error. Http GET return null. i:{} url:{}", i, url);
-                throw new WeixinException("Http GET return null.");
+                throw new WeixinException(WeixinException.HTTP_ERROR, "Http GET return null.");
             }
             @SuppressWarnings("unchecked")
             Map<String, Object> map = JsonUtils.toObject(retData, Map.class);
@@ -197,7 +197,7 @@ public class ApiBaseDelegate {
             }
         }
         logger.error("[httpGet] error. url:" + url);
-        throw new WeixinException("httpGet error");
+        throw new WeixinException(WeixinException.HTTP_ERROR, "httpGet error");
     }
 
     /**

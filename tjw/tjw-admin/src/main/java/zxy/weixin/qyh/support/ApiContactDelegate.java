@@ -6,12 +6,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import zxy.common.utils.JsonUtils;
-import zxy.weixin.WeixinException;
+import zxy.weixin.base.WeixinException;
 import zxy.weixin.qyh.domain.WeixinDepartment;
-import zxy.weixin.qyh.domain.WeixinResult;
+import zxy.weixin.base.WeixinResult;
 import zxy.weixin.qyh.domain.WeixinUser;
-import zxy.weixin.qyh.utils.Constants;
-import zxy.weixin.qyh.utils.WeixinReturnCode;
+import zxy.weixin.base.Constants;
+import zxy.weixin.base.WeixinReturnCode;
 
 import java.util.*;
 
