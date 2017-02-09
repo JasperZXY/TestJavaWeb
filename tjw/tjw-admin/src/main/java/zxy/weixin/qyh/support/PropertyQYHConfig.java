@@ -10,6 +10,7 @@ public class PropertyQYHConfig implements IAppConfig, IAgentIdConfig, ICallbackC
     private String qrcodeUrl;
     private Integer agentidJava;
     private Integer agentidAndroid;
+    private Integer agentidPageapp;
     private String callbackToken;
     private String callbackEncodingAESKey;
 
@@ -35,6 +36,10 @@ public class PropertyQYHConfig implements IAppConfig, IAgentIdConfig, ICallbackC
 
     public void setAgentidAndroid(Integer agentidAndroid) {
         this.agentidAndroid = agentidAndroid;
+    }
+
+    public void setAgentidPageapp(Integer agentidPageapp) {
+        this.agentidPageapp = agentidPageapp;
     }
 
     public void setCallbackToken(String callbackToken) {
@@ -78,6 +83,11 @@ public class PropertyQYHConfig implements IAppConfig, IAgentIdConfig, ICallbackC
     @Override
     public Integer getAndroid(String myappid) {
         return agentidAndroid;
+    }
+
+    @Override
+    public Integer getPageapp(String myappid) {
+        return agentidPageapp;
     }
 
     @Override

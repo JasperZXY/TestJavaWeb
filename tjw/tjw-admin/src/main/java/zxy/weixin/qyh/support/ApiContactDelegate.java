@@ -10,6 +10,7 @@ import zxy.weixin.WeixinException;
 import zxy.weixin.qyh.domain.WeixinDepartment;
 import zxy.weixin.qyh.domain.WeixinResult;
 import zxy.weixin.qyh.domain.WeixinUser;
+import zxy.weixin.qyh.utils.Constants;
 import zxy.weixin.qyh.utils.WeixinReturnCode;
 
 import java.util.*;
@@ -19,6 +20,7 @@ public class ApiContactDelegate {
     private static final Logger logger = LoggerFactory.getLogger(ApiSendMessageDelegate.class);
 
     private static final Integer SUPER_DEPARTMENT_ID = 1;
+    private static final String urlGetUseridFormat = "https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo?code=%s";
     private static final String urlGetUserDetailFormat = "https://qyapi.weixin.qq.com/cgi-bin/user/get?userid=%s";
     private static final String urlGetDepartmentMember = "https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?department_id=%s&fetch_child=%s&status=%s";
     private static final String urlListDepartment = "https://qyapi.weixin.qq.com/cgi-bin/department/list";
@@ -26,6 +28,25 @@ public class ApiContactDelegate {
 
     @Autowired
     private ApiBaseDelegate apiBaseDelegate;
+
+    /**
+     * 获取登录用户userid
+     * @param myappid
+     * @param code  通过成员授权获取到的code，每次成员授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期
+     * @return
+     * @throws WeixinException
+     */
+    public String getUserId(String myappid, String code) throws WeixinException {
+        String data = apiBaseDelegate.httpGet(myappid, String.format(urlGetUseridFormat, code));
+        @SuppressWarnings("unchecked")
+        Map<String, Object> map = JsonUtils.toObject(data, Map.class);
+        String userId = (String) map.get("UserId");
+        if (StringUtils.isBlank(userId)) {
+            logger.error("[getUserId] error. UserId is null. data:" + data);
+            throw new WeixinException((Integer) map.get(Constants.ERRCODE), (String) map.get(Constants.ERRMSG));
+        }
+        return userId;
+    }
 
     public WeixinUser getUserDetail(String myappid, String userid) throws WeixinException {
         if (StringUtils.isBlank(userid)) {

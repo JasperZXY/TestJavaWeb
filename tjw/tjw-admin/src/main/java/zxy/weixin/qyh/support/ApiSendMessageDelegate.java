@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import zxy.common.utils.JsonUtils;
 import zxy.utils.Utils;
+import zxy.weixin.qyh.utils.Constants;
 
 import java.util.*;
 
@@ -17,7 +18,6 @@ import java.util.*;
 public class ApiSendMessageDelegate {
     private static final Logger logger = LoggerFactory.getLogger(ApiSendMessageDelegate.class);
 
-    private static final String ERRCODE = ApiBaseDelegate.ERRCODE;
     private static final String urlSendMessageFormat = "https://qyapi.weixin.qq.com/cgi-bin/message/send";
 
     @Autowired
@@ -38,7 +38,7 @@ public class ApiSendMessageDelegate {
 
             @SuppressWarnings("unchecked")
             Map<String, Object> map = JsonUtils.toObject(data, Map.class);
-            Integer retcode = (Integer) map.get(ERRCODE);
+            Integer retcode = (Integer) map.get(Constants.ERRCODE);
             if (apiBaseDelegate.isSuccess(retcode)) {
                 return true;
             }

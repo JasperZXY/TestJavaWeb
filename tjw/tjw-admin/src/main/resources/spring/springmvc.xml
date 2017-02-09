@@ -11,10 +11,24 @@
     </context:component-scan>-->
 
     <!-- 拦截器 -->
+    <!--
+    特殊请求：
+    /weixin/qyh/callback/**    微信企业号回调接口
+    /auth/**        登录相关
+    /account/password/**    通过邮箱找回密码
+    /weixin/qyh/client/**   微信客户端用请求，另做请求拦截
+
+    特殊页面：
+    admin/login     登录页面
+    account/resetpassword   重置密码页面
+    weixin/qyh/client       微信客户端用
+    -->
     <mvc:interceptors>
+        <!-- 管理后台登录拦截 -->
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/weixin/qyh/callback/**"/>
+            <mvc:exclude-mapping path="/weixin/qyh/client/**"/>
             <mvc:exclude-mapping path="/auth/**"/>
             <mvc:exclude-mapping path="/account/password/**"/>
             <bean class="zxy.web.handler.LoginInterceptor"/>
@@ -22,12 +36,19 @@
         <!-- 权限拦截配置 -->
         <bean class="zxy.permission.support.PermissionInterceptor">
         </bean>
+        <!-- 微信企业号登录拦截 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/weixin/qyh/client/**"/>
+            <mvc:exclude-mapping path="/weixin/qyh/client/page"/>
+            <bean class="zxy.web.handler.WeixinQYHLoginInterceptor"/>
+        </mvc:interceptor>
         <!-- 视图模板 -->
         <bean class="zxy.web.handler.ViewTemplateInterceptor">
             <property name="ignoreViews">
                 <set>
                     <value>admin/login</value>
                     <value>account/resetpassword</value>
+                    <value>weixin/qyh/client</value>
                 </set>
             </property>
         </bean>

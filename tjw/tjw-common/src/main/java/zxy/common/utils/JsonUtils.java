@@ -17,7 +17,7 @@ public class JsonUtils {
         // SerializationFeature for changing how JSON is written
 
         // to enable standard indentation ("pretty-printing"):
-        mapper.enable(SerializationFeature.INDENT_OUTPUT);
+//        mapper.enable(SerializationFeature.INDENT_OUTPUT);
         // to allow serialization of "empty" POJOs (no properties to serialize)
         // (without this setting, an exception is thrown in those cases)
         mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);

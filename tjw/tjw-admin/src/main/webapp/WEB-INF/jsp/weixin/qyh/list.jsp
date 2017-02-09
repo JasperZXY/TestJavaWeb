@@ -47,6 +47,7 @@
                                     <td>
                                         <a class="btn btn-sm btn-info" href="${ctxPath}/weixin/qyh/manager/to_adduser?myappid=${item.myappid }">添加用户</a>
                                         <a class="btn btn-sm btn-info" href="${ctxPath}/weixin/qyh/manager/agent/list/${item.myappid }">应用列表</a>
+                                        <a class="btn btn-sm btn-info" href="${ctxPath}/weixin/qyh/manager/tool/${item.myappid }">辅助工具</a>
                                     </td>
                                 </permisssion:pass>
                             </tr>

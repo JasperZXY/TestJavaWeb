@@ -17,8 +17,8 @@ import zxy.weixin.qyh.support.ApiSendMessageDelegate;
 import zxy.weixin.qyh.support.IAgentIdConfig;
 import zxy.weixin.qyh.support.IAppConfig;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -86,6 +86,7 @@ public class ManagerController {
         list.add(toMap("agentId", 0, "name", "企业小助手", "canSendMsg", true));
         list.add(toMap("agentId", agentIdConfig.getJava(myappid), "name", "Java", "canSendMsg", true));
         list.add(toMap("agentId", agentIdConfig.getAndroid(myappid), "name", "Android", "canSendMsg", true));
+        list.add(toMap("agentId", agentIdConfig.getPageapp(myappid), "name", "主页型应用", "canSendMsg", false));
 
         modelAndView.addObject("list", list);
         return modelAndView;
@@ -122,6 +123,15 @@ public class ManagerController {
         else {
             return JsonResult.buildFail("发送失败");
         }
+    }
+
+    @RequestMapping("/tool/{myappid}")
+    public ModelAndView tool(HttpServletRequest request, @PathVariable String myappid) {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("weixin/qyh/tool");
+        modelAndView.addObject("myappid", myappid);
+        modelAndView.addObject("cropId", appConfig.getCropId(myappid));
+        return modelAndView;
     }
 
 }

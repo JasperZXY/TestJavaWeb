@@ -11,6 +11,7 @@ import zxy.common.utils.MyThreadFactory;
 import zxy.commons.LockDelegate;
 import zxy.weixin.WeixinException;
 import zxy.weixin.qyh.domain.WeixinResult;
+import zxy.weixin.qyh.utils.Constants;
 import zxy.weixin.qyh.utils.WeixinReturnCode;
 
 import javax.annotation.PostConstruct;
@@ -28,7 +29,6 @@ public class ApiBaseDelegate {
 
     // TODO 这个参数后续改为可配置，在有多个微信应用的情况，启动会比较慢，启动一个线程来初始化，让程序能快速启动完成
     public boolean initOnNewThread = true;
-    public static final String ERRCODE = "errcode";
     public static final String KEY_ACCESS_TOKEN = "access_token";
 
     public static final String urlGettokenFormat = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=%s&corpsecret=%s";
@@ -108,7 +108,7 @@ public class ApiBaseDelegate {
     }
 
     public final boolean isSuccess(Map<String, Object> retMap) {
-        return isSuccess((Integer) retMap.get(ERRCODE));
+        return isSuccess((Integer) retMap.get(Constants.ERRCODE));
     }
 
     /**
@@ -192,7 +192,7 @@ public class ApiBaseDelegate {
             }
             @SuppressWarnings("unchecked")
             Map<String, Object> map = JsonUtils.toObject(retData, Map.class);
-            if (accessTokenCheckAndReset(myappid, (Integer) map.get(ERRCODE))) {
+            if (accessTokenCheckAndReset(myappid, (Integer) map.get(Constants.ERRCODE))) {
                 return retData;
             }
         }
@@ -229,7 +229,7 @@ public class ApiBaseDelegate {
             }
             @SuppressWarnings("unchecked")
             Map<String, Object> map = JsonUtils.toObject(retData, Map.class);
-            if (accessTokenCheckAndReset(myappid, (Integer) map.get(ERRCODE))) {
+            if (accessTokenCheckAndReset(myappid, (Integer) map.get(Constants.ERRCODE))) {
                 return retData;
             }
         }

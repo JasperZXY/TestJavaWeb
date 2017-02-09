@@ -16,6 +16,8 @@ import zxy.component.AjaxDecideDelegate;
 import zxy.commons.JspConfig;
 import zxy.permission.support.NoPermissionException;
 import zxy.utils.Utils;
+import zxy.weixin.WeixinException;
+import zxy.weixin.qyh.utils.WeixinReturnCode;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,6 +38,15 @@ public class MyExceptionHandler {
 
     private void forwardLogin(HttpServletRequest request, HttpServletResponse response) {
         Utils.requestForward(request, response, JspConfig.LOGIN_URL);
+    }
+
+    @ExceptionHandler(WeixinException.class)
+    @ResponseBody
+    public Object noPermissionException(WeixinException ex, HttpServletRequest request, HttpServletResponse response) {
+        if (WeixinReturnCode.ILLEGAL_OAUTH_CODE.equals(ex.getCode())) {
+            return JsonResult.buildNoLogin();
+        }
+        return JsonResult.buildFail(ex.getMessage());
     }
 
     @ExceptionHandler(NoPermissionException.class)

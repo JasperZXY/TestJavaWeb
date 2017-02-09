@@ -16,4 +16,6 @@ public interface IAgentIdConfig {
      * @return
      */
     Integer getAndroid(String myappid);
+
+    Integer getPageapp(String myappid);
 }

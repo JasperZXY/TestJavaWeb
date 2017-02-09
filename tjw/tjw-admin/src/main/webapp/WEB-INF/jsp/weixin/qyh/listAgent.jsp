@@ -46,15 +46,17 @@
                                 <td>${item.name }</td>
                                 <permisssion:pass code="5005">
                                     <td>
-                                        <div class="input-group">
-                                            <input id="msg_${item.agentId}" type="text" class="form-control text" placeholder="内容">
-                                            <span class="input-group-btn">
-                                                  <button class="btn btn-default" type="button" onclick="sendMsg('${item.agentId}', 'text')">纯文本</button>
-                                            </span>
-                                            <span class="input-group-btn">
-                                                  <button class="btn btn-default" type="button" onclick="sendMsg('${item.agentId}', 'news')">图文</button>
-                                            </span>
-                                        </div>
+                                        <c:if test="${item.canSendMsg}">
+                                            <div class="input-group">
+                                                <input id="msg_${item.agentId}" type="text" class="form-control text" placeholder="内容">
+                                                <span class="input-group-btn">
+                                                      <button class="btn btn-default" type="button" onclick="sendMsg('${item.agentId}', 'text')">纯文本</button>
+                                                </span>
+                                                <span class="input-group-btn">
+                                                      <button class="btn btn-default" type="button" onclick="sendMsg('${item.agentId}', 'news')">图文</button>
+                                                </span>
+                                            </div>
+                                        </c:if>
                                     </td>
                                 </permisssion:pass>
                             </tr>

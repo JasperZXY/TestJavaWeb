@@ -37,8 +37,13 @@ function myInit() {
     printLog("init");
     menuInit();
 
-    // jQuery配合input-mask使用
-    $("[data-mask]").inputmask();
+    try {
+        // jQuery配合input-mask使用
+        $("[data-mask]").inputmask();
+    }
+    catch (err) {
+        printLog("inputmask error:" + err.description );
+    }
 
     // 扩展select标签，增加init-value，用于初始化数据
     var allSelects = $("select");
@@ -218,7 +223,7 @@ function ajax(obj) {
     url = url + "returntype=json";
 
     $.ajax({
-        url: createCompleteUrl($shortUrl),
+        url: url,
         data: $data,
         type: $type,
         success: function (retData) {
