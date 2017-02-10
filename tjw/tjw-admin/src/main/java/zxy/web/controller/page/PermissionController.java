@@ -49,7 +49,7 @@ public class PermissionController extends BasePageController {
     private UserService userService;
 
     @PermissionAnnotation(code = PermissionCode.RESOURCE_ACCESS)
-    @RequestMapping(path="/resource/list/all")
+    @RequestMapping(path = "/resource/list/all")
     public ModelAndView listAllResources() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("permission/resource/list");
@@ -80,7 +80,7 @@ public class PermissionController extends BasePageController {
 //    }
 
     @PermissionAnnotation(code = PermissionCode.ROLE_ACCESS)
-    @RequestMapping(path="/role/list/all")
+    @RequestMapping(path = "/role/list/all")
     public ModelAndView listAllRoles() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("permission/role/list");
@@ -89,7 +89,7 @@ public class PermissionController extends BasePageController {
     }
 
     @PermissionAnnotation(code = PermissionCode.ROLE_ADD)
-    @RequestMapping(path="/role/to_add")
+    @RequestMapping(path = "/role/to_add")
     public ModelAndView toAddRole() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("permission/role/add");
@@ -97,7 +97,7 @@ public class PermissionController extends BasePageController {
     }
 
     @PermissionAnnotation(code = PermissionCode.ROLE_UPDATE)
-    @RequestMapping(path="/role/to_update/{id}")
+    @RequestMapping(path = "/role/to_update/{id}")
     public ModelAndView toUpdateRole(@PathVariable int id) {
         Role role = roleMapper.selectByPrimaryKey(id);
         if (role == null) {
@@ -112,7 +112,7 @@ public class PermissionController extends BasePageController {
 
     // 给角色分配资源
     @PermissionAnnotation(code = PermissionCode.ROLE_ALLOCATE_RESOURCE)
-    @RequestMapping(path="/role/to_allocate/resource/{id}")
+    @RequestMapping(path = "/role/to_allocate/resource/{id}")
     public ModelAndView roleAllocationResource(@PathVariable int id) {
         Role role = roleMapper.selectByPrimaryKey(id);
         if (role == null) {
@@ -157,7 +157,7 @@ public class PermissionController extends BasePageController {
 
     // 给用户指定角色
     @PermissionAnnotation(code = PermissionCode.ROLE_ASSIGN_USER_ROLE)
-    @RequestMapping(path="/role/to_assign/foruser/{uid}")
+    @RequestMapping(path = "/role/to_assign/foruser/{uid}")
     public ModelAndView toAssignRoleForUser(@PathVariable int uid) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("permission/role/foruser");

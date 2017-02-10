@@ -65,7 +65,7 @@ public class PermissionService {
         roleResourceRelationExample.createCriteria().andRoleIdIn(roleIds);
         roleResourceRelationExample.setOrderByClause(" id desc");
         List<RoleResourceRelation> roleResourceRelations =
-                roleResourceRelationMapper.selectByExampleWithRowbounds(roleResourceRelationExample, new RowBounds(0, 1));
+            roleResourceRelationMapper.selectByExampleWithRowbounds(roleResourceRelationExample, new RowBounds(0, 1));
         if (CollectionUtils.isEmpty(roleResourceRelations)) {
             return Collections.emptySet();
         }

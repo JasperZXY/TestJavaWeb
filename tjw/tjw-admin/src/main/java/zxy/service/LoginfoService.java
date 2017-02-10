@@ -30,8 +30,7 @@ public class LoginfoService {
     public void addLog(HttpServletRequest request, String code, String operation, Integer target) {
         if (target == null) {
             addLog(request, code, operation, null, null);
-        }
-        else {
+        } else {
             addLog(request, code, operation, target.toString(), null);
         }
     }

@@ -68,7 +68,7 @@ public class HttpUtils {
             return null;
 
         logger.debug("[getRemortIP] source remote ip. XFF: {}, Real: {}, remote: {}",
-                request.getHeader(HTTP_HEADER_XFF), request.getHeader(HTTP_HEADER_XRP), request.getRemoteAddr());
+            request.getHeader(HTTP_HEADER_XFF), request.getHeader(HTTP_HEADER_XRP), request.getRemoteAddr());
 
         // 优先级1：从X-Forwarded-For中取，有被伪造的风险
         String xff = request.getHeader(HTTP_HEADER_XFF);
@@ -91,7 +91,7 @@ public class HttpUtils {
 
     private static RequestConfig createRequestConfig() {
         return RequestConfig.custom().setSocketTimeout(SOCKET_TIMEOUT).setConnectTimeout(CONNECT_TIMEOUT)
-                .setConnectionRequestTimeout(CONNECTION_REQUEST_TIMEOUT).build();
+            .setConnectionRequestTimeout(CONNECTION_REQUEST_TIMEOUT).build();
     }
 
     private static String httpGetOrPost(HttpRequestBase request) {
@@ -165,8 +165,7 @@ public class HttpUtils {
             uriBuilder.setPath(url);
             try {
                 httpGet.setURI(uriBuilder.build());
-            }
-            catch (URISyntaxException e) {
+            } catch (URISyntaxException e) {
                 logger.error("httpGet build url error.", e);
                 return EMPTY;
             }

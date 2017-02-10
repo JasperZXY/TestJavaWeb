@@ -63,6 +63,7 @@ public class AccountService {
 
     /**
      * 是否登录验证成功
+     *
      * @param id
      * @param password
      * @return 0成功；1账号不存在；2已冻结；3密码有误
@@ -149,8 +150,7 @@ public class AccountService {
         account.setEmail(email);
         try {
             accountMapper.updateByPrimaryKey(account);
-        }
-        catch (DuplicateKeyException e) {
+        } catch (DuplicateKeyException e) {
             logger.error("changeEmail error.", e);
             return ResultCode.EMAIL_EXIST;
         }
@@ -163,6 +163,7 @@ public class AccountService {
 
     /**
      * 发送验证码，实现重置密码用
+     *
      * @param account
      * @param email
      */

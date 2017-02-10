@@ -38,8 +38,7 @@ public class JsonUtils {
         if (StringUtils.isNotBlank(content)) {
             try {
                 return mapper.readValue(content, valueType);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 logger.error("Convert json string to object error! json=" + content, e);
             }
         }
@@ -50,8 +49,7 @@ public class JsonUtils {
         if (obj != null) {
             try {
                 return mapper.writeValueAsString(obj);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 logger.error("Convert object to json string error!", e);
             }
         }
@@ -65,8 +63,7 @@ public class JsonUtils {
 
         try {
             return mapper.convertValue(fromValue, toValueType);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("Convert object to target type error!", e);
         }
         return null;

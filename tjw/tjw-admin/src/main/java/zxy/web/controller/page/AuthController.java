@@ -48,19 +48,17 @@ public class AuthController extends BasePageController {
                 HttpSession session = request.getSession();
                 SessionManager.setCurrentUser(session, user);
                 PermissionSessionUtils.setSessionUserPermission(session,
-                        permissionService.getResourceIdsForUser(user.getId()));
+                    permissionService.getResourceIdsForUser(user.getId()));
 
                 String redirectUrl = request.getParameter(JspConfig.REDIRECT_URL_KEY);
                 if (StringUtils.isNotBlank(redirectUrl)) {
                     Utils.requestRedirect(response, redirectUrl);
-                }
-                else {
+                } else {
                     Utils.requestRedirect(response, JspConfig.INDEX_URL);
                 }
                 loginfoService.addLog(request, LogCode.ACCOUNT_LOGIN, "登录", null, "成功");
                 return null;
-            }
-            else {
+            } else {
                 String errorMsg = null;
                 switch (result) {
                     case 1:

@@ -134,7 +134,7 @@ public class PermissionController extends BaseApiController {
     }
 
     @PermissionAnnotation(code = PermissionCode.ROLE_ADD)
-    @RequestMapping(path="/role/add")
+    @RequestMapping(path = "/role/add")
     @ResponseBody
     public Object addRole(HttpServletRequest request, Role role) {
         JsonResult jsonResult = check(role);
@@ -145,13 +145,13 @@ public class PermissionController extends BaseApiController {
         role.setStatus(EntityStatus.VALID);
         roleMapper.insert(role);
         loginfoService.addLog(request, LogCode.ROLE_ADD, "添加角色",
-                role.getId().toString(), JsonUtils.toString(role));
+            role.getId().toString(), JsonUtils.toString(role));
 
         return JsonResult.buildSuccess(role.getId());
     }
 
     @PermissionAnnotation(code = PermissionCode.ROLE_UPDATE)
-    @RequestMapping(path="/role/update")
+    @RequestMapping(path = "/role/update")
     @ResponseBody
     public Object updateRole(HttpServletRequest request, Role role) {
         JsonResult jsonResult = check(role);
@@ -175,7 +175,7 @@ public class PermissionController extends BaseApiController {
     }
 
     @PermissionAnnotation(code = PermissionCode.ROLE_LOCK_UNLOCK)
-    @RequestMapping(path="/role/lock/{id}")
+    @RequestMapping(path = "/role/lock/{id}")
     @ResponseBody
     public Object lockRole(HttpServletRequest request, @PathVariable int id) {
         updateRoleStatus(id, EntityStatus.FORBIDDEN);
@@ -184,7 +184,7 @@ public class PermissionController extends BaseApiController {
     }
 
     @PermissionAnnotation(code = PermissionCode.ROLE_LOCK_UNLOCK)
-    @RequestMapping(path="/role/unlock/{id}")
+    @RequestMapping(path = "/role/unlock/{id}")
     @ResponseBody
     public Object unlockRole(HttpServletRequest request, @PathVariable int id) {
         updateRoleStatus(id, EntityStatus.VALID);
@@ -193,7 +193,7 @@ public class PermissionController extends BaseApiController {
     }
 
     @PermissionAnnotation(code = PermissionCode.ROLE_ALLOCATE_RESOURCE)
-    @RequestMapping(path="/role/allocate/resource/{id}")
+    @RequestMapping(path = "/role/allocate/resource/{id}")
     @ResponseBody
     public Object roleAllocateResource(HttpServletRequest request, @PathVariable int id, String resourceIds) {
         RoleResourceRelation roleResourceRelation = new RoleResourceRelation();
@@ -202,12 +202,12 @@ public class PermissionController extends BaseApiController {
         roleResourceRelation.setResourceIds(resourceIds);
         permissionService.addRoleResourceRelation(roleResourceRelation);
         loginfoService.addLog(request, LogCode.ROLE_ALLOCATE_RESOURCE,
-                "给角色分配资源", Integer.toString(id), "分配的资源：" + resourceIds);
+            "给角色分配资源", Integer.toString(id), "分配的资源：" + resourceIds);
         return JsonResult.buildSuccess(null);
     }
 
     @PermissionAnnotation(code = PermissionCode.ROLE_ASSIGN_USER_ROLE)
-    @RequestMapping(path="/role/assign/foruser/{uid}")
+    @RequestMapping(path = "/role/assign/foruser/{uid}")
     @ResponseBody
     public Object assignRoleForUser(HttpServletRequest request, @PathVariable int uid, String roleIds) {
         // 这里简单处理，先删除后新增
@@ -224,7 +224,7 @@ public class PermissionController extends BaseApiController {
         }
 
         loginfoService.addLog(request, LogCode.ROLE_ASSIGN_USER_ROLE,
-                "给用户分配角色", Integer.toString(uid), "指定的角色：" + roleIds);
+            "给用户分配角色", Integer.toString(uid), "指定的角色：" + roleIds);
 
         return JsonResult.buildSuccess(null);
     }

@@ -1,5 +1,7 @@
 package zxy.commons;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class ServiceException extends RuntimeException {
     private ResultCode resultCode;
 
@@ -20,5 +22,14 @@ public class ServiceException extends RuntimeException {
 
     public ResultCode getCode() {
         return resultCode;
+    }
+
+    @Override
+    public String getMessage() {
+        String superMessage = super.getMessage();
+        if (StringUtils.isBlank(superMessage)) {
+            return resultCode.getDesc();
+        }
+        return superMessage + " and " + resultCode.getDesc();
     }
 }

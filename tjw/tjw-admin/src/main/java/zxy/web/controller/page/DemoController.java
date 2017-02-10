@@ -8,14 +8,14 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/demo")
 public class DemoController {
-    @RequestMapping(path="/{subName}")
+    @RequestMapping(path = "/{subName}")
     public ModelAndView demo(@PathVariable String subName) {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("demo/" + subName);
         return mv;
     }
 
-    @RequestMapping(path="/demo2string")
+    @RequestMapping(path = "/demo2string")
     public String demo2string() {
         return "demo/2";
     }

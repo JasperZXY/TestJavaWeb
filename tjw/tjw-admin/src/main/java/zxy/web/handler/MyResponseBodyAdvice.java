@@ -39,8 +39,8 @@ public class MyResponseBodyAdvice implements ResponseBodyAdvice<Object> {
             }
             Object loginUser = null;
             logger.debug("beforeBodyWrite IP:{}\n \tloginuser:{}\n \tuser-agent:{}\n \turl:{}\n \tresult:{}",
-                    HttpUtils.getRemoteIP(httpServletRequest), JsonUtils.toString(loginUser),
-                    httpServletRequest.getHeader("user-agent"), urlBuilder.toString(), JsonUtils.toString(result));
+                HttpUtils.getRemoteIP(httpServletRequest), JsonUtils.toString(loginUser),
+                httpServletRequest.getHeader("user-agent"), urlBuilder.toString(), JsonUtils.toString(result));
         }
         return result;
     }

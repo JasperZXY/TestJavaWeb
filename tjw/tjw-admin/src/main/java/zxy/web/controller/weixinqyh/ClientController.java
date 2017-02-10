@@ -46,8 +46,7 @@ public class ClientController {
     public Object test(@PathVariable String num) {
         try {
             Thread.sleep((long) (Math.random() * 1000));
-        }
-        catch (InterruptedException e) {
+        } catch (InterruptedException e) {
             // ignore
         }
         return JsonResult.buildSuccess("你好" + num);

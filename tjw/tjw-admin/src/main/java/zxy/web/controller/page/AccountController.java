@@ -26,7 +26,7 @@ public class AccountController extends BasePageController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping(path="password/toreset")
+    @RequestMapping(path = "password/toreset")
     public ModelAndView toResetPassword() {
         ModelAndView mv = new ModelAndView();
         mv.setViewName("account/resetpassword");
@@ -34,13 +34,13 @@ public class AccountController extends BasePageController {
     }
 
     @ResponseBody
-    @RequestMapping(path="password/code_for_reset")
+    @RequestMapping(path = "password/code_for_reset")
     public Object createCodeForRestPassword(String account, String email) {
         ResultCode resultCode = accountService.createCodeForResetPassword(account, email);
         return JsonResult.build(resultCode);
     }
 
-    @RequestMapping(path="password/reset")
+    @RequestMapping(path = "password/reset")
     public ModelAndView resetPassword(HttpServletRequest request, HttpServletResponse response,
                                       String account, String email, String code, String password) {
         ResultCode resultCode = accountService.resetPassword(account, email, code, password);

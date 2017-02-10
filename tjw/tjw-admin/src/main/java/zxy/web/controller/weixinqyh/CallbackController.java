@@ -45,20 +45,20 @@ public class CallbackController {
     @RequestMapping(value = "/{myappid}", method = RequestMethod.GET)
     @ResponseBody
     public Object get(HttpServletRequest request, HttpServletResponse response,
-                    @PathVariable("myappid") String myappid,
-                    String msg_signature, String timestamp, String nonce,
-                    String echostr) throws Exception {
+                      @PathVariable("myappid") String myappid,
+                      String msg_signature, String timestamp, String nonce,
+                      String echostr) throws Exception {
         String cropId = appConfig.getCropId(myappid);
         String callbackToken = callbackConfig.getToken(myappid);
         String callbackEncodingAESKey = callbackConfig.getEncodingAESKey(myappid);
 
         logger.debug("get myappid:{}, corpId:{}, msg_signature:{}, timestamp:{}, nonce:{}, echostr:{} encodingAESKey:{}",
-                myappid, cropId, msg_signature, timestamp, nonce, echostr, callbackEncodingAESKey);
+            myappid, cropId, msg_signature, timestamp, nonce, echostr, callbackEncodingAESKey);
         WXBizMsgCrypt wxcpt = new WXBizMsgCrypt(callbackToken, callbackEncodingAESKey, cropId);
         String echoStr = StringUtils.EMPTY; //需要返回的明文
         try {
             echoStr = wxcpt.VerifyURL(msg_signature, timestamp,
-                    nonce, echostr);
+                nonce, echostr);
             logger.debug("get verifyurl echostr: " + echoStr);
             // 验证URL成功，将sEchoStr返回
 //            BaseServletUtil.sendText(response, echoStr);
@@ -78,8 +78,8 @@ public class CallbackController {
     @RequestMapping(value = "/{myappid}", method = RequestMethod.POST)
     @ResponseBody
     public Object post(HttpServletRequest request, HttpServletResponse response,
-                     @PathVariable("myappid") String myappid,
-                     String msg_signature, String timestamp, String nonce) throws Exception {
+                       @PathVariable("myappid") String myappid,
+                       String msg_signature, String timestamp, String nonce) throws Exception {
         String cropId = appConfig.getCropId(myappid);
         String callbackToken = callbackConfig.getToken(myappid);
         String callbackEncodingAESKey = callbackConfig.getEncodingAESKey(myappid);
@@ -89,7 +89,7 @@ public class CallbackController {
             WXBizMsgCrypt wxcpt = new WXBizMsgCrypt(callbackToken, callbackEncodingAESKey, cropId);
             String sourceMsg = wxcpt.DecryptMsg(msg_signature, timestamp, nonce, requestData);
             logger.debug("post myappid:{}, corpId:{}, msg_signature:{}, timestamp:{}, nonce:{}, requestData:{}, sMsg:{}",
-                    myappid,cropId, msg_signature, timestamp, nonce, requestData, sourceMsg);
+                myappid, cropId, msg_signature, timestamp, nonce, requestData, sourceMsg);
 
             BaseReceiveObject baseReceiveObject = XmlUtils.xmlToObject(sourceMsg);
             logger.debug("post " + JsonUtils.toString(baseReceiveObject));

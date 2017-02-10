@@ -18,7 +18,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
-            HandlerMethod method = (HandlerMethod)handler;
+            HandlerMethod method = (HandlerMethod) handler;
             PermissionAnnotation permissionAnnotation = method.getMethodAnnotation(PermissionAnnotation.class);
             if (permissionAnnotation != null) {
                 HttpSession session = request.getSession(false);

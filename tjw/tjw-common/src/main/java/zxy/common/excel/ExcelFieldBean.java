@@ -61,12 +61,12 @@ public class ExcelFieldBean {
     @Override
     public String toString() {
         return "ExcelFieldBean{" +
-                "field='" + field + '\'' +
-                ", fieldType=" + fieldType +
-                ", title='" + title + '\'' +
-                ", column=" + column +
-                ", dateFormat='" + dateFormat + '\'' +
-                ", simpleDateFormat=" + simpleDateFormat +
-                '}';
+            "field='" + field + '\'' +
+            ", fieldType=" + fieldType +
+            ", title='" + title + '\'' +
+            ", column=" + column +
+            ", dateFormat='" + dateFormat + '\'' +
+            ", simpleDateFormat=" + simpleDateFormat +
+            '}';
     }
 }

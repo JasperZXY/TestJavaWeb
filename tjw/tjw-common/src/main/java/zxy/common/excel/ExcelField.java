@@ -10,18 +10,21 @@ import java.lang.annotation.Target;
 public @interface ExcelField {
     /**
      * 在excel中标题头，只用于导出
+     *
      * @return
      */
     String title();
 
     /**
      * 第N列，从0开始
+     *
      * @return
      */
     int column();
 
     /**
      * 如果为日期的，则用这个字段进行日期格式化
+     *
      * @return
      */
     String dateFormat() default "yyyy/MM/dd";

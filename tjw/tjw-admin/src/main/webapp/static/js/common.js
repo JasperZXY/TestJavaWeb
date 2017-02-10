@@ -26,7 +26,7 @@ function isNotNull(obj) {
     return !isNull(obj);
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     myInit();
 });
 // window.onload = function () {
@@ -40,19 +40,18 @@ function myInit() {
     try {
         // jQuery配合input-mask使用
         $("[data-mask]").inputmask();
-    }
-    catch (err) {
-        printLog("inputmask error:" + err.description );
+    } catch (err) {
+        printLog("inputmask error:" + err.description);
     }
 
     // 扩展select标签，增加init-value，用于初始化数据
     var allSelects = $("select");
     printLog("allSelects length:" + allSelects.length);
-    for (var i=0; i<allSelects.length; i++) {
+    for (var i = 0; i < allSelects.length; i++) {
         var selectItem = $(allSelects[i]);
         if (isNotNull(selectItem.attr('init-value'))) {
             var selectOptions = selectItem.children('option');
-            for (var j=0; j<selectOptions.length; j++) {
+            for (var j = 0; j < selectOptions.length; j++) {
                 if ($(selectOptions[j]).val() == selectItem.attr('init-value')) {
                     $(selectOptions[j]).attr('selected', 'selected');
                 }
@@ -216,8 +215,7 @@ function ajax(obj) {
     var url = createCompleteUrl($shortUrl);
     if (url.indexOf("?") >= 0) {
         url = url + "&";
-    }
-    else {
+    } else {
         url = url + "?";
     }
     url = url + "returntype=json";
@@ -229,16 +227,13 @@ function ajax(obj) {
         success: function (retData) {
             if (retData == null) {
                 callbackForError(obj, "返回数据为空");
-            }
-            else {
+            } else {
                 if (retData.status == 10000) {
                     callbackForSuccess(obj, retData.result);
-                }
-                else if (retData.status == 10002) {
+                } else if (retData.status == 10002) {
                     selfOpen('/auth/login?msg=' + encodeURI('登录超时')
                         + '&redirect_url=' + encodeURI(window.location));
-                }
-                else {
+                } else {
                     callbackForError(obj, retData.msg);
                 }
             }
@@ -246,8 +241,7 @@ function ajax(obj) {
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             if (!navigator.onLine) {
                 callbackForError(obj, "断网了，请检查网络");
-            }
-            else {
+            } else {
                 callbackForError(obj, "请求链接有误或服务异常");
             }
         }
@@ -262,8 +256,7 @@ function ajax(obj) {
 function callbackForSuccess(obj, data) {
     if (obj.success instanceof Function) {
         obj.success(data);
-    }
-    else {
+    } else {
         showSuccessTips();
     }
 }
@@ -276,8 +269,7 @@ function callbackForSuccess(obj, data) {
 function callbackForError(obj, msg) {
     if (obj.error instanceof Function) {
         obj.error(msg);
-    }
-    else {
+    } else {
         showErrorTips(msg);
     }
 }
@@ -287,7 +279,7 @@ function findInArray(array, data) {
         return false;
     }
     if (array instanceof Array) {
-        for (var i=0; i<array.length; i++) {
+        for (var i = 0; i < array.length; i++) {
             if (array[i] == data) {
                 return true;
             }

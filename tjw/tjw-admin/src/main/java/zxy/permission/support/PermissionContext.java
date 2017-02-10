@@ -17,6 +17,7 @@ public class PermissionContext {
     /**
      * 设置PermissionPass，若没有设置，默认为
      * {@link zxy.permission.support.DefaultPermissionPassDelegate}
+     *
      * @param permissionPass
      */
     public static void setPermissionPass(PermissionPass permissionPass) {

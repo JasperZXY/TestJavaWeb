@@ -6,7 +6,6 @@ package zxy.component;
  */
 public interface SingleTask {
     /**
-     *
      * @return 是否允许允许
      */
     boolean toRun();

@@ -8,12 +8,14 @@ import java.util.Set;
 public interface IAppConfig {
     /**
      * 加载所有的myappid
+     *
      * @return
      */
     Set<String> listAllMyappid();
 
     /**
      * 检查myappid是否合法
+     *
      * @param myappid
      * @return
      */
@@ -21,6 +23,7 @@ public interface IAppConfig {
 
     /**
      * 获取CropId，企业号唯一标识
+     *
      * @param myappid
      * @return
      */
@@ -28,6 +31,7 @@ public interface IAppConfig {
 
     /**
      * 在设置页面，普通管理组那里新建一个管理组，即可得到Secret，记得需要添加上必要的权限
+     *
      * @param myappid
      * @return
      */
@@ -35,6 +39,7 @@ public interface IAppConfig {
 
     /**
      * 获取关注用二维码
+     *
      * @param myappid
      * @return
      */

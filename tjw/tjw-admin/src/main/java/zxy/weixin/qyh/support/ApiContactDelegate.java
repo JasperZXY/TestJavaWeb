@@ -31,8 +31,9 @@ public class ApiContactDelegate {
 
     /**
      * 获取登录用户userid
+     *
      * @param myappid
-     * @param code  通过成员授权获取到的code，每次成员授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期
+     * @param code    通过成员授权获取到的code，每次成员授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期
      * @return
      * @throws WeixinException
      */
@@ -74,7 +75,7 @@ public class ApiContactDelegate {
 
         Object departmentObject = map.get("department");
         if (departmentObject instanceof List) {
-            List list = (List)departmentObject;
+            List list = (List) departmentObject;
             List<WeixinDepartment> departments = new ArrayList<>();
 
             for (Object object : list) {
@@ -112,7 +113,7 @@ public class ApiContactDelegate {
 
         Object userObject = map.get("userlist");
         if (userObject instanceof List) {
-            List list = (List)userObject;
+            List list = (List) userObject;
             List<WeixinUser> users = new ArrayList<>();
 
             for (Object object : list) {
@@ -128,7 +129,6 @@ public class ApiContactDelegate {
     }
 
     /**
-     *
      * @param myappid
      * @param userid
      * @param name

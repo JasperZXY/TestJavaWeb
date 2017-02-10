@@ -21,6 +21,7 @@ import zxy.weixin.base.WeixinReturnCode;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 
 /**
  * 异常统一拦截、异常日志
@@ -29,15 +30,9 @@ import javax.servlet.http.HttpServletResponse;
 public class MyExceptionHandler {
     private Logger logger = LoggerFactory.getLogger(MyExceptionHandler.class);
 
-    // FIXME 判断是返回json数据还是view视图
-
-    private void forward(HttpServletRequest request, HttpServletResponse response, String msg) {
+    private void toErrorPage(HttpServletRequest request, HttpServletResponse response, String msg) {
         request.setAttribute(JspConfig.KEY_MSG, msg);
         Utils.requestForward(request, response, JspConfig.ERROR_URL);
-    }
-
-    private void forwardLogin(HttpServletRequest request, HttpServletResponse response) {
-        Utils.requestForward(request, response, JspConfig.LOGIN_URL);
     }
 
     @ExceptionHandler(WeixinException.class)
@@ -53,7 +48,7 @@ public class MyExceptionHandler {
     @ResponseBody
     public Object noPermissionException(NoPermissionException ex, HttpServletRequest request, HttpServletResponse response) {
         if (AjaxDecideDelegate.isNotAjax(request)) {
-            forward(request, response, ResultCode.NO_PERMISSION.getCndesc());
+            toErrorPage(request, response, ResultCode.NO_PERMISSION.getCndesc());
             return null;
         }
 
@@ -70,16 +65,15 @@ public class MyExceptionHandler {
             if (AjaxDecideDelegate.isNotAjax(request)) {
                 // 把当前url带回去，在登录完后才可以跳转到原位置
                 Utils.requestRedirect(response,
-                        JspConfig.LOGIN_URL + "?" + JspConfig.REDIRECT_URL_KEY + "=" + request.getRequestURI());
+                    JspConfig.LOGIN_URL + "?" + JspConfig.REDIRECT_URL_KEY + "=" + request.getRequestURI());
                 return null;
-            }
-            else {
+            } else {
                 return JsonResult.buildNoLogin();
             }
         }
 
         if (AjaxDecideDelegate.isNotAjax(request)) {
-            forward(request, response, ex.getMessage());
+            toErrorPage(request, response, ex.getCode().getCndesc());
             return null;
         }
 
@@ -91,7 +85,7 @@ public class MyExceptionHandler {
     public Object exception(Exception ex, HttpServletRequest request, HttpServletResponse response) {
         printLog(ex, request);
         if (AjaxDecideDelegate.isNotAjax(request)) {
-            forward(request, response, ResultCode.FAIL.getCndesc());
+            toErrorPage(request, response, ResultCode.FAIL.getCndesc());
             return null;
         }
 
@@ -117,7 +111,7 @@ public class MyExceptionHandler {
             urlBuilder.append("?").append(queryString);
         }
         logger.error("Exception IP:{}\n \tuser:{}\n \turl:{}",
-                HttpUtils.getRemoteIP(request), JsonUtils.toString(loginUser), urlBuilder.toString(), ex);
+            HttpUtils.getRemoteIP(request), JsonUtils.toString(loginUser), urlBuilder.toString(), ex);
     }
 
 }

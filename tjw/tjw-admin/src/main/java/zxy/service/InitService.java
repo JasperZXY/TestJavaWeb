@@ -75,8 +75,7 @@ public class InitService {
             // 检查Redis服务
             try {
                 logger.info("redis ping:" + jedisTemplate.ping());
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 logger.error("init jedisTemplate.ping.", e);
             }
         }
@@ -141,8 +140,7 @@ public class InitService {
             Resource resourceInDB = tmpMap.get(resource.getId());
             if (resourceInDB == null) {
                 resourceMapper.insert(resource);
-            }
-            else if (needUpdate(resource, resourceInDB)) {
+            } else if (needUpdate(resource, resourceInDB)) {
                 resourceMapper.updateByPrimaryKey(resource);
             }
         }

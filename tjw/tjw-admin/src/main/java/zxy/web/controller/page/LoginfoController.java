@@ -27,17 +27,17 @@ public class LoginfoController extends BasePageController {
     private UserService userService;
 
     @PermissionAnnotation(code = PermissionCode.LOGINFO_ACCESS)
-    @RequestMapping(path="/list")
+    @RequestMapping(path = "/list")
     public ModelAndView list(PagingCriteria pagingCriteria) {
         LoginfoExample example = new LoginfoExample();
         int count = loginfoMapper.countByExample(example);
 
         example.setOrderByClause(" id desc");
         List<Loginfo> loginfos = loginfoMapper.selectByExampleWithRowbounds(
-                example, pagingCriteria.createRowBounds());
+            example, pagingCriteria.createRowBounds());
 
         PagingResult page = new PagingResult(pagingCriteria.getStart(),
-                count, pagingCriteria.getPageSize());
+            count, pagingCriteria.getPageSize());
 
         Set<Integer> uids = new HashSet<>();
         for (Loginfo loginfo : loginfos) {

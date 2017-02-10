@@ -57,8 +57,7 @@ public class UserController extends BasePageController {
                 retList.add(userVo);
                 count = 1;
             }
-        }
-        else {
+        } else {
             UserExample example = new UserExample();
             UserExample.Criteria exampleCriteria = example.createCriteria();
             if (StringUtils.isNoneBlank(name)) {

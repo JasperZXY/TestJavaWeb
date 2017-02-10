@@ -6,6 +6,5 @@ package zxy.permission;
 public enum ResourceType {
     nav,
     menu,
-    button,
-    ;
+    button,;
 }

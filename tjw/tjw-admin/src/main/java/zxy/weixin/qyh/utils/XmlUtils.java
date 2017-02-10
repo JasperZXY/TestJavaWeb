@@ -127,10 +127,10 @@ public class XmlUtils {
                 break;
         }
 
-		if (null != baseEvent) {
-			baseEvent.setEvent(event);
-			baseEvent.setEventKey(getTextFromDocument(root, "EventKey"));
-		}
+        if (null != baseEvent) {
+            baseEvent.setEvent(event);
+            baseEvent.setEventKey(getTextFromDocument(root, "EventKey"));
+        }
         return baseEvent;
     }
 
@@ -150,12 +150,12 @@ public class XmlUtils {
 
     public static String generateMessageText(String corpId, String userid, String content) {
         String format = "<xml>" +
-                "<ToUserName><![CDATA[%s]]></ToUserName>" +
-                "<FromUserName><![CDATA[%s]]></FromUserName>" +
-                "<CreateTime>%s</CreateTime>" +
-                "<MsgType><![CDATA[text]]></MsgType>" +
-                "<Content><![CDATA[%s]]></Content>" +
-                "</xml>";
+            "<ToUserName><![CDATA[%s]]></ToUserName>" +
+            "<FromUserName><![CDATA[%s]]></FromUserName>" +
+            "<CreateTime>%s</CreateTime>" +
+            "<MsgType><![CDATA[text]]></MsgType>" +
+            "<Content><![CDATA[%s]]></Content>" +
+            "</xml>";
         return String.format(format, userid, corpId, System.currentTimeMillis() / 1000, content);
     }
 

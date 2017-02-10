@@ -94,8 +94,8 @@ public class ManagerController {
 
     private Map<String, Object> toMap(Object... items) {
         Map<String, Object> map = new HashedMap();
-        for (int i=0; i<items.length; i+=2) {
-            map.put((String)items[i], items[i + 1]);
+        for (int i = 0 ; i < items.length ; i += 2) {
+            map.put((String) items[i], items[i + 1]);
         }
         return map;
     }
@@ -111,7 +111,7 @@ public class ManagerController {
                 break;
             case "news":
                 status = apiSendMessageDelegate.sendNews(myappid, apiSendMessageDelegate.toAllUserForSendMessage(), null, agentId, msg,
-                        msg + "\n微信企业号接口调试工具", "http://qydev.weixin.qq.com/debug", ImageDelegate.randomImgage());
+                    msg + "\n微信企业号接口调试工具", "http://qydev.weixin.qq.com/debug", ImageDelegate.randomImgage());
                 break;
             default:
                 return JsonResult.buildFail("不识别的消息类型");
@@ -119,8 +119,7 @@ public class ManagerController {
 
         if (status) {
             return JsonResult.buildSuccess(null);
-        }
-        else {
+        } else {
             return JsonResult.buildFail("发送失败");
         }
     }

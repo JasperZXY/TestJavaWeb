@@ -44,10 +44,9 @@ public class MailService {
     }
 
     /**
-     *
-     * @param title     标题
-     * @param content   内容
-     * @param toEamil   接收人
+     * @param title   标题
+     * @param content 内容
+     * @param toEamil 接收人
      * @return 是否发送出去
      */
     public boolean send(String title, String content, String toEamil) {
@@ -59,8 +58,7 @@ public class MailService {
             msg.setText(content);
             // 设置发件人
             msg.setFrom(new InternetAddress(mailName, MAIL_CHINESE_NAME, "UTF-8"));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("send set error.", e);
             return false;
         }
@@ -71,18 +69,15 @@ public class MailService {
             // 连接邮件服务器
             transport.connect(mailName, mailAuthorization);
             // 发送邮件
-            transport.sendMessage(msg, new Address[]{new InternetAddress(toEamil)});
+            transport.sendMessage(msg, new Address[] {new InternetAddress(toEamil)});
             return true;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             logger.error("send error.", e);
-        }
-        finally {
+        } finally {
             // 关闭连接
             try {
                 transport.close();
-            }
-            catch (MessagingException e) {
+            } catch (MessagingException e) {
                 // ignore
             }
         }

@@ -32,7 +32,7 @@ public class ApiBaseDelegate {
     public static final String KEY_ACCESS_TOKEN = "access_token";
 
     public static final String urlGettokenFormat = "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=%s&corpsecret=%s";
-    
+
     private volatile ConcurrentMap<String, String> accessTokenMap = new ConcurrentHashMap<>();  // key为myappid
     /**
      * 这里设置刷新的最小间隔时间为2分钟
@@ -50,8 +50,7 @@ public class ApiBaseDelegate {
     public void init() {
         if (initOnNewThread) {
             accessTokenThreadPool.execute(() -> doInitData());
-        }
-        else {
+        } else {
             doInitData();
         }
     }
@@ -113,6 +112,7 @@ public class ApiBaseDelegate {
 
     /**
      * 给url加上access_token参数
+     *
      * @param myappid
      * @param url
      * @return
@@ -121,8 +121,7 @@ public class ApiBaseDelegate {
         StringBuilder urlBuilder = new StringBuilder(url);
         if (url.indexOf("?") <= -1) {
             urlBuilder.append("?");
-        }
-        else {
+        } else {
             urlBuilder.append("&");
         }
         urlBuilder.append(KEY_ACCESS_TOKEN).append("=").append(accessTokenMap.get(myappid));
@@ -131,6 +130,7 @@ public class ApiBaseDelegate {
 
     /**
      * access_token是否合法，若不合法，将重新从微信那里请求获取
+     *
      * @param myappid
      * @param retCode
      * @return
@@ -146,13 +146,13 @@ public class ApiBaseDelegate {
 
         String key = myappid;
         if (lastTimeGetAccessTokenMap.get(myappid) != null &&
-                System.currentTimeMillis() - lastTimeGetAccessTokenMap.get(key) < MIN_INTERVAL_REFRESH) {
+            System.currentTimeMillis() - lastTimeGetAccessTokenMap.get(key) < MIN_INTERVAL_REFRESH) {
             return false;
         }
 
         synchronized (accessTokenLockDelegate.getLockObject(key)) {
             if (lastTimeGetAccessTokenMap.get(key) != null &&
-                    System.currentTimeMillis() - lastTimeGetAccessTokenMap.get(key) < MIN_INTERVAL_REFRESH) {
+                System.currentTimeMillis() - lastTimeGetAccessTokenMap.get(key) < MIN_INTERVAL_REFRESH) {
                 return false;
             }
             lastTimeGetAccessTokenMap.put(key, System.currentTimeMillis());
@@ -169,15 +169,16 @@ public class ApiBaseDelegate {
 
     /**
      * 想微信发送Http GET请求
+     *
      * @param myappid
-     * @param url       url中不需要带access_token字段
+     * @param url     url中不需要带access_token字段
      * @return
      * @throws WeixinException
      */
     public String httpGet(String myappid, String url) throws WeixinException {
         String retData;
         // 只在Http GET 返回结果不为空，且AccessToken过期了才会调第二次
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0 ; i < 2 ; i++) {
             try {
                 retData = HttpUtils.httpGet(urlAddAccessToken(myappid, url));
             } catch (Exception e) {
@@ -202,8 +203,9 @@ public class ApiBaseDelegate {
 
     /**
      * 想微信发送Http POST请求
+     *
      * @param myappid
-     * @param url       url中不需要带access_token字段
+     * @param url     url中不需要带access_token字段
      * @param param
      * @return
      */
@@ -214,7 +216,7 @@ public class ApiBaseDelegate {
     public String httpPost(String myappid, String url, Map<String, Object> param, Map<String, String> postHeader) {
         String retData;
         // 只在Http POST 返回结果不为空，且AccessToken过期了才会调第二次
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0 ; i < 2 ; i++) {
             try {
                 retData = HttpUtils.httpPost(urlAddAccessToken(myappid, url), JsonUtils.toString(param), postHeader);
             } catch (Exception e) {

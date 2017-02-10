@@ -27,9 +27,9 @@ public class WeixinQYHLoginInterceptor implements HandlerInterceptor {
 
     // key:code value:userid
     private final static Cache<String, String> useridCache = CacheBuilder.newBuilder()
-            .maximumSize(10000)
-            .expireAfterWrite(1, TimeUnit.MINUTES)
-            .build();
+        .maximumSize(10000)
+        .expireAfterWrite(1, TimeUnit.MINUTES)
+        .build();
     private LockDelegate<String> lockDelegate = new LockDelegate<>();
 
     @Autowired

@@ -21,6 +21,7 @@ public abstract class Utils {
 
     /**
      * 验证是否符合ID的要求
+     *
      * @param id
      * @return
      */
@@ -30,6 +31,7 @@ public abstract class Utils {
 
     /**
      * 生成随机字符串
+     *
      * @param count
      * @return
      */
@@ -39,7 +41,7 @@ public abstract class Utils {
         }
         StringBuilder builder = new StringBuilder();
         Random random = new Random();
-        for (int i=0; i<count; i++) {
+        for (int i = 0 ; i < count ; i++) {
             builder.append(ALL_CHAR.charAt(random.nextInt(ALL_CHAR.length())));
         }
         return builder.toString();
@@ -93,6 +95,7 @@ public abstract class Utils {
 
     /**
      * 获取最后一条数据，若list为空，返回null
+     *
      * @param list
      * @param <T>
      * @return

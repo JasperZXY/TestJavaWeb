@@ -7,12 +7,14 @@ public interface IAgentIdConfig {
 
     /**
      * Agentid：Java
+     *
      * @return
      */
     Integer getJava(String myappid);
 
     /**
      * Agentid:Android
+     *
      * @return
      */
     Integer getAndroid(String myappid);

@@ -6,6 +6,7 @@ package zxy.weixin.qyh.support;
 public interface ICallbackConfig {
     /**
      * token
+     *
      * @param myappid
      * @return
      */
@@ -13,6 +14,7 @@ public interface ICallbackConfig {
 
     /**
      * EncodingAESKey
+     *
      * @param myappid
      * @return
      */

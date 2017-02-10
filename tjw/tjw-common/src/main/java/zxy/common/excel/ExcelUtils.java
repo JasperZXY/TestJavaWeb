@@ -24,12 +24,14 @@ public class ExcelUtils {
 
     /**
      * 读取数据
+     *
      * @param <T>
      */
     public interface Reader<T> {
         /**
          * 头部的读取不会调用该方法
-         * @param row 从0开始，但头部的row为0，所以这里一般从1开始
+         *
+         * @param row  从0开始，但头部的row为0，所以这里一般从1开始
          * @param data 数据
          * @return
          */
@@ -37,6 +39,7 @@ public class ExcelUtils {
 
         /**
          * 读取数据行失败回调
+         *
          * @param row
          * @param message
          */
@@ -44,6 +47,7 @@ public class ExcelUtils {
 
         /**
          * 读取文件失败之类的回调
+         *
          * @param message
          */
         void readError(String message);
@@ -52,10 +56,11 @@ public class ExcelUtils {
 
     /**
      * 读取文件数据。
-     * @param beanClass 注意：如果字段类型是有可能数值类型的，要尽量用数值类型，否则有可能出错
-     * @param is IO流，注意这个工具包不会对这个IO流进行关闭
+     *
+     * @param beanClass   注意：如果字段类型是有可能数值类型的，要尽量用数值类型，否则有可能出错
+     * @param is          IO流，注意这个工具包不会对这个IO流进行关闭
      * @param stopOnError 是否当读取失败就停止
-     * @param reader 监听器
+     * @param reader      监听器
      * @param <T>
      */
     public static <T> void read(Class<T> beanClass, InputStream is, boolean stopOnError, Reader reader) {
@@ -122,7 +127,7 @@ public class ExcelUtils {
         }
 
         boolean isStop = false;
-        for (int rowNum = 1; rowNum <= sheet.getLastRowNum(); rowNum++) {
+        for (int rowNum = 1 ; rowNum <= sheet.getLastRowNum() ; rowNum++) {
             if (isStop) {
                 break;
             }
@@ -131,7 +136,7 @@ public class ExcelUtils {
 
             try {
                 item = beanClass.newInstance();
-                for (int j = 0; j < hssfRow.getLastCellNum(); j++) {
+                for (int j = 0 ; j < hssfRow.getLastCellNum() ; j++) {
                     HSSFCell cell = hssfRow.getCell(j);
 
                     final ExcelFieldBean excelFieldBean = fieldBeanMap.get(j);
@@ -153,10 +158,10 @@ public class ExcelUtils {
                             } else if (field.getType() == double.class || field.getType() == Double.class) {
                                 field.set(item, cell.getNumericCellValue());
                             } else if (field.getType() == String.class) {
-                                field.set(item, (long)cell.getNumericCellValue() + "");
+                                field.set(item, (long) cell.getNumericCellValue() + "");
                             } else {
                                 logger.error("read row:{} column:{} field_type:{} CellType:{}", rowNum, j, field.getType(), cell.getCellType());
-                                reader.readError(rowNum, "无法识别的字段类型，第" + (j+1) + "列");
+                                reader.readError(rowNum, "无法识别的字段类型，第" + (j + 1) + "列");
                                 if (stopOnError) {
                                     isStop = true;
                                 }
@@ -177,7 +182,7 @@ public class ExcelUtils {
                         }
                     } else {
                         logger.error("read row:{} column:{} type:{}", rowNum, j, cell.getCellType());
-                        reader.readError(rowNum, "无法识别的单元格类型，第" + (j+1) + "列");
+                        reader.readError(rowNum, "无法识别的单元格类型，第" + (j + 1) + "列");
                         if (stopOnError) {
                             isStop = true;
                         }
@@ -198,10 +203,11 @@ public class ExcelUtils {
 
     /**
      * 读取文件数据
+     *
      * @param beanClass
-     * @param filePath 文件路径
+     * @param filePath    文件路径
      * @param stopOnError 是否当读取失败就停止
-     * @param reader 监听器
+     * @param reader      监听器
      * @param <T>
      */
     public static <T> void read(Class<T> beanClass, String filePath, boolean stopOnError, Reader reader) {
@@ -222,6 +228,7 @@ public class ExcelUtils {
 
     /**
      * 读取数据，若遇到错误，则返回的list为empty
+     *
      * @param filePath
      * @return
      */
@@ -248,8 +255,9 @@ public class ExcelUtils {
 
     /**
      * 导出数据到文件
+     *
      * @param beanClass
-     * @param filePath 
+     * @param filePath
      * @param list
      * @param <T>
      * @throws Exception
@@ -292,7 +300,7 @@ public class ExcelUtils {
                 cell.setCellValue(excelFieldBean.getTitle());
             }
 
-            for (int i=0; i<list.size(); i++) {
+            for (int i = 0 ; i < list.size() ; i++) {
                 HSSFRow rowData = sheet.createRow(i + 1);
                 T item = list.get(i);
                 for (Map.Entry<Integer, Field> entry : fieldMap.entrySet()) {
@@ -335,7 +343,7 @@ public class ExcelUtils {
         List<ExcelFieldBean> columns = new ArrayList<>();
         Field[] fields = beanClass.getDeclaredFields();
         if (fields != null) {
-            for (int i = 0; i < fields.length; i++) {
+            for (int i = 0 ; i < fields.length ; i++) {
                 Field field = fields[i];
                 ExcelFieldBean excelFieldBean = new ExcelFieldBean();
                 excelFieldBean.setField(field.getName());

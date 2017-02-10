@@ -31,7 +31,7 @@ public class UserController {
     private LoginfoService loginfoService;
 
     @PermissionAnnotation(code = PermissionCode.USER_ADD)
-    @RequestMapping(path="/add")
+    @RequestMapping(path = "/add")
     @ResponseBody
     public Object add(HttpServletRequest request, User user, String password, String email) {
         String result = userService.add(user, password, email);
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @PermissionAnnotation(code = PermissionCode.USER_UPDATE)
-    @RequestMapping(path="/update")
+    @RequestMapping(path = "/update")
     @ResponseBody
     public Object update(HttpServletRequest request, User user) {
         String result = userService.update(user);
@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @PermissionAnnotation(code = PermissionCode.USER_DELETE)
-    @RequestMapping(path="/delete/{id}")
+    @RequestMapping(path = "/delete/{id}")
     @ResponseBody
     public Object delete(HttpServletRequest request, @PathVariable int id) {
         userService.updateStatus(id, EntityStatus.DELETE);
@@ -64,7 +64,7 @@ public class UserController {
     }
 
     @PermissionAnnotation(code = PermissionCode.USER_LOCK_UNLOCK)
-    @RequestMapping(path="/lock/{id}")
+    @RequestMapping(path = "/lock/{id}")
     @ResponseBody
     public Object lock(HttpServletRequest request, @PathVariable int id) {
         userService.updateStatus(id, EntityStatus.FORBIDDEN);
@@ -73,7 +73,7 @@ public class UserController {
     }
 
     @PermissionAnnotation(code = PermissionCode.USER_LOCK_UNLOCK)
-    @RequestMapping(path="/unlock/{id}")
+    @RequestMapping(path = "/unlock/{id}")
     @ResponseBody
     public Object unlock(HttpServletRequest request, @PathVariable int id) {
         userService.updateStatus(id, EntityStatus.VALID);
@@ -82,17 +82,17 @@ public class UserController {
     }
 
     @PermissionAnnotation(code = PermissionCode.USER_HELP_CHANGE_PASSWORD)
-    @RequestMapping(path="/help/change/password")
+    @RequestMapping(path = "/help/change/password")
     @ResponseBody
     public Object helpChangePassowd(HttpServletRequest request, String accountId, String password) {
         accountService.changePassword(accountId, password);
         loginfoService.addLog(request, LogCode.ACCOUNT_HELP_CHANGE_PASSWORD, "协助修改用户密码",
-                userService.getUserByAccount(accountId).getId());
+            userService.getUserByAccount(accountId).getId());
         return JsonResult.buildSuccess(null);
     }
 
     @PermissionAnnotation(code = PermissionCode.USER_HELP_CHANGE_EMAIL)
-    @RequestMapping(path="/help/change/email")
+    @RequestMapping(path = "/help/change/email")
     @ResponseBody
     public Object helpChangeEmail(HttpServletRequest request, String accountId, String email) {
         Account account = accountService.getAccount(accountId);
@@ -102,8 +102,8 @@ public class UserController {
 
         if (ResultCode.SUCCESS == resultCode) {
             loginfoService.addLog(request, LogCode.ACCOUNT_HELP_CHANGE_EMAIL, "协助修改用户邮箱",
-                    user.getId().toString(),
-                    String.format("旧：%s；新：%s；结果：%s", account.getEmail(), email, resultCode.getCndesc()));
+                user.getId().toString(),
+                String.format("旧：%s；新：%s；结果：%s", account.getEmail(), email, resultCode.getCndesc()));
             return JsonResult.buildSuccess(null);
         }
         return JsonResult.buildFail(resultCode);

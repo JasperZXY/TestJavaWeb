@@ -42,6 +42,11 @@
             <mvc:exclude-mapping path="/weixin/qyh/client/page"/>
             <bean class="zxy.web.handler.WeixinQYHLoginInterceptor"/>
         </mvc:interceptor>
+        <!-- 参数拦截 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="zxy.web.handler.ParamInterceptor" />
+        </mvc:interceptor>
         <!-- 视图模板 -->
         <bean class="zxy.web.handler.ViewTemplateInterceptor">
             <property name="ignoreViews">

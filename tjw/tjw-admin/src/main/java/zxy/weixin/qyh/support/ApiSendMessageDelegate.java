@@ -57,10 +57,10 @@ public class ApiSendMessageDelegate {
      * 发送文本消息
      *
      * @param myappid
-     * @param touser   成员ID列表，跟totag至少有一个不为空
-     * @param totag    标签ID列表
-     * @param agentid  企业应用的id
-     * @param content  消息内容，最长不超过2048个字节，注意：主页型应用推送的文本消息在微信端最多只显示20个字（包含中英文）
+     * @param touser  成员ID列表，跟totag至少有一个不为空
+     * @param totag   标签ID列表
+     * @param agentid 企业应用的id
+     * @param content 消息内容，最长不超过2048个字节，注意：主页型应用推送的文本消息在微信端最多只显示20个字（包含中英文）
      * @return 是否成功
      */
     public boolean sendText(String myappid, List<String> touser, List<String> totag, Integer agentid, String content) {

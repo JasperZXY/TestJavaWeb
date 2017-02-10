@@ -6,7 +6,7 @@ package zxy.commons;
 public class JsonResult<T> {
 
     public static final JsonResult SYSTEM_ERROR_RESULT =
-            new JsonResult(ResultCode.FAIL.getCode(), ResultCode.FAIL.getCndesc(), null);
+        new JsonResult(ResultCode.FAIL.getCode(), ResultCode.FAIL.getCndesc(), null);
 
     private int status;
     private String msg;

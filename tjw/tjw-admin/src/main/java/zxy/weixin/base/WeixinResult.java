@@ -4,20 +4,23 @@ package zxy.weixin.base;
  * 微信返回数据的结果
  */
 public class WeixinResult {
-	private Integer errcode = WeixinReturnCode.SUCCESS;
-	private String errmsg;
-	
-	public Integer getErrcode() {
-		return errcode;
-	}
-	public void setErrcode(Integer errcode) {
-		this.errcode = errcode;
-	}
-	public String getErrmsg() {
-		return errmsg;
-	}
-	public void setErrmsg(String errmsg) {
-		this.errmsg = errmsg;
-	}
-	
+    private Integer errcode = WeixinReturnCode.SUCCESS;
+    private String errmsg;
+
+    public Integer getErrcode() {
+        return errcode;
+    }
+
+    public void setErrcode(Integer errcode) {
+        this.errcode = errcode;
+    }
+
+    public String getErrmsg() {
+        return errmsg;
+    }
+
+    public void setErrmsg(String errmsg) {
+        this.errmsg = errmsg;
+    }
+
 }
