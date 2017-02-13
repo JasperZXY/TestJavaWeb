@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import zxy.JsonPrettyUtils;
-import zxy.common.utils.DateUtils;
+import zxy.common.util.DateUtils;
 import zxy.commons.ImageDelegate;
 import zxy.weixin.qyh.domain.WeixinDepartment;
 import zxy.weixin.qyh.support.ApiContactDelegate;

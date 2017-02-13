@@ -16,9 +16,9 @@ import zxy.commons.RedisKey;
 import zxy.dao.AccountMapper;
 import zxy.entity.Account;
 import zxy.entity.AccountExample;
-import zxy.utils.DigestUtils;
-import zxy.utils.HexUtils;
-import zxy.utils.Utils;
+import zxy.util.DigestUtils;
+import zxy.util.HexUtils;
+import zxy.util.Utils;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;

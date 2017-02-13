@@ -3,7 +3,7 @@ package zxy.web.controller.page;
 import org.springframework.web.servlet.ModelAndView;
 import zxy.commons.ResultCode;
 import zxy.commons.JspConfig;
-import zxy.utils.Utils;
+import zxy.util.Utils;
 
 import javax.servlet.http.HttpServletResponse;
 

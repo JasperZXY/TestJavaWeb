@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import zxy.common.utils.JsonUtils;
+import zxy.common.util.JsonUtils;
 import zxy.weixin.qyh.domain.receive.BaseReceiveObject;
 import zxy.weixin.qyh.support.IAppConfig;
 import zxy.weixin.qyh.support.ICallbackConfig;

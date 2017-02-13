@@ -1,4 +1,4 @@
-package zxy.common.utils;
+package zxy.common.util;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

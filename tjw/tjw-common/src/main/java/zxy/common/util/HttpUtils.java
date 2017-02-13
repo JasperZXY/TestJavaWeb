@@ -1,4 +1,4 @@
-package zxy.common.utils;
+package zxy.common.util;
 
 import java.net.URI;
 import java.net.URISyntaxException;

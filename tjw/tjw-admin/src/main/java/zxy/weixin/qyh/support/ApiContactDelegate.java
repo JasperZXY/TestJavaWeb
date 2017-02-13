@@ -5,7 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import zxy.common.utils.JsonUtils;
+import zxy.common.util.JsonUtils;
+import zxy.common.util.ObjectUtils;
 import zxy.weixin.base.WeixinException;
 import zxy.weixin.qyh.domain.WeixinDepartment;
 import zxy.weixin.base.WeixinResult;
@@ -80,7 +81,7 @@ public class ApiContactDelegate {
 
             for (Object object : list) {
                 if (object instanceof Map) {
-                    departments.add(JsonUtils.convertValue(object, WeixinDepartment.class));
+                    departments.add(ObjectUtils.convert(object, WeixinDepartment.class));
                 }
             }
 
@@ -118,7 +119,7 @@ public class ApiContactDelegate {
 
             for (Object object : list) {
                 if (object instanceof Map) {
-                    users.add(JsonUtils.convertValue(object, WeixinUser.class));
+                    users.add(ObjectUtils.convert(object, WeixinUser.class));
                 }
             }
 

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import zxy.common.utils.JsonUtils;
+import zxy.common.util.JsonUtils;
 import zxy.commons.JsonResult;
 import zxy.commons.LogCode;
 import zxy.commons.PermissionCode;
@@ -25,7 +25,7 @@ import zxy.permission.entity.UserRoleRelationExample;
 import zxy.permission.support.PermissionAnnotation;
 import zxy.permission.PermissionService;
 import zxy.service.LoginfoService;
-import zxy.utils.Utils;
+import zxy.util.Utils;
 import zxy.web.SessionManager;
 
 import javax.servlet.http.HttpServletRequest;

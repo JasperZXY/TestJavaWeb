@@ -16,7 +16,7 @@ import zxy.permission.support.PermissionSessionUtils;
 import zxy.service.AccountService;
 import zxy.service.LoginfoService;
 import zxy.service.UserService;
-import zxy.utils.Utils;
+import zxy.util.Utils;
 import zxy.web.SessionManager;
 
 import javax.servlet.http.HttpServletRequest;

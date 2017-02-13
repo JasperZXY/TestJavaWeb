@@ -5,8 +5,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import zxy.common.utils.JsonUtils;
-import zxy.utils.Utils;
+import zxy.common.util.JsonUtils;
+import zxy.util.Utils;
 import zxy.weixin.base.Constants;
 
 import java.util.*;

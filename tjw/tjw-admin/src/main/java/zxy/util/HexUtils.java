@@ -1,4 +1,4 @@
-package zxy.utils;
+package zxy.util;
 
 public class HexUtils {
 

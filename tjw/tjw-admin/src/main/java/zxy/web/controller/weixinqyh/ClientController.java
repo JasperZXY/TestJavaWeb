@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import zxy.common.utils.DateUtils;
+import zxy.common.util.DateUtils;
 import zxy.commons.JsonResult;
 import zxy.weixin.qyh.domain.WeixinUser;
 import zxy.weixin.qyh.support.ApiContactDelegate;

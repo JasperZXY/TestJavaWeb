@@ -13,7 +13,7 @@ import zxy.JunitUtils;
 import zxy.commons.ResultCode;
 import zxy.commons.ServiceException;
 import zxy.entity.User;
-import zxy.utils.Utils;
+import zxy.util.Utils;
 
 import java.io.File;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package zxy.utils;
+package zxy.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

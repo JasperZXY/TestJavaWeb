@@ -12,7 +12,7 @@ import zxy.dao.UserMapper;
 import zxy.entity.Account;
 import zxy.entity.User;
 import zxy.entity.UserExample;
-import zxy.utils.Utils;
+import zxy.util.Utils;
 
 import java.util.*;
 

@@ -20,7 +20,7 @@ import zxy.permission.PermissionService;
 import zxy.permission.ResourceType;
 import zxy.service.InitService;
 import zxy.service.UserService;
-import zxy.utils.Utils;
+import zxy.util.Utils;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package zxy.common.utils;
+package zxy.common.util;
 
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicLong;

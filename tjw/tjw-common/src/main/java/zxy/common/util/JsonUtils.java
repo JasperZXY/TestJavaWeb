@@ -1,4 +1,4 @@
-package zxy.common.utils;
+package zxy.common.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -56,6 +56,14 @@ public class JsonUtils {
         return "{}";
     }
 
+    /**
+     * 对象转换，改用{@link ObjectUtils#convert(Object, Class)}
+     * @param fromValue
+     * @param toValueType
+     * @param <T>
+     * @return
+     */
+    @Deprecated
     public static <T> T convertValue(Object fromValue, Class<T> toValueType) {
         if (fromValue == null) {
             return null;
