@@ -16,7 +16,8 @@
 		<module>tjw-hessian-client</module>
 		<module>tjw-common</module>
 		<module>tjw-admin</module>
-	</modules>
+        <module>tjw-thrift</module>
+    </modules>
 	
 	<properties>
          <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
