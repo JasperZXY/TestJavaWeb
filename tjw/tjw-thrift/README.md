@@ -22,3 +22,10 @@ TSimpleServer | TFramedTransport.Factory() | TSocket | Y | org.apache.thrift.tra
 TSimpleServer | TFramedTransport.Factory() | TFramedTransport | Y | 正常
 
 综上：客户端与服务端的transportFactory一致才能正常，与服务端类型无关。
+
+还有另两个例子的数据，这里没有展示，最终结果是：
+服务端用TNonblockingServerSocket，不管传输类型，客户端用TFramedTransport跟TNonblockingSocket都可以接收。
+客户端多线程跟异步都需要加上同步机制。
+
+
+

@@ -19,3 +19,6 @@ tjw 全称：TestJavaWeb
 
 ## 2017-1-2
 1. 结合AdminLTE等前端框架，做一个管理后台demo
+
+## 2017-2-17
+1. Thrift例子

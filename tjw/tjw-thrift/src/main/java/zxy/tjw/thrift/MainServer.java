@@ -23,11 +23,12 @@ public class MainServer {
         logger.info("start");
         processor = new UserService.Processor(new UserServiceImpl());
         try {
-            simple(null);
+//            simple(null);
 //            simple(new TFramedTransport.Factory());
 //            threadPool(null);
 //            threadPool(new TFramedTransport.Factory());
-//            nonblocking();
+            nonblocking(null);
+//            nonblocking(new TFramedTransport.Factory());
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
@@ -67,10 +68,13 @@ public class MainServer {
         }
     }
 
-    private static void nonblocking() {
+    private static void nonblocking(TFramedTransport.Factory transportFactory) {
         try {
             TNonblockingServerSocket serverTransport = new TNonblockingServerSocket(PORT);
             TNonblockingServer.Args args = new TNonblockingServer.Args(serverTransport);
+            if (transportFactory != null) {
+                args.transportFactory(transportFactory);
+            }
             args.processor(processor);
             TServer server = new TNonblockingServer(args);
             System.out.println("Starting the Non blocking server...");
