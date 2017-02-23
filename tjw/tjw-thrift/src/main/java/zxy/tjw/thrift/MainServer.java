@@ -26,8 +26,8 @@ public class MainServer {
 //            simple(null);
 //            simple(new TFramedTransport.Factory());
 //            threadPool(null);
-//            threadPool(new TFramedTransport.Factory());
-            nonblocking(null);
+            threadPool(new TFramedTransport.Factory());
+//            nonblocking(null);
 //            nonblocking(new TFramedTransport.Factory());
         } catch (Exception e) {
             e.printStackTrace();

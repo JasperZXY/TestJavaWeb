@@ -4,7 +4,6 @@ import org.apache.thrift.TException;
 import org.apache.thrift.async.AsyncMethodCallback;
 import org.apache.thrift.async.TAsyncClientManager;
 import org.apache.thrift.protocol.TBinaryProtocol;
-import org.apache.thrift.protocol.TCompactProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.protocol.TProtocolFactory;
 import org.apache.thrift.transport.*;
@@ -27,8 +26,9 @@ public class UserServiceClient {
     public static void main(String[] args) {
 //        simple();
 //        thread();
-        threadV2();
+//        threadV2();
 //        nonblocking();
+        myPoolFactory();
     }
 
     private static void simple() {
@@ -38,7 +38,7 @@ public class UserServiceClient {
             TProtocol protocol = new TBinaryProtocol(transport);
             UserService.Client client = new UserService.Client(protocol);
             // 调用服务方法
-            for (int i = 1 ; i <= 2 ; i++) {
+            for (int i = 1; i <= 2; i++) {
                 final int cur = i;
                 logger.debug("{} ping {} : {}", Thread.currentThread().getName(), cur, client.ping("测试 " + cur));
             }
@@ -58,7 +58,7 @@ public class UserServiceClient {
         TProtocol protocol = new TBinaryProtocol(transport);
         UserService.Client client = new UserService.Client(protocol);
         Object lockObj = new Object();
-        for (int i = 1 ; i <= 3 ; i++) {
+        for (int i = 1; i <= 3; i++) {
             final int cur = i;
             new Thread(() -> {
                 try {
@@ -75,7 +75,7 @@ public class UserServiceClient {
     }
 
     private static void threadV2() {
-        for (int task=1; task <= 3; task++) {
+        for (int task = 1; task <= 3; task++) {
             thread();
 //            simple();
         }
@@ -99,7 +99,7 @@ public class UserServiceClient {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        for (int i = 1 ; i <= 3 ; i++) {
+        for (int i = 1; i <= 3; i++) {
             final int cur = i;
             try {
                 client.ping("测试 " + cur, new AsyncMethodCallback() {
@@ -123,6 +123,34 @@ public class UserServiceClient {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
+        }
+    }
+
+    private static void myPoolFactory() {
+        ThriftTemplate thriftTemplate = new ThriftTemplate(SERVER_HOST, SERVER_PORT);
+        for (int i = 1; i <= 7; i++) {
+            final int cur = i;
+
+            new Thread(() -> thriftTemplate.execute(client -> {
+                try {
+                    logger.debug("ping {} {}", cur, client.ping("测试" + cur));
+                } catch (TException e) {
+                    logger.error("ping cur:{} error.", cur, e);
+                }
+            })).start();
+
+//            new Thread(() -> {
+//                String result = thriftTemplate.execute(client -> {
+//                    try {
+//                        return client.ping("测试" + cur);
+//                    } catch (TException e) {
+//                        logger.error("ping cur:{} error.", cur, e);
+//                    }
+//                    return null;
+//                });
+//                logger.debug("ping {} {}", cur, result);
+//            }).start();
+
         }
     }
 
