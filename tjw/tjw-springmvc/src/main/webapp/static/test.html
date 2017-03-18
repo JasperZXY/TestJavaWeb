@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>测试</title>
+</head>
+<body>
+	<script type="text/javascript" src="jquery-3.1.0.js"></script>
+
+	<button onclick="json()">跨域请求 json</button>
+	<button onclick="callback()">跨域请求 callback</button>
+	<button onclick="jsonp()">跨域请求 jsonp</button>
+
+</body>
+
+<script type="text/javascript">
+	var url = 'http://other.zxy:8083/tjw-springmvc/test/now';
+	function json() {
+		$.get(url);
+	}
+	function callback() {
+		$.get(url + '?callback=fun');
+	}
+	function jsonp() {
+		$.ajax({
+			url : url,
+			dataType : "jsonp"
+		});
+	}
+</script>
+</html>
