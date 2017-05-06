@@ -24,6 +24,7 @@
         <commons_email_ver>1.4</commons_email_ver>
         <apache_httpcomponents_ver>4.5.2</apache_httpcomponents_ver>
         <apache_poi_ver>3.8</apache_poi_ver>
+        
     </properties>
 
     <dependencies>
