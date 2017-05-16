@@ -34,7 +34,28 @@
     </bean>
 
     <!-- 添加注解驱动 -->
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+    	<mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper" >
+					<bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean"
+						p:indentOutput="true" p:simpleDateFormat="yyyy-MM-dd HH:mm:ss" />
+				</property>
+			</bean>
+		</mvc:message-converters>
+		<!-- <mvc:message-converters>
+			<bean
+				class="org.springframework.http.converter.json.GsonHttpMessageConverter">
+				<property name="gson">
+					<bean 
+		class="org.springframework.http.converter.json.GsonFactoryBean"
+		p:dateFormatPattern="yyyy-MM-dd HH:mm:ss" />
+				</property>
+			</bean>
+		</mvc:message-converters>-->
+    </mvc:annotation-driven>
+    
     <!-- 定义跳转的文件的前后缀 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>

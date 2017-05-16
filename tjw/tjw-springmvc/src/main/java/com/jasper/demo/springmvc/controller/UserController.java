@@ -24,6 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.jasper.demo.springmvc.bean.LoginBean;
 import com.jasper.demo.springmvc.bean.Result;
+import com.jasper.demo.springmvc.bean.UserInfo;
 import com.jasper.demo.springmvc.service.UserService;
 
 @Controller
@@ -148,6 +149,15 @@ public class UserController {
 	    int i = 5/0;
 	    System.out.println(i);
 	    return "hello";
+	}
+	
+	@RequestMapping("add")
+	@ResponseBody
+	public Object add(UserInfo userInfo) {
+		Result result = new Result();
+		result.setCode(1);
+		result.setData(userInfo);
+		return result;
 	}
 
 }

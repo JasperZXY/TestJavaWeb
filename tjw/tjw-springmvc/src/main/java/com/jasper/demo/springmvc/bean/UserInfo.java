@@ -2,9 +2,15 @@ package com.jasper.demo.springmvc.bean;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class UserInfo {
     private int id;
     private String name;
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Date birthday;
 
     public UserInfo() {

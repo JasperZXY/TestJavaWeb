@@ -13,18 +13,18 @@ import java.util.Date;
 
 @ControllerAdvice
 public class MyControllerAdvice {
-    @InitBinder
-    public void initDate(WebDataBinder binder) {
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH");
-//        dateFormat.setLenient(false);
-//        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-        binder.addCustomFormatter(new DateFormatter("yyyy-MM-dd"));  // Spring 4.2之后的写法
-    }
+	@InitBinder
+	public void initDate(WebDataBinder binder) {
+//		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH");
+//		dateFormat.setLenient(false);
+//		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+		binder.addCustomFormatter(new DateFormatter("yyyy-MM-dd")); // Spring 4.2之后的写法
+	}
 
-//	@ExceptionHandler
-//    public ModelAndView exceptionHandler(Exception ex){
-//        ModelAndView mv = new ModelAndView("error");
-//        mv.addObject("msg", ex);
-//        return mv;
-//    }
+	// @ExceptionHandler
+	// public ModelAndView exceptionHandler(Exception ex){
+	// ModelAndView mv = new ModelAndView("error");
+	// mv.addObject("msg", ex);
+	// return mv;
+	// }
 }
